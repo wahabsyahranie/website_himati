@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('penyewaans', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('tanggal_pinjam');
-            $table->dateTime('tanggal_kembali')->nullable();
+            $table->date('tanggal_pinjam');
+            $table->date('tanggal_kembali')->nullable();
+            $table->string('status')->default('belum disetujui');
             $table->foreignId('ormawa_id')->constrained('ormawas')->cascadeOnDelete();
             $table->timestamps();
         });

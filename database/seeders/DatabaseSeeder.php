@@ -16,8 +16,14 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'wahab',
+            'email' => 'wahab@polnes.com',
+            'password' => '123',
+        ]);
+
+        $this->call([
+            OrmawaSeeder::class,
+            InventarisSeeder::class
         ]);
     }
 }

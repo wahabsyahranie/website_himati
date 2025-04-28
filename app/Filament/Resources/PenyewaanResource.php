@@ -2,17 +2,20 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PenyewaanResource\Pages;
-use App\Filament\Resources\PenyewaanResource\RelationManagers;
-use App\Models\Penyewaan;
 use Filament\Forms;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
+use Filament\Forms\Form;
+use App\Models\Penyewaan;
 use Filament\Tables\Table;
+use Illuminate\Support\Carbon;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Repeater;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\PenyewaanResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\PenyewaanResource\RelationManagers;
 
 class PenyewaanResource extends Resource
 {
@@ -24,24 +27,55 @@ class PenyewaanResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\DatePicker::make('tanggal_pinjam')
-                    ->required(),
-                Forms\Components\DatePicker::make('tanggal_kembali')
-                    ->required(),
                 Forms\Components\Select::make('ormawa_id')
                     ->relationship('ormawa', 'nama')
                     ->required()
                     ->columnSpanFull(),
-                Repeater::make('detail_penyewaans')
+                Forms\Components\DatePicker::make('tanggal_pinjam')
+                    ->required(),
+                Forms\Components\DatePicker::make('tanggal_kembali')
+                    ->required(),
+                Forms\Components\Repeater::make('detail_penyewaans')
                     ->relationship()
                     ->schema([
                         Forms\Components\Select::make('inventaris_id')
                             ->relationship('inventaris', 'nama')
-                            ->required(),
+                            ->required()
+                            ->live()
+                            ->afterStateUpdated(function (Set $set, $state){
+                                $inventaris = \App\Models\Inventaris::find($state);
+                                $set('harga_pcs', $inventaris?->harga ?? 0);
+                            }),
                         Forms\Components\TextInput::make('jumlah')
-                            ->required(),
+                            ->required()
+                            ->live()
+                            ->afterStateUpdated(function ($state, callable $set, callable $get) {
+                                $set('harga_total', (int) $get('harga_pcs') * (int) $state);
+                            }),
+                        Forms\Components\TextInput::make('harga_pcs')
+                            ->disabled()
+                            ->default(0)
+                            ->prefix('Rp.')
+                            ->live()
+                            ->afterStateHydrated(fn($record, $set) => $set('harga_pcs', $record?->inventaris->harga)),
+                        Forms\Components\TextInput::make('harga_total')
+                            ->disabled()
+                            ->prefix('Rp.'),
                     ])
                     ->grid(2)
+                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('harga_total')
+                    ->placeholder(function (Set $set, Get $get) {
+                        $ttlpesan = collect($get('detail_penyewaans'))->pluck('harga_total')->sum();
+                        if (empty($ttlpesan)) {
+                            $ttlpesan = 0;
+                        } else {
+                            $set('harga_total', $ttlpesan);
+                        }
+                    })
+                    ->prefix('Rp')
+                    ->disabled()
+                    ->label('Total Harga Pesanan')
                     ->columnSpanFull(),
             ]);
     }
@@ -50,21 +84,56 @@ class PenyewaanResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('tanggal_pinjam')
-                    ->label('Tanggal Pinjam')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('tanggal_kembali')
-                    ->label('Tanggal Kembali')
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('ormawa.nama')
                     ->label('Ormawa')
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('detail_penyewaans.inventaris.nama')
+                    ->label('Inventaris')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('segments')
+                    ->label('Tanggal Penyewaan')
+                    ->getStateUsing(function ($record) {
+                        $tanggalPinjam = Carbon::parse($record->tanggal_pinjam)->format('d F Y');
+                        $tanggalKembali = Carbon::parse($record->tanggal_kembali)->format('d F Y');
+                        return $tanggalPinjam . ' - ' . $tanggalKembali;
+                    }),
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Status')
+                    ->badge()->color(function ($record) {
+                        return match ($record->status) {
+                            'disetujui' => 'success',
+                            'ditolak' => 'danger',
+                            default => 'warning',
+                        };
+                    }),
             ])
             ->filters([
-                //
-            ])
+                Tables\Filters\selectFilter::make('status')
+                    ->options([
+                        'disetujui' => 'Disetujui',
+                        'ditolak' => 'Ditolak',
+                        'dikembalikan' => 'Dikembalikan',
+                    ]),
+                ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
+                    Tables\Actions\Action::make('Tolak Penyewaan')
+                        ->color('danger')
+                        ->icon('heroicon-o-x-mark')
+                        ->requiresConfirmation()
+                        ->action(function (Penyewaan $record) {
+                            $record->update(['status' => 'ditolak']);
+                        }),
+                    Tables\Actions\Action::make('Setujui Penyewaan')
+                        ->color('success')
+                        ->icon('heroicon-o-check-badge')
+                        ->requiresConfirmation()
+                        // ->visible(fn (Penyewaan $record) => $record->status !== 'dikembalikan')
+                        // ->requiresConfirmation()
+                        ->action(function (Penyewaan $record) {
+                            $record->update(['status' => 'disetujui']);
+                        }),
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\DeleteAction::make(),

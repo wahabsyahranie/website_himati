@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('detail_penyewaans', function (Blueprint $table) {
             $table->id();
             $table->integer('jumlah');
-            $table->string('status')->default('disewa');
             $table->timestamps();
             $table->foreignId('inventaris_id')->constrained('inventaris')->cascadeOnDelete();
             $table->foreignId('penyewaan_id')->constrained('penyewaans')->cascadeOnDelete();
