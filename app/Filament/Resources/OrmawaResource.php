@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -23,7 +24,24 @@ class OrmawaResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('nama')
+                    ->label('Nama Ormawa')
+                    ->required(),
+                Forms\Components\TextInput::make('username')
+                    ->label('Username')
+                    ->required(),
+                Forms\Components\TextInput::make('password')
+                    ->label('Password')
+                    ->required()
+                    ->password(),
+                Forms\Components\TextInput::make('nomor_telepon')
+                    ->label('Nomor Telepon / Humas')
+                    ->required()
+                    ->tel(),
+                Forms\Components\TextInput::make('email')
+                    ->label('Email Ormawa')
+                    ->required()
+                    ->email(),
             ]);
     }
 
@@ -31,13 +49,24 @@ class OrmawaResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('nama')
+                    ->label('Nama Ormawa')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('nomor_telepon')
+                    ->label('Nomor Telepon / Humas'),
+                Tables\Columns\TextColumn::make('email')
+                    ->label('Email Ormawa'),
             ])
             ->filters([
-                //
+
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

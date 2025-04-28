@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -23,21 +24,50 @@ class InventarisResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('nama')
+                    ->label('Nama Inventaris')
+                    ->required(),
+                Forms\Components\TextInput::make('stok')
+                    ->label('Stok Inventaris')
+                    ->required(),
+                Forms\Components\TextInput::make('harga')
+                    ->label('Harga Sewa / Hari')
+                    ->required()
+                    ->prefix('Rp. '),
             ]);
     }
 
+    /**
+     * Define the table columns that should be shown for this resource.
+     *
+     * @param  \Filament\Tables\Table  $table
+     * @return \Filament\Tables\Table
+     */
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('nama')
+                    ->label('Nama Inventaris')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('stok')
+                    ->label('Stok Inventaris')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('harga')
+                    ->label('Harga Inventaris')
+                    ->sortable()
+                    ->prefix('Rp. '),
             ])
             ->filters([
-                //
+                Filter::make('stok'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

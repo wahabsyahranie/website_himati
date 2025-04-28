@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Penyewaan extends Model
 {
-    public function details() : HasMany
+    protected $table = 'penyewaans';
+    protected $fillable = ['tanggal_pinjam', 'tanggal_kembali', 'ormawa_id'];
+
+    public function detail_penyewaans() : HasMany
     {
         return $this->hasMany(DetailPenyewaan::class);
     }

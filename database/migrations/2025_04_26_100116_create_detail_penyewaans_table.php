@@ -12,16 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('detail_penyewaans', function (Blueprint $table) {
+            $table->id();
             $table->integer('jumlah');
-            $table->string('status');
+            $table->string('status')->default('disewa');
             $table->timestamps();
-
-            //composite key
-            $table->primary(['inventaris_id', 'penyewaan_id']);
-
-            //foreign key
             $table->foreignId('inventaris_id')->constrained('inventaris')->cascadeOnDelete();
             $table->foreignId('penyewaan_id')->constrained('penyewaans')->cascadeOnDelete();
+
         });
     }
 

@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DetailPenyewaan extends Model
 {
-    public function inventaries() : BelongsTo
+    protected $table = 'detail_penyewaans';
+    protected $fillable = ['jumlah', 'status', 'penyewaan_id', 'inventaris_id'];
+    public function inventaris() : BelongsTo
     {
-        return $this->belongsTo(Inventaris::class);
+        return $this->belongsTo(Inventaris::class, 'inventaris_id');
     }
 
     public function penyewaan() : BelongsTo

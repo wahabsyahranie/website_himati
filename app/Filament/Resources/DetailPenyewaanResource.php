@@ -31,13 +31,33 @@ class DetailPenyewaanResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('penyewaan.ormawa.nama')
+                    ->label('Ormawa')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('inventaris.nama')
+                    ->label('Inventaris')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('jumlah')
+                    ->label('Jumlah'),
+                Tables\Columns\TextColumn::make('penyewaan.tanggal_pinjam')
+                    ->label('Tanggal Pinjam'),
+                Tables\Columns\TextColumn::make('penyewaan.tanggal_kembali')
+                    ->label('Tanggal Kembali'),
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Status')
+                    ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
