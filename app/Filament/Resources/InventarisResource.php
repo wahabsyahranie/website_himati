@@ -18,7 +18,9 @@ class InventarisResource extends Resource
 {
     protected static ?string $model = Inventaris::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-inbox-stack';
+    protected static ?string $navigationGroup = 'Manajemen Data';
+    protected static ?string $navigationLabel = 'Inventaris';
 
     public static function form(Form $form): Form
     {

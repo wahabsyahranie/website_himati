@@ -17,6 +17,8 @@ return new class extends Migration
             $table->date('tanggal_kembali')->nullable();
             $table->string('status')->default('belum disetujui');
             $table->foreignId('ormawa_id')->constrained('ormawas')->cascadeOnDelete();
+            $table->timestamp('pengurangan_stok_at')->nullable();
+            $table->timestamp('pengembalian_stok_at')->nullable();
             $table->timestamps();
         });
     }

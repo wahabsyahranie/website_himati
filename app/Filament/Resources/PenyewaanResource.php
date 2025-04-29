@@ -21,8 +21,10 @@ class PenyewaanResource extends Resource
 {
     protected static ?string $model = Penyewaan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
+    protected static ?string $navigationIcon = 'heroicon-o-banknotes';
+    protected static ?string $navigationGroup = 'Kelola Penyewaan';
+    protected static ?string $navigationLabel = 'Data Penyewaan';
+    
     public static function form(Form $form): Form
     {
         return $form
