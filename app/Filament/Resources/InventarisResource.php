@@ -35,7 +35,9 @@ class InventarisResource extends Resource
                 Forms\Components\TextInput::make('harga')
                     ->label('Harga Sewa / Hari')
                     ->required()
-                    ->prefix('Rp. '),
+                    ->prefix('Rp.')
+                    ->numeric()
+                    ->maxValue(42949672.95),
             ]);
     }
 
@@ -59,7 +61,8 @@ class InventarisResource extends Resource
                 Tables\Columns\TextColumn::make('harga')
                     ->label('Harga Inventaris')
                     ->sortable()
-                    ->prefix('Rp. '),
+                    // ->prefix('Rp. '),
+                    ->money('IDR', locale: 'nl'),
             ])
             ->filters([
                 Filter::make('stok'),
