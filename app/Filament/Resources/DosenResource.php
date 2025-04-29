@@ -17,7 +17,7 @@ class DosenResource extends Resource
 {
     protected static ?string $model = Dosen::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?string $navigationIcon = 'heroicon-o-user';
     protected static ?string $navigationGroup = 'Manajemen Data';
     protected static ?string $navigationLabel = 'Dosen';
 

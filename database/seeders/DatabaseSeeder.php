@@ -6,6 +6,7 @@ use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\Pengaduan;
 use App\Models\PengajuanSurat;
+use App\Models\Pengurus;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -34,6 +35,10 @@ class DatabaseSeeder extends Seeder
         PengajuanSurat::factory(10)->recycle([
             Mahasiswa::all(),
             Dosen::all()
+        ])->create();
+
+        Pengurus::factory(10)->recycle([
+            Mahasiswa::all(),
         ])->create();
     }
 }

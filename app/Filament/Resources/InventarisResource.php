@@ -65,7 +65,7 @@ class InventarisResource extends Resource
                     ->money('IDR', locale: 'nl'),
             ])
             ->filters([
-                Filter::make('stok'),
+                //
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
