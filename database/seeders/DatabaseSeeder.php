@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Dosen;
+use App\Models\Kegiatan;
 use App\Models\Mahasiswa;
 use App\Models\Pengaduan;
 use App\Models\PengajuanSurat;
@@ -26,7 +27,7 @@ class DatabaseSeeder extends Seeder
             'password' => '123',
         ]);
 
-        $this->call([OrmawaSeeder::class, InventarisSeeder::class, MahasiswaSeeder::class, DosenSeeder::class]);
+        $this->call([OrmawaSeeder::class, InventarisSeeder::class, MahasiswaSeeder::class, DosenSeeder::class, KegiatanSeeder::class]);
 
         Pengaduan::factory(10)->recycle([
             Mahasiswa::all()
@@ -40,5 +41,6 @@ class DatabaseSeeder extends Seeder
         Pengurus::factory(2)->recycle([
             Mahasiswa::all(),
         ])->create();
+
     }
 }
