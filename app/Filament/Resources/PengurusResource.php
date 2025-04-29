@@ -7,6 +7,7 @@ use App\Filament\Resources\PengurusResource\RelationManagers;
 use App\Models\Pengurus;
 use DeepCopy\Filter\Filter;
 use Filament\Forms;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Form;
 use Filament\Forms\FormsComponent;
 use Filament\Resources\Resource;
@@ -46,22 +47,26 @@ class PengurusResource extends Resource
                         'sekretaris departemen' => 'Sekretaris Departemen',
                         'anggota departemen' => 'Anggota Departemen',
                     ]),
-                Forms\Components\Select::make('departemen')
-                    ->multiple()
-                    ->options([
-                        'kpsdm' => 'KPSDM',
-                        'agama' => 'Agama',
-                        'minba' => 'Minba',
-                        'humed' => 'Humed',
-                        'danus' => 'Danus',
-                        'drt' => 'DRT',
-                    ])
-                    ->default(fn ($record) => $record?->detailPenguruses?->pluck('departemen')->toArray() ?? [])
-                    ->required(),
-
                 Forms\Components\TextInput::make('periode')
                     ->required()
                     ->numeric(),
+                Forms\Components\Repeater::make('detail_penguruses')
+                    ->label('Detail Pengurus')
+                    ->relationship()
+                    ->schema([
+                        Forms\Components\Select::make('departemen')
+                            ->label('Departemen')
+                            ->options([
+                                'kpsdm' => 'KPSDM',
+                                'agama' => 'Agama',
+                                'minba' => 'MINBA',
+                                'humed' => 'HUMED',
+                                'danus' => 'DANUS',
+                                'drt' => 'DRT',
+                            ])
+                        ])
+                        ->grid(2)
+                        ->columnSpan('full'),
             ]);
     }
 
@@ -78,7 +83,7 @@ class PengurusResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('periode')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('detailPenguruses.departemen')
+                Tables\Columns\TextColumn::make('detail_penguruses.departemen')
                     ->badge()
                     ->color(function ($state) {
                         return match ($state) {
