@@ -20,7 +20,7 @@ class PengaduanFactory extends Factory
         return [
             'judul' => fake()->name(),
             'deskripsi' => fake()->text(),
-            'tujuan' => fake()->randomElement(['Jurusan', 'Dosen', 'HMJ TI']),
+            'tujuan' => fake()->randomElement(['jurusan', 'dosen', 'hmj ti']),
             'mahasiswa_id' => Mahasiswa::factory(),
         ];
     }

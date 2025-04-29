@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('judul');
             $table->text('deskripsi');
             $table->enum('status', ['ditinjau', 'dipublikasikan', 'ditolak'])->default('ditinjau');
-            $table->enum('tujuan', ['Jurusan', 'Dosen', 'HMJ TI']);
+            $table->enum('tujuan', ['jurusan', 'dosen', 'hmj ti']);
             $table->char('mahasiswa_id', 26);
             $table->foreign('mahasiswa_id')->references('id')->on('mahasiswas')->cascadeOnDelete();
             $table->timestamps();

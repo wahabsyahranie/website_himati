@@ -20,6 +20,11 @@ class PengaduanResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
     protected static ?string $navigationGroup = 'Kelola Layanan';
     protected static ?string $navigationLabel = 'Pengaduan';
+    protected static ?int $navigationSort = 6;
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::where('status', 'ditinjau')->count();
+    }
 
     public static function form(Form $form): Form
     {
@@ -34,13 +39,11 @@ class PengaduanResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\Select::make('tujuan')
                     ->required()
-                    ->options(function () {
-                        return \App\Models\Pengaduan::query()
-                            ->pluck('tujuan', 'tujuan')
-                            ->unique()
-                            ->sort()
-                            ->toArray();
-                    }),
+                    ->options([
+                        'jurusan' => 'Jurusan',
+                        'dosen' => 'Dosen',
+                        'hmj ti' => 'HMJ TI',
+                    ]),
                 Forms\Components\Select::make('mahasiswa_id')
                     ->relationship('mahasiswa', 'nama')
                     ->required(),

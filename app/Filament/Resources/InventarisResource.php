@@ -21,6 +21,7 @@ class InventarisResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-inbox-stack';
     protected static ?string $navigationGroup = 'Manajemen Data';
     protected static ?string $navigationLabel = 'Inventaris';
+    protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
     {

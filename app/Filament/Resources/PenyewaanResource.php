@@ -24,6 +24,11 @@ class PenyewaanResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-document-currency-dollar';
     protected static ?string $navigationGroup = 'Kelola Layanan';
     protected static ?string $navigationLabel = 'Penyewaan';
+    protected static ?int $navigationSort = 8;
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::where('status', 'ditinjau')->count();
+    }
     
     public static function form(Form $form): Form
     {

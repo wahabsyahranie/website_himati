@@ -20,6 +20,7 @@ class DosenResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-user';
     protected static ?string $navigationGroup = 'Manajemen Data';
     protected static ?string $navigationLabel = 'Dosen';
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {

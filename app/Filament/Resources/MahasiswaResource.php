@@ -19,6 +19,7 @@ class MahasiswaResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
     protected static ?string $navigationGroup = 'Manajemen Data';
     protected static ?string $navigationLabel = 'Mahasiswa';
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
