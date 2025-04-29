@@ -81,7 +81,7 @@ class InventarisResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\DetailPenyewaansRelationManager::class,
         ];
     }
 
