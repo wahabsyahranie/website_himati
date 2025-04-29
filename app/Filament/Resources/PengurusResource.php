@@ -55,7 +55,10 @@ class PengurusResource extends Resource
                         'humed' => 'Humed',
                         'danus' => 'Danus',
                         'drt' => 'DRT',
-                ]),
+                    ])
+                    ->default(fn ($record) => $record?->detailPenguruses?->pluck('departemen')->toArray() ?? [])
+                    ->required(),
+
                 Forms\Components\TextInput::make('periode')
                     ->required()
                     ->numeric(),
