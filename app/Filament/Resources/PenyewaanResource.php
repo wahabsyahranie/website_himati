@@ -120,7 +120,7 @@ class PenyewaanResource extends Resource
                 ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                    Tables\Actions\EditAction::make(),
+                    // Tables\Actions\EditAction::make(),
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\Action::make('Tolak Penyewaan')
                         ->color('warning')
@@ -160,7 +160,7 @@ class PenyewaanResource extends Resource
         return [
             'index' => Pages\ListPenyewaans::route('/'),
             'create' => Pages\CreatePenyewaan::route('/create'),
-            'edit' => Pages\EditPenyewaan::route('/{record}/edit'),
+            // 'edit' => Pages\EditPenyewaan::route('/{record}/edit'),
         ];
     }
 }

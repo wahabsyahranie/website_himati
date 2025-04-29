@@ -78,7 +78,7 @@ class PengaduanResource extends Resource
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
-                    Tables\Actions\EditAction::make(),
+                    // Tables\Actions\EditAction::make(),
                     Tables\Actions\Action::make('tolak')
                         ->label('Tolak')
                         ->color('warning')
@@ -119,7 +119,7 @@ class PengaduanResource extends Resource
         return [
             'index' => Pages\ListPengaduans::route('/'),
             'create' => Pages\CreatePengaduan::route('/create'),
-            'edit' => Pages\EditPengaduan::route('/{record}/edit'),
+            // 'edit' => Pages\EditPengaduan::route('/{record}/edit'),
         ];
     }
 }
