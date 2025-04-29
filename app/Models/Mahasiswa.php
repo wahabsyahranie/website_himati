@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Mahasiswa extends Model
 {
@@ -19,6 +21,10 @@ class Mahasiswa extends Model
 
     public function pengajuanSurats() : HasMany {
         return $this->hasMany(PengajuanSurat::class);
+    }
+
+    public function pengurus() : HasOne {
+        return $this->hasOne(Pengurus::class);
     }
 
 }
