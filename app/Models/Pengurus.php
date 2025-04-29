@@ -11,14 +11,14 @@ class Pengurus extends Model
 {
     use HasFactory;
     protected $table = 'penguruses';
-    protected $fillable =['nomor_induk', 'jabatan', 'mahasiswa_id', 'periode'];
+    protected $fillable =['nomor_induk', 'jabatan', 'mahasiswa_id', 'periode', 'departemen'];
+    protected $casts = [
+        'departemen' => 'array',
+    ];
 
     public function mahasiswa() : BelongsTo
     {
         return $this->belongsTo(Mahasiswa::class);
     }
 
-    public function detail_penguruses(): HasMany {
-        return $this->hasMany(DetailPengurus::class, 'penguruses_id');
-    }
 }

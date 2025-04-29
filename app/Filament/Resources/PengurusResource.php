@@ -50,23 +50,17 @@ class PengurusResource extends Resource
                 Forms\Components\TextInput::make('periode')
                     ->required()
                     ->numeric(),
-                Forms\Components\Repeater::make('detail_penguruses')
-                    ->label('Detail Pengurus')
-                    ->relationship()
-                    ->schema([
-                        Forms\Components\Select::make('departemen')
-                            ->label('Departemen')
-                            ->options([
-                                'kpsdm' => 'KPSDM',
-                                'agama' => 'Agama',
-                                'minba' => 'MINBA',
-                                'humed' => 'HUMED',
-                                'danus' => 'DANUS',
-                                'drt' => 'DRT',
-                            ])
-                        ])
-                        ->grid(2)
-                        ->columnSpan('full'),
+                Forms\Components\Select::make('departemen')
+                    ->multiple()
+                    ->required()
+                    ->options([
+                        'kpsdm' => 'KPSDM',
+                        'agama' => 'Agama',
+                        'minba' => 'MINBA',
+                        'humed' => 'HUMED',
+                        'danus' => 'DANUS',
+                        'drt' => 'DRT',
+                    ]),
             ]);
     }
 
@@ -83,7 +77,7 @@ class PengurusResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('periode')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('detail_penguruses.departemen')
+                Tables\Columns\TextColumn::make('departemen')
                     ->badge()
                     ->color(function ($state) {
                         return match ($state) {
