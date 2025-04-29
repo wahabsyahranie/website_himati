@@ -21,9 +21,9 @@ class PenyewaanResource extends Resource
 {
     protected static ?string $model = Penyewaan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-banknotes';
-    protected static ?string $navigationGroup = 'Kelola Penyewaan';
-    protected static ?string $navigationLabel = 'Data Penyewaan';
+    protected static ?string $navigationIcon = 'heroicon-o-document-currency-dollar';
+    protected static ?string $navigationGroup = 'Kelola Layanan';
+    protected static ?string $navigationLabel = 'Penyewaan';
     
     public static function form(Form $form): Form
     {
@@ -120,24 +120,24 @@ class PenyewaanResource extends Resource
                 ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\ViewAction::make(),
                     Tables\Actions\Action::make('Tolak Penyewaan')
-                        ->color('danger')
-                        ->icon('heroicon-o-x-mark')
+                        ->color('warning')
+                        ->icon('heroicon-o-x-circle')
                         ->requiresConfirmation()
                         ->action(function (Penyewaan $record) {
                             $record->update(['status' => 'ditolak']);
                         }),
                     Tables\Actions\Action::make('Setujui Penyewaan')
                         ->color('success')
-                        ->icon('heroicon-o-check-badge')
+                        ->icon('heroicon-o-check-circle')
                         ->requiresConfirmation()
                         // ->visible(fn (Penyewaan $record) => $record->status !== 'dikembalikan')
                         // ->requiresConfirmation()
                         ->action(function (Penyewaan $record) {
                             $record->update(['status' => 'disetujui']);
                         }),
-                    Tables\Actions\EditAction::make(),
-                    Tables\Actions\ViewAction::make(),
                     Tables\Actions\DeleteAction::make(),
                 ])
             ])

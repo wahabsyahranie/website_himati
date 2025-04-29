@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Mahasiswa;
+use App\Models\Pengaduan;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -21,10 +23,11 @@ class DatabaseSeeder extends Seeder
             'password' => '123',
         ]);
 
-        $this->call([
-            OrmawaSeeder::class,
-            InventarisSeeder::class,
-            MahasiswaSeeder::class,
-        ]);
+        $this->call([OrmawaSeeder::class, InventarisSeeder::class, MahasiswaSeeder::class]);
+        Pengaduan::factory(10)->recycle([
+            Mahasiswa::all()
+        ])->create();
+
+
     }
 }
