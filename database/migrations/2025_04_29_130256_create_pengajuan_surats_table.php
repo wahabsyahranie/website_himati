@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('nomor_surat');
             $table->string('lampiran')->default('-');
             $table->string('perihal');
-            $table->string('Tertuju');
+            $table->string('tertuju');
             $table->text('isi');
             $table->date('tanggal_pelaksana');
             $table->time('waktu_pelaksana');

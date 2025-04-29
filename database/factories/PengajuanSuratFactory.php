@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -24,7 +25,7 @@ class PengajuanSuratFactory extends Factory
             'nomor_surat' => fake()->randomDigit(),
             'lampiran' => '-',
             'perihal' => fake()->word(),
-            'Tertuju' => fake()->word(),
+            'dosen_id' => Dosen::factory(),
             'isi' => fake()->text(),
             'tanggal_pelaksana' => fake()->date(),
             'waktu_pelaksana' => fake()->time(),

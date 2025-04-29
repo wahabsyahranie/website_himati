@@ -16,4 +16,9 @@ class PengajuanSurat extends Model
     {
         return $this->belongsTo(Mahasiswa::class);
     }
+
+    public function dosen() : BelongsTo
+    {
+        return $this->belongsTo(Dosen::class);
+    }
 }

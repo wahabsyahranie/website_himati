@@ -66,11 +66,9 @@ class PengajuanSuratResource extends Resource
                     ->label('Perihal Surat')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('Tertuju')
-                    ->label('Surat Ini Tertuju Kepada')
+                Forms\Components\Select::make('dosen_id')
                     ->required()
-                    ->columnSpanFull()
-                    ->maxLength(255),
+                    ->relationship('dosen', 'jabatan'),
                 Forms\Components\Textarea::make('isi')
                     ->label('Isi Surat')
                     ->required()
