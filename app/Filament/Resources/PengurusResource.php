@@ -28,21 +28,34 @@ class PengurusResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nomor_induk')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\Select::make('jabatan')
-                    ->options([
-                        'Ketua Umum' => 'Ketua Umum',
-                        'Wakil Ketua Umum' => 'Wakil Ketua Umum',
-                        'Sekretaris Umum' => 'Sekretaris Umum',
-                        'Bendahara Umum' => 'Bendahara Umum',
-                    ]),
                 Forms\Components\Select::make('mahasiswa_id')
                     ->relationship('mahasiswa', 'nama')
                     ->searchable()
                     ->preload()
                     ->required(),
+                Forms\Components\TextInput::make('nomor_induk')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\Select::make('jabatan')
+                    ->options([
+                        'ketua umum' => 'Ketua Umum',
+                        'wakil Ketua Umum' => 'Wakil Ketua Umum',
+                        'sekretaris umum' => 'Sekretaris Umum',
+                        'bendahara umum' => 'Bendahara Umum',
+                        'kepala departemen' => 'Kepala Departemen',
+                        'sekretaris departemen' => 'Sekretaris Departemen',
+                        'anggota departemen' => 'Anggota Departemen',
+                    ]),
+                Forms\Components\Select::make('departemen')
+                    ->multiple()
+                    ->options([
+                        'kpsdm' => 'KPSDM',
+                        'agama' => 'Agama',
+                        'minba' => 'Minba',
+                        'humed' => 'Humed',
+                        'danus' => 'Danus',
+                        'drt' => 'DRT',
+                ]),
                 Forms\Components\TextInput::make('periode')
                     ->required()
                     ->numeric(),
@@ -62,6 +75,18 @@ class PengurusResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('periode')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('detailPenguruses.departemen')
+                    ->badge()
+                    ->color(function ($state) {
+                        return match ($state) {
+                            'kpsdm' => 'success',
+                            'agama' => 'info',
+                            'minba' => 'warning',
+                            'humed' => 'danger',
+                            'danus' => 'info',
+                            default => 'success',
+                        };
+                    }),
             ])
             ->filters([
                 SelectFilter::make('jabatan')

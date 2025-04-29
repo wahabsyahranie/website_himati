@@ -17,4 +17,8 @@ class Pengurus extends Model
     {
         return $this->belongsTo(Mahasiswa::class);
     }
+
+    public function detailPenguruses(): HasMany {
+        return $this->hasMany(DetailPengurus::class, 'penguruses_id');
+    }
 }

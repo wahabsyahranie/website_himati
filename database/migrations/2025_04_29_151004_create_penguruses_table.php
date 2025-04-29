@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('penguruses', function (Blueprint $table) {
             $table->id();
             $table->integer('nomor_induk');
-            $table->enum('jabatan', ['Ketua Umum', 'Wakil Ketua Umum', 'Sekretaris Umum', 'Bendahara Umum']);
+            $table->enum('jabatan', ['ketua umum', 'wakil ketua umum', 'sekretaris umum', 'bendahara umum', 'kepala departemen', 'sekretaris departemen', 'anggota departemen']);
             $table->year('periode');
             $table->char('mahasiswa_id', 26);
             $table->foreign('mahasiswa_id')->references('id')->on('mahasiswas')->cascadeOnDelete();
