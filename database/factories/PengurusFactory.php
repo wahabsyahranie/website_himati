@@ -19,7 +19,7 @@ class PengurusFactory extends Factory
     {
         return [
             'nomor_induk' => fake()->randomNumber(8),
-            'jabatan' => fake()->randomElement(['Ketua Umum', 'Wakil Ketua Umum', 'Sekretaris Umum', 'Bendahara Umum', 'Kepala Departemen KPSDM', 'Sekretaris Departemen KPSDM', 'Anggota Departemen KPSDM']),
+            'jabatan' => fake()->randomElement(['Ketua Umum', 'Wakil Ketua Umum', 'Sekretaris Umum', 'Bendahara Umum']),
             'periode' => fake()->year(),
             'mahasiswa_id' => Mahasiswa::factory(),
         ];

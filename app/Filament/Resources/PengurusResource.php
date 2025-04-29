@@ -37,9 +37,6 @@ class PengurusResource extends Resource
                         'Wakil Ketua Umum' => 'Wakil Ketua Umum',
                         'Sekretaris Umum' => 'Sekretaris Umum',
                         'Bendahara Umum' => 'Bendahara Umum',
-                        'Kepala Departemen' => 'Kepala Departemen',
-                        'Sekretaris Departemen' => 'Sekretaris Departemen',
-                        'Anggota Departemen' => 'Anggota Departemen',
                     ]),
                 Forms\Components\Select::make('mahasiswa_id')
                     ->relationship('mahasiswa', 'nama')
