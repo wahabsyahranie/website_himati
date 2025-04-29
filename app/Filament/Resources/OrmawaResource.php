@@ -18,7 +18,7 @@ class OrmawaResource extends Resource
 {
     protected static ?string $model = Ormawa::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
+    protected static ?string $navigationIcon = 'heroicon-o-building-library';
     protected static ?string $navigationGroup = 'Manajemen Data';
     protected static ?string $navigationLabel = 'Ormawa';
 
