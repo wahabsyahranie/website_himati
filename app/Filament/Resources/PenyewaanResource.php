@@ -43,14 +43,14 @@ class PenyewaanResource extends Resource
                         Forms\Components\Select::make('inventaris_id')
                             ->relationship('inventaris', 'nama')
                             ->required()
-                            ->live()
+                            ->debounce(1000)
                             ->afterStateUpdated(function (Set $set, $state){
                                 $inventaris = \App\Models\Inventaris::find($state);
                                 $set('harga_pcs', $inventaris?->harga ?? 0);
                             }),
                         Forms\Components\TextInput::make('jumlah')
                             ->required()
-                            ->live()
+                            ->debounce(1000)
                             ->afterStateUpdated(function ($state, callable $set, callable $get) {
                                 $set('harga_total', (int) $get('harga_pcs') * (int) $state);
                             }),
@@ -58,7 +58,7 @@ class PenyewaanResource extends Resource
                             ->disabled()
                             ->default(0)
                             ->prefix('Rp.')
-                            ->live()
+                            ->debounce(1000)
                             ->afterStateHydrated(fn($record, $set) => $set('harga_pcs', $record?->inventaris->harga)),
                         Forms\Components\TextInput::make('harga_total')
                             ->disabled()
@@ -112,11 +112,13 @@ class PenyewaanResource extends Resource
             ])
             ->filters([
                 Tables\Filters\selectFilter::make('status')
-                    ->options([
-                        'disetujui' => 'Disetujui',
-                        'ditolak' => 'Ditolak',
-                        'dikembalikan' => 'Dikembalikan',
-                    ]),
+                    ->options(function () {
+                        return \App\Models\Penyewaan::query()
+                            ->pluck('status', 'status')
+                            ->unique()
+                            ->sort()
+                            ->toArray();
+                    })
                 ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
@@ -126,6 +128,7 @@ class PenyewaanResource extends Resource
                         ->color('warning')
                         ->icon('heroicon-o-x-circle')
                         ->requiresConfirmation()
+                        ->visible(fn (Penyewaan $record) => $record->status !== 'ditolak')
                         ->action(function (Penyewaan $record) {
                             $record->update(['status' => 'ditolak']);
                         }),
@@ -133,8 +136,7 @@ class PenyewaanResource extends Resource
                         ->color('success')
                         ->icon('heroicon-o-check-circle')
                         ->requiresConfirmation()
-                        // ->visible(fn (Penyewaan $record) => $record->status !== 'dikembalikan')
-                        // ->requiresConfirmation()
+                        ->visible(fn (Penyewaan $record) => $record->status !== 'disetujui')
                         ->action(function (Penyewaan $record) {
                             $record->update(['status' => 'disetujui']);
                         }),

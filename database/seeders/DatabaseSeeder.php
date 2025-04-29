@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Mahasiswa;
 use App\Models\Pengaduan;
+use App\Models\PengajuanSurat;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -28,6 +29,8 @@ class DatabaseSeeder extends Seeder
             Mahasiswa::all()
         ])->create();
 
-
+        PengajuanSurat::factory(10)->recycle([
+            Mahasiswa::all()
+        ])->create();
     }
 }

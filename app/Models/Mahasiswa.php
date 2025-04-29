@@ -17,4 +17,8 @@ class Mahasiswa extends Model
         return $this->hasMany(Pengaduan::class);
     }
 
+    public function pengajuanSurats() : HasMany {
+        return $this->hasMany(PengajuanSurat::class);
+    }
+
 }
