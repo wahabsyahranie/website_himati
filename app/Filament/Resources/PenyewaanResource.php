@@ -62,6 +62,7 @@ class PenyewaanResource extends Resource
                             ->default(0)
                             ->prefix('Rp.')
                             ->debounce(1000)
+                            ->numeric( 0)
                             ->afterStateHydrated(fn($record, $set) => $set('harga_pcs', $record?->inventaris->harga)),
                         Forms\Components\TextInput::make('jumlah')
                             ->required()
@@ -132,7 +133,7 @@ class PenyewaanResource extends Resource
                 ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                    Tables\Actions\EditAction::make(),
+                    // Tables\Actions\EditAction::make(),
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\Action::make('Tolak Penyewaan')
                         ->color('warning')
