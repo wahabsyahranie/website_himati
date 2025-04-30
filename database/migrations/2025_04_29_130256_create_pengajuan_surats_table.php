@@ -22,7 +22,9 @@ return new class extends Migration
             $table->string('tertuju');
             $table->text('isi');
             $table->date('tanggal_pelaksana');
+            $table->date('tanggal_selesai');
             $table->time('waktu_pelaksana');
+            $table->time('waktu_selesai');
             $table->string('tempat_pelaksana');
             $table->text('penutup');
             $table->string('nama_cp');

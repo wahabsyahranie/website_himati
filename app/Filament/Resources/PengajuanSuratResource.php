@@ -37,6 +37,11 @@ class PengajuanSuratResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Select::make('mahasiswa_id')
+                    ->label('Pilih Mahasiswa')
+                    ->columnSpanFull()
+                    ->relationship('mahasiswa', 'nama')
+                    ->required(),
                 Forms\Components\Select::make('type')
                     ->label('Pilih Kelas Surat')
                     ->required()
@@ -78,23 +83,30 @@ class PengajuanSuratResource extends Resource
                 Forms\Components\Select::make('dosen_id')
                     ->label('Tujuan Surat')
                     ->required()
-                    ->relationship('dosen', 'jabatan'),
+                    ->relationship('dosen', 'jabatan')
+                    ->columnSpanFull(),
                 Forms\Components\Textarea::make('isi')
                     ->label('Isi Surat')
                     ->required()
                     ->columnSpanFull()
                     ->columnSpanFull(),
                 Forms\Components\DatePicker::make('tanggal_pelaksana')
-                    ->label('Tanggal Pelaksanaan Event')
-                    ->columnSpanFull()
+                    ->label('Tanggal Event Dimulai')
+                    ->required(),
+                Forms\Components\DatePicker::make('tanggal_selesai')
+                    ->label('Tanggal Event Berakhir')
                     ->required(),
                 Forms\Components\TimePicker::make('waktu_pelaksana')
-                    ->label('Waktu Pelaksanaan Event')
+                    ->label('Waktu Event Dimulai')
+                    ->required(),
+                Forms\Components\TimePicker::make('waktu_selesai')
+                    ->label('Waktu Event Berakhir')
                     ->required(),
                 Forms\Components\TextInput::make('tempat_pelaksana')
                     ->label('Tempat Pelaksanaan Event')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->columnSpanFull(),
                 Forms\Components\Textarea::make('penutup')
                     ->label('Kalimat Penutup')
                     ->required()
@@ -109,11 +121,6 @@ class PengajuanSuratResource extends Resource
                     ->numeric()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Select::make('mahasiswa_id')
-                    ->label('Pilih Mahasiswa')
-                    ->columnSpanFull()
-                    ->relationship('mahasiswa', 'nama')
-                    ->required(),
                 Forms\Components\TextInput::make('slug')
                     ->label('Slug')
                     ->readOnly()
@@ -131,6 +138,11 @@ class PengajuanSuratResource extends Resource
                 Tables\Columns\TextColumn::make('tanggal_pembuatan')
                     ->date()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Tanggal Diupdate')
+                    ->date()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('nomor_surat')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('perihal')

@@ -29,6 +29,8 @@ class PengajuanSuratFactory extends Factory
             'isi' => fake()->text(),
             'tanggal_pelaksana' => fake()->date(),
             'waktu_pelaksana' => fake()->time(),
+            'tanggal_selesai' => fake()->date(),
+            'waktu_selesai' => fake()->time(),
             'tempat_pelaksana' => fake()->word(),
             'penutup' => fake()->paragraph(),
             'nama_cp' => fake()->name(),
