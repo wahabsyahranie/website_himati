@@ -31,11 +31,13 @@ class PengurusResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('mahasiswa_id')
+                    ->label('Nama Mahasiswa')
                     ->relationship('mahasiswa', 'nama')
                     ->searchable()
                     ->preload()
                     ->required(),
                 Forms\Components\TextInput::make('nomor_induk')
+                    ->label('Nomor Induk Anggota')
                     ->required()
                     ->numeric(),
                 Forms\Components\Select::make('jabatan')
@@ -70,9 +72,11 @@ class PengurusResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('nomor_induk')
+                    ->label('NIA')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('mahasiswa.nama')
+                    ->label('Nama')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('jabatan')
                     ->searchable(),

@@ -9,6 +9,7 @@ use Filament\Resources\Pages\ListRecords;
 class ListInventaris extends ListRecords
 {
     protected static string $resource = InventarisResource::class;
+    protected static ?string $title = 'Data Inventaris';
 
     protected function getHeaderActions(): array
     {

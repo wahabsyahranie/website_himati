@@ -19,11 +19,6 @@ class AbsenKegiatansRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('jabatan_kegiatan')
-                    ->label('Jabatan di Kegiatan')
-                    ->required()
-                    ->autocomplete(false)
-                    ->maxLength(255),
                 Forms\Components\Select::make('penguruses_id')
                     ->label('Pilih Pengurus')
                     ->searchable()
@@ -32,7 +27,12 @@ class AbsenKegiatansRelationManager extends RelationManager
                             ->get()
                             ->sortBy(fn($pengurus) => $pengurus->mahasiswa->nama)
                             ->pluck('mahasiswa.nama', 'id')
-                    )
+                    ),
+                Forms\Components\TextInput::make('jabatan_kegiatan')
+                    ->label('Jabatan di Kegiatan')
+                    ->required()
+                    ->autocomplete(false)
+                    ->maxLength(255),
             ]);
     }
 

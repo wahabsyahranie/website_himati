@@ -9,6 +9,7 @@ use Filament\Resources\Pages\ListRecords;
 class ListPenguruses extends ListRecords
 {
     protected static string $resource = PengurusResource::class;
+    protected static ?string $title = 'Data Pengurus';
 
     protected function getHeaderActions(): array
     {

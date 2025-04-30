@@ -10,7 +10,7 @@ class PengajuanSurat extends Model
 {
     use HasFactory;
     protected $table = 'pengajuan_surats';
-    protected $fillable = ['type', 'kota', 'tanggal_pembuatan', 'nomor_surat', 'lampiran', 'perihal', 'Tertuju', 'isi', 'tanggal_pelaksana', 'waktu_pelaksana', 'tempat_pelaksana', 'penutup', 'nama_cp', 'nomor_cp', 'slug', 'mahasiswa_id', 'status'];
+    protected $fillable = ['type', 'kota', 'tanggal_pembuatan', 'nomor_surat', 'lampiran', 'perihal', 'Tertuju', 'isi', 'tanggal_pelaksana', 'waktu_pelaksana', 'tempat_pelaksana', 'penutup', 'nama_cp', 'nomor_cp', 'slug', 'mahasiswa_id', 'dosen_id', 'status'];
 
     public function mahasiswa() : BelongsTo
     {

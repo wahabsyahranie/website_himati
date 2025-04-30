@@ -28,6 +28,10 @@ class PengajuanSuratResource extends Resource
     {
         return static::getModel()::where('status', 'ditinjau')->count();
     }
+    public static function getNavigationBadgeTooltip(): ?string
+    {
+        return 'Surat yang masih ditinjau';
+    }
 
     public static function form(Form $form): Form
     {
@@ -72,6 +76,7 @@ class PengajuanSuratResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('dosen_id')
+                    ->label('Tujuan Surat')
                     ->required()
                     ->relationship('dosen', 'jabatan'),
                 Forms\Components\Textarea::make('isi')
@@ -104,6 +109,11 @@ class PengajuanSuratResource extends Resource
                     ->numeric()
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Select::make('mahasiswa_id')
+                    ->label('Pilih Mahasiswa')
+                    ->columnSpanFull()
+                    ->relationship('mahasiswa', 'nama')
+                    ->required(),
                 Forms\Components\TextInput::make('slug')
                     ->label('Slug')
                     ->readOnly()
@@ -111,11 +121,6 @@ class PengajuanSuratResource extends Resource
                     ->columnSpanFull()
                     ->maxLength(255)
                     ->default('-'),
-                Forms\Components\Select::make('mahasiswa_id')
-                    ->label('Pilih Mahasiswa')
-                    ->columnSpanFull()
-                    ->relationship('mahasiswa', 'nama')
-                    ->required(),
             ]);
     }
 
@@ -130,7 +135,8 @@ class PengajuanSuratResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('perihal')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('Tertuju')
+                Tables\Columns\TextColumn::make('dosen.jabatan')
+                    ->label('Tujuan Surat')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()->color(function ($record) {
@@ -147,6 +153,14 @@ class PengajuanSuratResource extends Resource
                     ->options(function () {
                         return \App\Models\PengajuanSurat::query()
                             ->pluck('status', 'status')
+                            ->unique()
+                            ->sort()
+                            ->toArray();
+                    }),
+                Tables\Filters\selectFilter::make('dosen_id')
+                    ->options(function () {
+                        return \App\Models\Dosen::query()
+                            ->pluck('jabatan', 'id')
                             ->unique()
                             ->sort()
                             ->toArray();

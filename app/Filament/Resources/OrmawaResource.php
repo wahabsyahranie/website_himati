@@ -53,13 +53,13 @@ class OrmawaResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('nama')
-                    ->label('Nama Ormawa')
+                    ->label('Nama')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('nomor_telepon')
                     ->label('Nomor Telepon / Humas'),
                 Tables\Columns\TextColumn::make('email')
-                    ->label('Email Ormawa'),
+                    ->label('Email'),
             ])
             ->filters([
 

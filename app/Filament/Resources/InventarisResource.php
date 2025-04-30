@@ -53,14 +53,14 @@ class InventarisResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('nama')
-                    ->label('Nama Inventaris')
+                    ->label('Nama')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('stok')
-                    ->label('Stok Inventaris')
+                    ->label('Stok')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('harga')
-                    ->label('Harga Inventaris')
+                    ->label('Harga')
                     ->sortable()
                     // ->prefix('Rp. '),
                     ->money('IDR', locale: 'nl'),

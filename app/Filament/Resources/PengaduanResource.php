@@ -25,6 +25,10 @@ class PengaduanResource extends Resource
     {
         return static::getModel()::where('status', 'ditinjau')->count();
     }
+    public static function getNavigationBadgeTooltip(): ?string
+    {
+        return 'Pengaduan yang masih ditinjau';
+    }
 
     public static function form(Form $form): Form
     {
@@ -45,6 +49,7 @@ class PengaduanResource extends Resource
                         'hmj ti' => 'HMJ TI',
                     ]),
                 Forms\Components\Select::make('mahasiswa_id')
+                    ->label('Pelapor')
                     ->relationship('mahasiswa', 'nama')
                     ->required(),
             ]);
@@ -58,6 +63,7 @@ class PengaduanResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('tujuan'),
                 Tables\Columns\TextColumn::make('mahasiswa.nama')
+                    ->label('Nama Pelapor')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()->color(function ($record) {

@@ -29,6 +29,10 @@ class PenyewaanResource extends Resource
     {
         return static::getModel()::where('status', 'ditinjau')->count();
     }
+    public static function getNavigationBadgeTooltip(): ?string
+    {
+        return 'Penyewaan yang menunggu persetujuan';
+    }
     
     public static function form(Form $form): Form
     {
@@ -66,6 +70,7 @@ class PenyewaanResource extends Resource
                             ->debounce(1000)
                             ->afterStateHydrated(fn($record, $set) => $set('harga_pcs', $record?->inventaris->harga)),
                         Forms\Components\TextInput::make('harga_total')
+                            ->label('Harga Pesanan')
                             ->disabled()
                             ->prefix('Rp.'),
                     ])

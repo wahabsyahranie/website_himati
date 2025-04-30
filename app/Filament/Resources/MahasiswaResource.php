@@ -20,7 +20,7 @@ class MahasiswaResource extends Resource
     protected static ?string $navigationGroup = 'Manajemen Data';
     protected static ?string $navigationLabel = 'Mahasiswa';
     protected static ?int $navigationSort = 1;
-
+    
     public static function form(Form $form): Form
     {
         return $form
@@ -62,12 +62,14 @@ class MahasiswaResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('nim')
+                    ->label('NIM')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('nama')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('tahun_masuk')
+                    ->label('Tahun Masuk')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('prodi'),
                 Tables\Columns\TextColumn::make('nomor_telepon')
