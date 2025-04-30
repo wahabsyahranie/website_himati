@@ -21,4 +21,9 @@ class Pengurus extends Model
         return $this->belongsTo(Mahasiswa::class);
     }
 
+    public function absenKegiatans() : HasMany
+    {
+        return $this->hasMany(AbsenKegiatan::class);
+    }
+
 }
