@@ -10,5 +10,4 @@ class CreatePenyewaan extends CreateRecord
 {
     protected static string $resource = PenyewaanResource::class;
 
-    
 }

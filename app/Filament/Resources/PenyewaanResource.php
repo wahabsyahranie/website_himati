@@ -57,19 +57,18 @@ class PenyewaanResource extends Resource
                                 $inventaris = \App\Models\Inventaris::find($state);
                                 $set('harga_pcs', $inventaris?->harga ?? 0);
                             }),
-                        Forms\Components\TextInput::make('jumlah')
-                            ->required()
-                            ->debounce(1000)
-                            ->afterStateHydrated(function ($state, callable $set, callable $get) {
-                                dd($get('harga_pcs'));
-                                $set('harga_total', (int) $get('harga_pcs') * (int) $state);
-                            }),
                         Forms\Components\TextInput::make('harga_pcs')
                             ->disabled()
                             ->default(0)
                             ->prefix('Rp.')
                             ->debounce(1000)
                             ->afterStateHydrated(fn($record, $set) => $set('harga_pcs', $record?->inventaris->harga)),
+                        Forms\Components\TextInput::make('jumlah')
+                            ->required()
+                            ->debounce(1000)
+                            ->afterStateHydrated(function ($state, callable $set, callable $get) {
+                                $set('harga_total', (int) $get('harga_pcs') * (int) $state);
+                            }),
                         Forms\Components\TextInput::make('harga_total')
                             ->label('Harga Pesanan')
                             ->disabled()
@@ -133,7 +132,7 @@ class PenyewaanResource extends Resource
                 ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                    // Tables\Actions\EditAction::make(),
+                    Tables\Actions\EditAction::make(),
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\Action::make('Tolak Penyewaan')
                         ->color('warning')
