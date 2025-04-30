@@ -60,7 +60,8 @@ class PenyewaanResource extends Resource
                         Forms\Components\TextInput::make('jumlah')
                             ->required()
                             ->debounce(1000)
-                            ->afterStateUpdated(function ($state, callable $set, callable $get) {
+                            ->afterStateHydrated(function ($state, callable $set, callable $get) {
+                                dd($get('harga_pcs'));
                                 $set('harga_total', (int) $get('harga_pcs') * (int) $state);
                             }),
                         Forms\Components\TextInput::make('harga_pcs')
