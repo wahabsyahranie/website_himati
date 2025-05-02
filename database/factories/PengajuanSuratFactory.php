@@ -19,9 +19,9 @@ class PengajuanSuratFactory extends Factory
     public function definition(): array
     {
         return [
-            'type' => fake()->randomElement(['A', 'B', 'C', 'D', 'E']),
-            'kota' => fake()->city(),
-            'tanggal_pembuatan' => fake()->date(),
+            'type' => fake()->randomElement(['SIk', 'SPm', 'ST', 'Spe', 'Und',
+            'Peng', 'ST']),
+            'departemen' => fake()->randomElement(['Agm', 'Kpm', 'Min', 'Hum', 'Rt', 'Dan']),
             'nomor_surat' => fake()->randomDigit(),
             'lampiran' => '-',
             'perihal' => fake()->word(),
@@ -32,7 +32,6 @@ class PengajuanSuratFactory extends Factory
             'tanggal_selesai' => fake()->date(),
             'waktu_selesai' => fake()->time(),
             'tempat_pelaksana' => fake()->word(),
-            'penutup' => fake()->paragraph(),
             'nama_cp' => fake()->name(),
             'nomor_cp' => fake()->randomNumber(),
             'slug' => fake()->slug(),

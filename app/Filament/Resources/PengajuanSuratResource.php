@@ -43,34 +43,28 @@ class PengajuanSuratResource extends Resource
                     ->relationship('mahasiswa', 'nama')
                     ->required(),
                 Forms\Components\Select::make('type')
-                    ->label('Pilih Kelas Surat')
+                    ->label('Type Surat')
                     ->required()
-                    ->options(function () {
-                        return \App\Models\PengajuanSurat::query()
-                            ->pluck('type', 'type')
-                            ->unique()
-                            ->sort()
-                            ->toArray();
-                    }),
-                Forms\Components\TextInput::make('kota')
-                    ->label('Surat Ini Dibuat di Kota')
+                    ->options([
+                        'SIk' => 'Surat Izin Kegiatan',
+                        'SPm' => 'Surat Peminjaman',
+                        'ST' => 'Surat Tugas',
+                        'Spe' => 'Surat Pemberitahuan',
+                        'Und' => 'Surat Undangan',
+                        'Peng' => 'Surat Pengumuman',
+                        'SM' => 'Surat Mandat',
+                    ]),
+                Forms\Components\Select::make('departemen')
+                    ->label('Departemen')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\DatePicker::make('tanggal_pembuatan')
-                    ->label('Surat Ini Dibuat Pada Tanggal')
-                    ->required(),
-                Forms\Components\TextInput::make('nomor_surat')
-                    ->label('Nomor Surat')
-                    ->required()
-                    ->maxLength(255)
-                    ->debounce(1000)
-                    ->afterStateUpdated(function (Set $set, $state){
-                        $slug = Str::of($state)
-                            ->replace('/', '-')
-                            ->lower()
-                            ->trim('-');
-                        $set('slug', $slug);
-                    }),
+                    ->options([
+                        'Agm' => 'Keagamaan',
+                        'Kpm' => 'KPSDM',
+                        'Min' => 'Minat dan Bakat',
+                        'Hum' => 'Humas dan Media',
+                        'Rt' => 'Rumah Tangga',
+                        'Dan' => 'Dana dan Usaha',
+                    ]),
                 Forms\Components\TextInput::make('lampiran')
                     ->label('Lampiran Surat')
                     ->required()
@@ -89,28 +83,23 @@ class PengajuanSuratResource extends Resource
                     ->label('Isi Surat')
                     ->required()
                     ->columnSpanFull()
-                    ->columnSpanFull(),
+                    ->rows(5),
                 Forms\Components\DatePicker::make('tanggal_pelaksana')
-                    ->label('Tanggal Event Dimulai')
+                    ->label('Tanggal Mulai')
                     ->required(),
                 Forms\Components\DatePicker::make('tanggal_selesai')
-                    ->label('Tanggal Event Berakhir')
+                    ->label('Tanggal Selesai')
                     ->required(),
                 Forms\Components\TimePicker::make('waktu_pelaksana')
-                    ->label('Waktu Event Dimulai')
+                    ->label('Waktu Mulai')
                     ->required(),
                 Forms\Components\TimePicker::make('waktu_selesai')
-                    ->label('Waktu Event Berakhir')
+                    ->label('Waktu Selesai')
                     ->required(),
                 Forms\Components\TextInput::make('tempat_pelaksana')
-                    ->label('Tempat Pelaksanaan Event')
+                    ->label('Tempat Pelaksanaan')
                     ->required()
                     ->maxLength(255)
-                    ->columnSpanFull(),
-                Forms\Components\Textarea::make('penutup')
-                    ->label('Kalimat Penutup')
-                    ->required()
-                    ->columnSpanFull()
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('nama_cp')
                     ->label('Nama Kontak Person')
@@ -121,13 +110,6 @@ class PengajuanSuratResource extends Resource
                     ->numeric()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('slug')
-                    ->label('Slug')
-                    ->readOnly()
-                    ->required()
-                    ->columnSpanFull()
-                    ->maxLength(255)
-                    ->default('-'),
             ]);
     }
 
@@ -135,7 +117,7 @@ class PengajuanSuratResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('tanggal_pembuatan')
+                Tables\Columns\TextColumn::make('created_at')
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')
@@ -210,6 +192,9 @@ class PengajuanSuratResource extends Resource
                     Tables\Actions\Action::make('Unduh Surat')
                         ->color('gray')
                         ->icon('heroicon-o-document-arrow-down')
+                        ->url(fn ($record) => route('surat.show', $record->slug))
+                        ->openUrlInNewTab()
+                        ->color('gray')
                 ])
             ])
             ->bulkActions([

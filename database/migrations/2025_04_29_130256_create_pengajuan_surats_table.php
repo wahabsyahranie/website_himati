@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('pengajuan_surats', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['A', 'B', 'C', 'D', 'E']);
-            $table->string('kota');
-            $table->date('tanggal_pembuatan');
+            $table->enum('type', ['SIk', 'SPm', 'ST', 'Spe', 'Und', 'Peng', 'SM']);
+            $table->enum('departemen', ['Agm', 'Kpm', 'Min', 'Hum', 'Rt', 'Dan']);
             $table->string('nomor_surat');
             $table->string('lampiran')->default('-');
             $table->string('perihal');
@@ -26,7 +25,6 @@ return new class extends Migration
             $table->time('waktu_pelaksana');
             $table->time('waktu_selesai');
             $table->string('tempat_pelaksana');
-            $table->text('penutup');
             $table->string('nama_cp');
             $table->string('nomor_cp');
             $table->string('slug');

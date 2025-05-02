@@ -1,7 +1,7 @@
 <x-layout>
-    <div class="w-[794px] mx-auto bg-white">
+    <div class="w-[794px] h-[1123px] mx-auto bg-white">
         <!-- Header -->
-        <div class="shadow border-b border-black flex justify-between items-center px-4 py-2">
+        <div class="shadow border-b-4 border-double border-black flex justify-between items-center px-4 py-2">
             <!-- Logo POLNES (Kiri) -->
             <div class="w-2/12">
                 <img src="{{ asset('img/lambang_polnes.svg') }}" class="w-24 mx-auto">
