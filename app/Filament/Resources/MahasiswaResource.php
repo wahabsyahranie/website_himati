@@ -39,18 +39,23 @@ class MahasiswaResource extends Resource
                     ->autocomplete(false)
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('nomor_telepon')
+                    ->tel()
+                    ->required()
+                    ->autocomplete(false)
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('password')
+                    ->confirmed('password_confirmation')
+                    ->password()
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('password_confirmation')
                     ->password()
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('tahun_masuk')
                     ->required()
                     ->autocomplete(false),
-                Forms\Components\TextInput::make('nomor_telepon')
-                    ->tel()
-                    ->required()
-                    ->autocomplete(false)
-                    ->maxLength(255),
                 Forms\Components\Select::make('prodi')
                     ->required()
                     ->native(false)
@@ -89,7 +94,7 @@ class MahasiswaResource extends Resource
                     ->sortable()
                     ->limit(15)
                     ->iconColor('primary')
-                    ->icon('heroicon-m-phone')
+                    ->icon('heroicon-m-envelope')
                     ->copyable()
                     ->copyMessage('Alamat email disalin')
                     ->copyMessageDuration(1500),
@@ -98,7 +103,7 @@ class MahasiswaResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->iconColor('primary')
-                    ->icon('heroicon-m-envelope')
+                    ->icon('heroicon-m-phone')
                     ->copyable()
                     ->copyMessage('Nomor telepon disalin')
                     ->copyMessageDuration(1500),

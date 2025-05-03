@@ -2,19 +2,20 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\KegiatanResource\Pages;
-use App\Filament\Resources\KegiatanResource\RelationManagers;
-use App\Models\Kegiatan;
 use Filament\Forms;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Filters\Filter;
-use Filament\Tables\Filters\SelectFilter;
+use App\Models\Kegiatan;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Carbon;
+use Filament\Resources\Resource;
+use Filament\Tables\Filters\Filter;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\KegiatanResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\KegiatanResource\RelationManagers;
 
 class KegiatanResource extends Resource
 {
@@ -42,6 +43,7 @@ class KegiatanResource extends Resource
                     ->autocomplete(false)
                     ->maxLength(255),
                 Forms\Components\DateTimePicker::make('tanggal_pelaksana')
+                    ->label('Tanggal & Waktu Pelaksanaan')
                     ->native(false)
                     ->required(),
                 Forms\Components\Select::make('jenis_kegiatan')
@@ -69,10 +71,16 @@ class KegiatanResource extends Resource
                     ->description(fn (Kegiatan $record): string => $record->jenis_kegiatan, position: 'above')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('tanggal_pelaksana')
-                    ->dateTime()
+                    ->label('Tanggal & Waktu Pelaksanaan')
                     ->sortable()
                     ->iconColor('primary')
-                    ->icon('heroicon-m-calendar-days'),
+                    ->icon('heroicon-m-calendar-days')
+                    ->formatStateUsing(function ($state) {
+                        Carbon::setLocale('id');
+                        $tanggal = Carbon::parse($state)->translatedFormat('l, d F Y');
+                        $waktu = Carbon::parse($state)->translatedFormat('H:i');
+                        return ($tanggal) . ' | ' . ($waktu);
+                    }),
                 Tables\Columns\ToggleColumn::make('status')
                     ->label('Status'),
                 Tables\Columns\TextColumn::make('created_at')

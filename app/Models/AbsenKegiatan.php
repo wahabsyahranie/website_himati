@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class AbsenKegiatan extends Model
 {
     protected $table = 'absen_kegiatans';
-    protected $fillable = ['jabatan_kegiatan', 'penguruses_id', 'kegiatan_id'];
+    protected $fillable = ['penguruses_id', 'kegiatan_id'];
 
     public function pengurus() : BelongsTo {
         return $this->belongsTo(Pengurus::class, 'penguruses_id');

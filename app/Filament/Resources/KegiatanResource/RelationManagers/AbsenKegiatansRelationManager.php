@@ -3,13 +3,14 @@
 namespace App\Filament\Resources\KegiatanResource\RelationManagers;
 
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Forms\FormsComponent;
-use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Carbon;
+use Filament\Forms\FormsComponent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Resources\RelationManagers\RelationManager;
 
 class AbsenKegiatansRelationManager extends RelationManager
 {
@@ -22,17 +23,14 @@ class AbsenKegiatansRelationManager extends RelationManager
                 Forms\Components\Select::make('penguruses_id')
                     ->label('Pilih Pengurus')
                     ->searchable()
+                    ->required()
+                    ->columnSpanFull()
                     ->options(
                         \App\Models\Pengurus::with('mahasiswa')
                             ->get()
                             ->sortBy(fn($pengurus) => $pengurus->mahasiswa->nama)
                             ->pluck('mahasiswa.nama', 'id')
                     ),
-                Forms\Components\TextInput::make('jabatan_kegiatan')
-                    ->label('Jabatan di Kegiatan')
-                    ->required()
-                    ->autocomplete(false)
-                    ->maxLength(255),
             ]);
     }
 
@@ -41,13 +39,16 @@ class AbsenKegiatansRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('detail')
             ->columns([
-                Tables\Columns\TextColumn::make('jabatan_kegiatan')
-                    ->label('Jabatan di Kegiatan'),
                 Tables\Columns\TextColumn::make('pengurus.mahasiswa.nama')
                     ->label('Nama Pengurus'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Waktu Absen')
-                    ->dateTime(),
+                    ->formatStateUsing(function ($state) {
+                        Carbon::setLocale('id');
+                        $tanggal = Carbon::parse($state)->translatedFormat('l, d F Y');
+                        $waktu = Carbon::parse($state)->translatedFormat('H:i');
+                        return ($tanggal) . ' | ' . ($waktu);
+                    }),
             ])
             ->filters([
                 //
@@ -56,11 +57,7 @@ class AbsenKegiatansRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\ActionGroup::make([
-                    Tables\Actions\EditAction::make(),
-                    Tables\Actions\ViewAction::make(),
-                    Tables\Actions\DeleteAction::make(),
-                ])
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

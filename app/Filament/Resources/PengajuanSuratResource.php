@@ -93,6 +93,7 @@ class PengajuanSuratResource extends Resource
                     ->native(false)
                     ->required(),
                 Forms\Components\DatePicker::make('tanggal_selesai')
+                    ->afterOrEqual('tanggal_pelaksana')
                     ->label('Tanggal Selesai')
                     ->native(false)
                     ->required(),
@@ -101,6 +102,7 @@ class PengajuanSuratResource extends Resource
                     ->native(false)
                     ->required(),
                 Forms\Components\TimePicker::make('waktu_selesai')
+                    ->after('waktu_pelaksana')
                     ->label('Waktu Selesai')
                     ->native(false)
                     ->required(),
@@ -111,6 +113,7 @@ class PengajuanSuratResource extends Resource
                     ->maxLength(255),
                 Forms\Components\Select::make('tandatangan')
                     ->label('Tandatangan')
+                    ->placeholder('Pilih tandatangan')
                     ->multiple()
                     ->options(function () {
                         return Dosen::all()->pluck('nama', 'nama')->toArray();

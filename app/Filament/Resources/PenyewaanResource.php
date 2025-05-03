@@ -47,6 +47,7 @@ class PenyewaanResource extends Resource
                     ->native(false)
                     ->required(),
                 Forms\Components\DatePicker::make('tanggal_kembali')
+                    ->after('tanggal_pinjam')
                     ->native(false)
                     ->required(),
                 Forms\Components\Repeater::make('detail_penyewaans')
