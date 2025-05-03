@@ -10,10 +10,11 @@ class ListKegiatans extends ListRecords
 {
     protected static string $resource = KegiatanResource::class;
     protected static ?string $title = 'Daftar Kegiatan';
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\CreateAction::make(),
-        ];
-    }
+    
+    // protected function getHeaderActions(): array
+    // {
+    //     return [
+    //         Actions\CreateAction::make(),
+    //     ];
+    // }
 }

@@ -11,10 +11,10 @@ class ListPenguruses extends ListRecords
     protected static string $resource = PengurusResource::class;
     protected static ?string $title = 'Data Pengurus';
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\CreateAction::make(),
-        ];
-    }
+    // protected function getHeaderActions(): array
+    // {
+    //     return [
+    //         Actions\CreateAction::make(),
+    //     ];
+    // }
 }

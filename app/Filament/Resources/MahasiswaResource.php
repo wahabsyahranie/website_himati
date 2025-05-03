@@ -48,6 +48,7 @@ class MahasiswaResource extends Resource
                     ->maxLength(255),
                 Forms\Components\Select::make('prodi')
                     ->required()
+                    ->native(false)
                     ->options([
                         'TI' => 'D3 - Teknik Informatika',
                         'TK' => 'D3 - Teknik Komputer',
@@ -60,6 +61,10 @@ class MahasiswaResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->headerActions([
+                Tables\Actions\CreateAction::make()
+                    ->label('Tambah Mahasiswa'),
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('nim')
                     ->label('NIM')
@@ -67,18 +72,33 @@ class MahasiswaResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('nama')
                     ->searchable()
+                    ->limit(20)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('tahun_masuk')
                     ->label('Tahun Masuk')
+                    ->limit(4)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('prodi'),
-                Tables\Columns\TextColumn::make('nomor_telepon')
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->sortable()
+                    ->limit(15)
+                    ->iconColor('primary')
+                    ->icon('heroicon-m-phone')
+                    ->copyable()
+                    ->copyMessage('Alamat email disalin')
+                    ->copyMessageDuration(1500),
+                Tables\Columns\TextColumn::make('nomor_telepon')
+                    ->limit(13)
+                    ->searchable()
+                    ->sortable()
+                    ->iconColor('primary')
+                    ->icon('heroicon-m-envelope')
+                    ->copyable()
+                    ->copyMessage('Nomor telepon disalin')
+                    ->copyMessageDuration(1500),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\SelectFilter::make('prodi')
                     ->options([

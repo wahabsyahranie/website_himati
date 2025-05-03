@@ -46,17 +46,29 @@ class DosenResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->headerActions([
+                Tables\Actions\CreateAction::make()
+                    ->label('Tambah Dosen'),
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('nama')
                     ->sortable()
+                    ->limit(20)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('jabatan')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nip')
                     ->label('NIP')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('nomor_telepon'),
+                Tables\Columns\TextColumn::make('nomor_telepon')
+                    ->iconColor('primary')
+                    ->limit(13)
+                    ->copyable()
+                    ->copyMessage('Nomor telepon disalin')
+                    ->copyMessageDuration(1500)
+                    ->icon('heroicon-m-phone'),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\selectFilter::make('jabatan')
                     ->options(function () {

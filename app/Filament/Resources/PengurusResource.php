@@ -41,6 +41,9 @@ class PengurusResource extends Resource
                     ->required()
                     ->numeric(),
                 Forms\Components\Select::make('jabatan')
+                    ->searchable()
+                    ->required()
+                    ->native(false)
                     ->options([
                         'ketua umum' => 'Ketua Umum',
                         'wakil Ketua Umum' => 'Wakil Ketua Umum',
@@ -54,8 +57,10 @@ class PengurusResource extends Resource
                     ->required()
                     ->numeric(),
                 Forms\Components\Select::make('departemen')
+                    ->searchable()
                     ->multiple()
                     ->required()
+                    ->placeholder('Pilih Departemen')
                     ->options([
                         'kpsdm' => 'KPSDM',
                         'agama' => 'Agama',
@@ -70,6 +75,10 @@ class PengurusResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->headerActions([
+                Tables\Actions\CreateAction::make()
+                    ->label('Tambah Pengurus'),
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('nomor_induk')
                     ->label('NIA')
@@ -77,6 +86,7 @@ class PengurusResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('mahasiswa.nama')
                     ->label('Nama')
+                    ->limit(20)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('jabatan')
                     ->searchable(),
@@ -95,6 +105,7 @@ class PengurusResource extends Resource
                         };
                     }),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 SelectFilter::make('jabatan')
                     ->options(function () {

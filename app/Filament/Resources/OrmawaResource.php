@@ -51,16 +51,34 @@ class OrmawaResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->headerActions([
+                Tables\Actions\CreateAction::make()
+                    ->label('Tambah Ormawa'),
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('nama')
                     ->label('Nama')
+                    ->limit(20)
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('nomor_telepon')
-                    ->label('Nomor Telepon / Humas'),
+                    ->label('Nomor Telepon / Humas')
+                    ->iconColor('primary')
+                    ->icon('heroicon-m-phone')
+                    ->limit(13)
+                    ->copyable()
+                    ->copyMessage('Nomor telepon disalin')
+                    ->copyMessageDuration(1500),
                 Tables\Columns\TextColumn::make('email')
-                    ->label('Email'),
+                    ->label('Email')
+                    ->limit(15)
+                    ->iconColor('primary')
+                    ->copyable()
+                    ->copyMessage('Alamat email disalin')
+                    ->copyMessageDuration(1500)
+                    ->icon('heroicon-m-envelope'),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
 
             ])

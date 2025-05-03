@@ -11,10 +11,10 @@ class ListDosens extends ListRecords
     protected static string $resource = DosenResource::class;
     protected static ?string $title = 'Data Dosen';
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\CreateAction::make(),
-        ];
-    }
+    // protected function getHeaderActions(): array
+    // {
+    //     return [
+    //         Actions\CreateAction::make(),
+    //     ];
+    // }
 }

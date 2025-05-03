@@ -51,6 +51,10 @@ class InventarisResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->headerActions([
+                Tables\Actions\CreateAction::make()
+                    ->label('Tambah Inventaris'),
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('nama')
                     ->label('Nama')
@@ -65,6 +69,7 @@ class InventarisResource extends Resource
                     // ->prefix('Rp. '),
                     ->money('IDR', locale: 'nl'),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])

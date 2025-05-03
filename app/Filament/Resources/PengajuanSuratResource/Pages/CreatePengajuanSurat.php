@@ -26,7 +26,7 @@ class CreatePengajuanSurat extends CreateRecord
         ];
         $romawi = $bulan_romawi[$bulan];
 
-        //nomor surat otomatis
+        //mengambil nomor surat terakhir dari database dan increment
         $cek_baris_terakhir = PengajuanSurat::latest()->first();
         if ($cek_baris_terakhir && $cek_baris_terakhir->nomor_surat) {
             $cek_nomor_terakhir = $cek_baris_terakhir->nomor_surat;

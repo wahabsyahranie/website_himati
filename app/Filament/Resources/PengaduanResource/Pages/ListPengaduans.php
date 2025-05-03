@@ -11,10 +11,10 @@ class ListPengaduans extends ListRecords
     protected static string $resource = PengaduanResource::class;
     protected static ?string $title = 'Daftar Pengaduan';
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\CreateAction::make(),
-        ];
-    }
+    // protected function getHeaderActions(): array
+    // {
+    //     return [
+    //         Actions\CreateAction::make(),
+    //     ];
+    // }
 }

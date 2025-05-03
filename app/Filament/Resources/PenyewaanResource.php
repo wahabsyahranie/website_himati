@@ -23,7 +23,7 @@ class PenyewaanResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document-currency-dollar';
     protected static ?string $navigationGroup = 'Kelola Layanan';
-    protected static ?string $navigationLabel = 'Penyewaan';
+    protected static ?string $navigationLabel = 'Penyewaan Inventaris';
     protected static ?int $navigationSort = 8;
     public static function getNavigationBadge(): ?string
     {
@@ -40,17 +40,21 @@ class PenyewaanResource extends Resource
             ->schema([
                 Forms\Components\Select::make('ormawa_id')
                     ->relationship('ormawa', 'nama')
+                    ->native(false)
                     ->required()
                     ->columnSpanFull(),
                 Forms\Components\DatePicker::make('tanggal_pinjam')
+                    ->native(false)
                     ->required(),
                 Forms\Components\DatePicker::make('tanggal_kembali')
+                    ->native(false)
                     ->required(),
                 Forms\Components\Repeater::make('detail_penyewaans')
                     ->relationship()
                     ->schema([
                         Forms\Components\Select::make('inventaris_id')
                             ->relationship('inventaris', 'nama')
+                            ->native(false)
                             ->required()
                             ->debounce(1000)
                             ->afterStateUpdated(function (Set $set, $state){
@@ -96,6 +100,10 @@ class PenyewaanResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->headerActions([
+                Tables\Actions\CreateAction::make()
+                    ->label('Ajukan Penyewaan'),
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('ormawa.nama')
                     ->label('Ormawa')
@@ -106,6 +114,8 @@ class PenyewaanResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('segments')
                     ->label('Tanggal Penyewaan')
+                    ->iconColor('primary')
+                    ->icon('heroicon-m-calendar-days')
                     ->getStateUsing(function ($record) {
                         $tanggalPinjam = Carbon::parse($record->tanggal_pinjam)->format('d F Y');
                         $tanggalKembali = Carbon::parse($record->tanggal_kembali)->format('d F Y');
@@ -121,6 +131,7 @@ class PenyewaanResource extends Resource
                         };
                     }),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\selectFilter::make('status')
                     ->options(function () {

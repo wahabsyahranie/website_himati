@@ -39,10 +39,13 @@ class KegiatanResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('nama')
                     ->required()
+                    ->autocomplete(false)
                     ->maxLength(255),
                 Forms\Components\DateTimePicker::make('tanggal_pelaksana')
+                    ->native(false)
                     ->required(),
                 Forms\Components\Select::make('jenis_kegiatan')
+                    ->native(false)
                     ->required()
                     ->options([
                         'rapat umum' => 'Rapat Umum',
@@ -56,13 +59,19 @@ class KegiatanResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->headerActions([
+                Tables\Actions\CreateAction::make()
+                    ->label('Buat Kegiatan'),
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('nama')
                     ->label('Nama Kegiatan')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('tanggal_pelaksana')
                     ->dateTime()
-                    ->sortable(),
+                    ->sortable()
+                    ->iconColor('primary')
+                    ->icon('heroicon-m-calendar-days'),
                 Tables\Columns\ToggleColumn::make('status')
                     ->label('Status'),
                 Tables\Columns\TextColumn::make('jenis_kegiatan'),
@@ -72,6 +81,7 @@ class KegiatanResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 SelectFilter::make('status')
                     ->label('Status Kegiatan')

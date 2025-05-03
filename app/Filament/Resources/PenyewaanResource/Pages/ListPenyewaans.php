@@ -11,10 +11,10 @@ class ListPenyewaans extends ListRecords
     protected static string $resource = PenyewaanResource::class;
     protected static ?string $title = 'Daftar Permintaan Sewa Inventaris';
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\CreateAction::make(),
-        ];
-    }
+    // protected function getHeaderActions(): array
+    // {
+    //     return [
+    //         Actions\CreateAction::make(),
+    //     ];
+    // }
 }

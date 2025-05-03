@@ -42,6 +42,7 @@ class PengaduanResource extends Resource
                     ->required()
                     ->columnSpanFull(),
                 Forms\Components\Select::make('tujuan')
+                    ->native(false)
                     ->required()
                     ->options([
                         'jurusan' => 'Jurusan',
@@ -49,6 +50,7 @@ class PengaduanResource extends Resource
                         'hmj ti' => 'HMJ TI',
                     ]),
                 Forms\Components\Select::make('mahasiswa_id')
+                    ->native(false)
                     ->label('Pelapor')
                     ->relationship('mahasiswa', 'nama')
                     ->required(),
@@ -58,8 +60,13 @@ class PengaduanResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->headerActions([
+                Tables\Actions\CreateAction::make()
+                    ->label('Buat Pengaduan'),
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('judul')
+                    ->limit(15)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('tujuan'),
                 Tables\Columns\TextColumn::make('mahasiswa.nama')
@@ -74,6 +81,7 @@ class PengaduanResource extends Resource
                         };
                     }),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
                     ->options(function () {

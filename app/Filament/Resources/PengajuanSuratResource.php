@@ -39,11 +39,13 @@ class PengajuanSuratResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('mahasiswa_id')
+                    ->native(false)
                     ->label('Pilih Mahasiswa')
                     ->columnSpanFull()
                     ->relationship('mahasiswa', 'nama')
                     ->required(),
                 Forms\Components\Select::make('type')
+                    ->native(false)
                     ->label('Jenis Surat')
                     ->required()
                     ->options([
@@ -57,6 +59,7 @@ class PengajuanSuratResource extends Resource
                     ]),
                 Forms\Components\Select::make('departemen')
                     ->label('Departemen')
+                    ->native(false)
                     ->required()
                     ->options([
                         'Agm' => 'Keagamaan',
@@ -69,14 +72,17 @@ class PengajuanSuratResource extends Resource
                     ]),
                 Forms\Components\TextInput::make('perihal')
                     ->label('Perihal Surat')
+                    ->autocomplete(false)
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('dosen_id')
                     ->label('Tujuan Surat')
+                    ->native(false)
                     ->required()
                     ->relationship('dosen', 'jabatan'),
                 Forms\Components\Textarea::make('isi')
                     ->label('Isi Surat')
+                    ->autocomplete(false)
                     ->required()
                     ->columnSpanFull()
                     ->rows(5)
@@ -84,21 +90,25 @@ class PengajuanSuratResource extends Resource
                     ->helperText('Maksimal 380 karakter'),
                 Forms\Components\DatePicker::make('tanggal_pelaksana')
                     ->label('Tanggal Mulai')
+                    ->native(false)
                     ->required(),
                 Forms\Components\DatePicker::make('tanggal_selesai')
                     ->label('Tanggal Selesai')
+                    ->native(false)
                     ->required(),
                 Forms\Components\TimePicker::make('waktu_pelaksana')
                     ->label('Waktu Mulai')
+                    ->native(false)
                     ->required(),
                 Forms\Components\TimePicker::make('waktu_selesai')
                     ->label('Waktu Selesai')
+                    ->native(false)
                     ->required(),
                 Forms\Components\TextInput::make('tempat_pelaksana')
                     ->label('Tempat Pelaksanaan')
+                    ->autocomplete(false)
                     ->required()
-                    ->maxLength(255)
-                    ->columnSpanFull(),
+                    ->maxLength(255),
                 Forms\Components\Select::make('tandatangan')
                     ->label('Tandatangan')
                     ->multiple()
@@ -107,10 +117,12 @@ class PengajuanSuratResource extends Resource
                     }),
                 Forms\Components\TextInput::make('nama_cp')
                     ->label('Nama Kontak Person')
+                    ->autocomplete(false)
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('nomor_cp')
                     ->label('Nomor Kontak Person')
+                    ->autocomplete(false)
                     ->numeric()
                     ->required()
                     ->maxLength(255),
@@ -120,9 +132,14 @@ class PengajuanSuratResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->headerActions([
+                Tables\Actions\CreateAction::make()
+                    ->label('Buat Surat'),
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('created_at')
-                    ->date()
+                    ->label('Tanggal Dibuat')
+                    ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
@@ -131,9 +148,11 @@ class PengajuanSuratResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('nomor_surat')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('perihal')
-                    ->searchable(),
+                    ->searchable()
+                    ->description(fn (PengajuanSurat $record): string => $record->perihal, position: 'above')
+                    ->copyable()
+                    ->copyMessage('Nomor surat disalin')
+                    ->copyMessageDuration(1500),
                 Tables\Columns\TextColumn::make('dosen.jabatan')
                     ->label('Tujuan Surat')
                     ->searchable(),
@@ -147,9 +166,11 @@ class PengajuanSuratResource extends Resource
                         };
                     }),
                 Tables\Columns\TextColumn::make('tandatangan')
+                    ->label('Tandatangan')
                     ->badge()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\selectFilter::make('status')
                     ->options(function () {
