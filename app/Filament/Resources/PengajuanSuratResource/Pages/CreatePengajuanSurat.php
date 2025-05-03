@@ -39,10 +39,15 @@ class CreatePengajuanSurat extends CreateRecord
         }
 
         //set nomor surat
-        $nos_final = $nomor_baru . '/' . $type_after . '/' . $organisasi . '/' . $dept . '/' . $romawi . '/' . $tahun;
-        $data['nomor_surat'] = $nos_final;
+        if($dept !== 'Bpi'){
+            $nos_final = $nomor_baru . '/' . $type_after . '/' . $organisasi . '/' . $dept . '/' . $romawi . '/' . $tahun;
+            $data['nomor_surat'] = $nos_final;
+        } else {
+            $nos_final = $nomor_baru . '/' . $type_after . '/' . $organisasi . '/' . $romawi . '/' . $tahun;
+            $data['nomor_surat'] = $nos_final;
+        }
 
-        //mengatur slug
+        // mengatur slug
         $slug = $data['nomor_surat'];
         $slug_baru = str_replace('/', '-', $slug);
         $data['slug'] = $slug_baru;

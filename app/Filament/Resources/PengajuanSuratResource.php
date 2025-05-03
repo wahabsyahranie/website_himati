@@ -4,8 +4,10 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
+use App\Models\Dosen;
 use Filament\Forms\Set;
 use Filament\Forms\Form;
+use App\Models\Pengaduan;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use App\Models\PengajuanSurat;
@@ -14,7 +16,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PengajuanSuratResource\Pages;
 use App\Filament\Resources\PengajuanSuratResource\RelationManagers;
-use App\Models\Pengaduan;
 
 class PengajuanSuratResource extends Resource
 {
@@ -43,7 +44,7 @@ class PengajuanSuratResource extends Resource
                     ->relationship('mahasiswa', 'nama')
                     ->required(),
                 Forms\Components\Select::make('type')
-                    ->label('Type Surat')
+                    ->label('Jenis Surat')
                     ->required()
                     ->options([
                         'SIk' => 'Surat Izin Kegiatan',
@@ -64,12 +65,8 @@ class PengajuanSuratResource extends Resource
                         'Hum' => 'Humas dan Media',
                         'Rt' => 'Rumah Tangga',
                         'Dan' => 'Dana dan Usaha',
+                        'Bpi' => 'Badan Pengurus Inti',
                     ]),
-                Forms\Components\TextInput::make('lampiran')
-                    ->label('Lampiran Surat')
-                    ->required()
-                    ->maxLength(255)
-                    ->default('-'),
                 Forms\Components\TextInput::make('perihal')
                     ->label('Perihal Surat')
                     ->required()
@@ -77,13 +74,14 @@ class PengajuanSuratResource extends Resource
                 Forms\Components\Select::make('dosen_id')
                     ->label('Tujuan Surat')
                     ->required()
-                    ->relationship('dosen', 'jabatan')
-                    ->columnSpanFull(),
+                    ->relationship('dosen', 'jabatan'),
                 Forms\Components\Textarea::make('isi')
                     ->label('Isi Surat')
                     ->required()
                     ->columnSpanFull()
-                    ->rows(5),
+                    ->rows(5)
+                    ->maxLength(330)
+                    ->helperText('Maksimal 380 karakter'),
                 Forms\Components\DatePicker::make('tanggal_pelaksana')
                     ->label('Tanggal Mulai')
                     ->required(),
@@ -101,6 +99,12 @@ class PengajuanSuratResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
+                Forms\Components\Select::make('tandatangan')
+                    ->label('Tandatangan')
+                    ->multiple()
+                    ->options(function () {
+                        return Dosen::all()->pluck('nama', 'nama')->toArray();
+                    }),
                 Forms\Components\TextInput::make('nama_cp')
                     ->label('Nama Kontak Person')
                     ->required()
@@ -119,7 +123,8 @@ class PengajuanSuratResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('created_at')
                     ->date()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label('Tanggal Diupdate')
                     ->date()
@@ -141,6 +146,9 @@ class PengajuanSuratResource extends Resource
                             default => 'warning',
                         };
                     }),
+                Tables\Columns\TextColumn::make('tandatangan')
+                    ->badge()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\selectFilter::make('status')
@@ -162,8 +170,12 @@ class PengajuanSuratResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                    // Tables\Actions\EditAction::make(),
-                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\Action::make('Lihat Surat')
+                        ->color('gray')
+                        ->icon('heroicon-o-eye')
+                        ->url(fn ($record) => route('surat.show', $record->slug))
+                        ->openUrlInNewTab()
+                        ->color('gray'),
                     Tables\Actions\Action::make('Tolak Surat')
                         ->color('warning')
                         ->icon('heroicon-o-x-circle')
@@ -172,15 +184,7 @@ class PengajuanSuratResource extends Resource
                         ->action(function (PengajuanSurat $record) {
                             $record->update(['status' => 'ditolak']);
                         }),
-                    Tables\Actions\Action::make('Proses Surat')
-                        ->color('info')
-                        ->icon('heroicon-o-x-circle')
-                        ->requiresConfirmation()
-                        ->visible(fn (PengajuanSurat $record) => $record->status !== 'diproses')
-                        ->action(function (PengajuanSurat $record) {
-                            $record->update(['status' => 'diproses']);
-                        }),
-                    Tables\Actions\Action::make('Tandai Surat Disetujui')
+                    Tables\Actions\Action::make('Setujui Surat')
                         ->color('success')
                         ->icon('heroicon-o-check-circle')
                         ->requiresConfirmation()
@@ -188,13 +192,13 @@ class PengajuanSuratResource extends Resource
                         ->action(function (PengajuanSurat $record) {
                             $record->update(['status' => 'disetujui']);
                         }),
+                    Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
                     Tables\Actions\Action::make('Unduh Surat')
-                        ->color('gray')
-                        ->icon('heroicon-o-document-arrow-down')
-                        ->url(fn ($record) => route('surat.show', $record->slug))
+                        ->visible(fn (PengajuanSurat $record) => $record->status === 'disetujui')
+                        ->icon('heroicon-o-arrow-down-tray')
                         ->openUrlInNewTab()
-                        ->color('gray')
+                        ->url(fn ($record) => route('surat.unduh', $record->slug)),
                 ])
             ])
             ->bulkActions([

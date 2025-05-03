@@ -9,3 +9,5 @@ Route::get('/', function () {
 });
 
 Route::get('/surat/{slug}', [PengajuanSuratController::class, 'show'])->name('surat.show');
+
+Route::get('/surat/unduh/{slug}', [PengajuanSuratController::class, 'unduh'])->name('surat.unduh');
