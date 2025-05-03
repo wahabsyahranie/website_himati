@@ -28,16 +28,20 @@ class DosenResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('nama')
                     ->required()
+                    ->autocomplete(false)
                     ->maxLength(255),
                 Forms\Components\TextInput::make('jabatan')
                     ->required()
+                    ->autocomplete(false)
                     ->maxLength(255),
                 Forms\Components\TextInput::make('nip')
                     ->label('NIP')
+                    ->autocomplete(false)
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('nomor_telepon')
                     ->tel()
+                    ->autocomplete(false)
                     ->required()
                     ->maxLength(255),
             ]);

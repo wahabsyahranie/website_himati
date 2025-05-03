@@ -29,9 +29,11 @@ class OrmawaResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('nama')
                     ->label('Nama Ormawa')
+                    ->autocomplete(false)
                     ->required(),
                 Forms\Components\TextInput::make('username')
                     ->label('Username')
+                    ->autocomplete(false)
                     ->required(),
                 Forms\Components\TextInput::make('password')
                     ->label('Password')
@@ -39,10 +41,12 @@ class OrmawaResource extends Resource
                     ->password(),
                 Forms\Components\TextInput::make('nomor_telepon')
                     ->label('Nomor Telepon / Humas')
+                    ->autocomplete(false)
                     ->required()
                     ->tel(),
                 Forms\Components\TextInput::make('email')
                     ->label('Email Ormawa')
+                    ->autocomplete(false)
                     ->required()
                     ->email(),
             ]);

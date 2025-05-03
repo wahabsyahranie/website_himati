@@ -66,6 +66,7 @@ class KegiatanResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('nama')
                     ->label('Nama Kegiatan')
+                    ->description(fn (Kegiatan $record): string => $record->jenis_kegiatan, position: 'above')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('tanggal_pelaksana')
                     ->dateTime()
@@ -74,7 +75,6 @@ class KegiatanResource extends Resource
                     ->icon('heroicon-m-calendar-days'),
                 Tables\Columns\ToggleColumn::make('status')
                     ->label('Status'),
-                Tables\Columns\TextColumn::make('jenis_kegiatan'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Tanggal Dibuat')
                     ->dateTime()

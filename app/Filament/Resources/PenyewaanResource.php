@@ -108,19 +108,16 @@ class PenyewaanResource extends Resource
                 Tables\Columns\TextColumn::make('ormawa.nama')
                     ->label('Ormawa')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->description(
+                        fn (Penyewaan $record): string =>
+                            \Carbon\Carbon::parse($record->tanggal_pinjam)->format('d F Y') . ' - ' .
+                            \Carbon\Carbon::parse($record->tanggal_kembali)->format('d F Y'),
+                        position: 'above'
+                    ),
                 Tables\Columns\TextColumn::make('detail_penyewaans.inventaris.nama')
                     ->label('Inventaris')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('segments')
-                    ->label('Tanggal Penyewaan')
-                    ->iconColor('primary')
-                    ->icon('heroicon-m-calendar-days')
-                    ->getStateUsing(function ($record) {
-                        $tanggalPinjam = Carbon::parse($record->tanggal_pinjam)->format('d F Y');
-                        $tanggalKembali = Carbon::parse($record->tanggal_kembali)->format('d F Y');
-                        return $tanggalPinjam . ' - ' . $tanggalKembali;
-                    }),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Status')
                     ->badge()->color(function ($record) {

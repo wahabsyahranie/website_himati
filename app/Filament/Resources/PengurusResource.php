@@ -38,6 +38,7 @@ class PengurusResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('nomor_induk')
                     ->label('Nomor Induk Anggota')
+                    ->autocomplete(false)
                     ->required()
                     ->numeric(),
                 Forms\Components\Select::make('jabatan')
@@ -55,6 +56,7 @@ class PengurusResource extends Resource
                     ]),
                 Forms\Components\TextInput::make('periode')
                     ->required()
+                    ->autocomplete(false)
                     ->numeric(),
                 Forms\Components\Select::make('departemen')
                     ->searchable()
@@ -94,11 +96,12 @@ class PengurusResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('departemen')
                     ->badge()
+                    ->limitList(1)
                     ->color(function ($state) {
                         return match ($state) {
+                            'minba' => 'warning',
                             'kpsdm' => 'success',
                             'agama' => 'info',
-                            'minba' => 'warning',
                             'humed' => 'danger',
                             'danus' => 'info',
                             default => 'success',

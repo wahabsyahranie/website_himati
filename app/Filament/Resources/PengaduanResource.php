@@ -37,9 +37,11 @@ class PengaduanResource extends Resource
                 Forms\Components\TextInput::make('judul')
                     ->required()
                     ->maxLength(255)
+                    ->autocomplete(false)
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('deskripsi')
                     ->required()
+                    ->autocomplete(false)
                     ->columnSpanFull(),
                 Forms\Components\Select::make('tujuan')
                     ->native(false)
@@ -66,12 +68,10 @@ class PengaduanResource extends Resource
             ])
             ->columns([
                 Tables\Columns\TextColumn::make('judul')
-                    ->limit(15)
-                    ->searchable(),
+                    ->limit(25)
+                    ->searchable()
+                    ->description(fn (Pengaduan $record): string => $record->mahasiswa->nama, position: 'above'),
                 Tables\Columns\TextColumn::make('tujuan'),
-                Tables\Columns\TextColumn::make('mahasiswa.nama')
-                    ->label('Nama Pelapor')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()->color(function ($record) {
                         return match ($record->status) {

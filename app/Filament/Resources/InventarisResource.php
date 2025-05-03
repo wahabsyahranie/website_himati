@@ -29,12 +29,15 @@ class InventarisResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('nama')
                     ->label('Nama Inventaris')
+                    ->autocomplete(false)
                     ->required(),
                 Forms\Components\TextInput::make('stok')
                     ->label('Stok Inventaris')
+                    ->autocomplete(false)
                     ->required(),
                 Forms\Components\TextInput::make('harga')
                     ->label('Harga Sewa / Hari')
+                    ->autocomplete(false)
                     ->required()
                     ->prefix('Rp.')
                     ->numeric()

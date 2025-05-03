@@ -28,12 +28,15 @@ class MahasiswaResource extends Resource
                 Forms\Components\TextInput::make('nim')
                     ->label('NIM')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(9)
+                    ->autocomplete(false),
                 Forms\Components\TextInput::make('nama')
                     ->required()
+                    ->autocomplete(false)
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
                     ->email()
+                    ->autocomplete(false)
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('password')
@@ -41,10 +44,12 @@ class MahasiswaResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('tahun_masuk')
-                    ->required(),
+                    ->required()
+                    ->autocomplete(false),
                 Forms\Components\TextInput::make('nomor_telepon')
                     ->tel()
                     ->required()
+                    ->autocomplete(false)
                     ->maxLength(255),
                 Forms\Components\Select::make('prodi')
                     ->required()
