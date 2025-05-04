@@ -200,7 +200,8 @@ class PengajuanSuratResource extends Resource
                         ->icon('heroicon-o-eye')
                         ->url(fn ($record) => route('surat.show', $record->slug))
                         ->openUrlInNewTab()
-                        ->color('gray'),
+                        ->color('gray')
+                        ->visible(fn (PengajuanSurat $record) => $record->status === 'disetujui'),
                     Tables\Actions\Action::make('Tolak Surat')
                         ->color('warning')
                         ->icon('heroicon-o-x-circle')

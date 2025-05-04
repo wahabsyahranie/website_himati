@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PengaduanResource\Pages;
-use App\Filament\Resources\PengaduanResource\RelationManagers;
-use App\Models\Pengaduan;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
+use App\Models\Pengaduan;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\PengaduanResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\PengaduanResource\RelationManagers;
+use App\Filament\Resources\PengaduanResource\Widgets\PengaduanOverview;
 
 class PengaduanResource extends Resource
 {
@@ -21,6 +22,16 @@ class PengaduanResource extends Resource
     protected static ?string $navigationGroup = 'Kelola Layanan';
     protected static ?string $navigationLabel = 'Pengaduan';
     protected static ?int $navigationSort = 6;
+
+    //MEMBUAT WIDGET
+    public static function getWidgets(): array
+    {
+        return [
+            PengaduanOverview::class,
+        ];
+    }
+
+    //MEMBUAT BADGE ANGKA PADA SIDE PANEL
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::where('status', 'ditinjau')->count();
