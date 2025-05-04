@@ -41,6 +41,7 @@ class PengaduanResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('deskripsi')
                     ->required()
+                    ->rows(7)
                     ->autocomplete(false)
                     ->columnSpanFull(),
                 Forms\Components\Select::make('tujuan')

@@ -96,6 +96,7 @@ class PengajuanSuratResource extends Resource
                     ->afterOrEqual('tanggal_pelaksana')
                     ->label('Tanggal Selesai')
                     ->native(false)
+                    ->helperText('Jika dihari yang sama. maka, pilih tanggal yang sama dengan tanggal mulai.')
                     ->required(),
                 Forms\Components\TimePicker::make('waktu_pelaksana')
                     ->label('Waktu Mulai')

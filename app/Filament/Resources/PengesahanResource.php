@@ -63,11 +63,11 @@ class PengesahanResource extends Resource
                     ->native(false)
                     ->required()
                     ->options([
-                        1 => '1 (satu)', 
-                        2 => '2 (dua)',
-                        3 => '3 (tiga)',
-                        4 => '4 (empat)',
-                        5 => '5 (lima)'
+                        1 => '1 (Pimpinan PTN)', 
+                        2 => '2 (Pimpinan Jurusan)',
+                        3 => '3 (Pembina)',
+                        4 => '4 (Ketua Organisasi)',
+                        5 => '5 (Sekretaris/Kepala Departemen/Ketua Panitia)'
                     ]),
             ]);
     }
