@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('pengajuan_surats', function (Blueprint $table) {
             $table->dropColumn('tertuju');
-            $table->foreignId('dosen_id')->constrained('dosens')->cascadeOnDelete();
+            $table->foreignId('pengesahan_id')->constrained('pengesahans')->cascadeOnDelete();
         });
 
     }
@@ -25,7 +25,7 @@ return new class extends Migration
     {
         Schema::table('pengajuan_surats', function (Blueprint $table) {
             $table->string('tertuju');
-            $table->dropColumn('dosen_id');
+            $table->dropColumn('pengesahan_id');
         });
     }
 };

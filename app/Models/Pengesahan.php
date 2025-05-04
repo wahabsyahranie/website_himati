@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Dosen extends Model
+class Pengesahan extends Model
 {
     use HasFactory;
-    protected $table = 'dosens';
-    protected $fillable = ['nama', 'jabatan', 'nip', 'nomor_telepon'];
+    protected $table = 'pengesahans';
+    protected $fillable = ['nama', 'jabatan', 'nomor_induk', 'nomor_telepon', 'bidang', 'prioritas', 'type_nomor_induk'];
 
     public function pengajuanSurats() : HasMany {
         return $this->hasMany(PengajuanSurat::class);

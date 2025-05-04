@@ -1,52 +1,5 @@
-<!DOCTYPE html>
-<html lang="id">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Surat</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        .header-table {
-        width: 100%;
-        text-align: center;
-        border-collapse: collapse;
-        }
-        .header-table img {
-            width: 80px; /* sesuaikan ukuran */
-        }
-        
-        .content {
-            margin-top: 20px;
-        }
-        .footer {
-            margin-top: 40px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .font-style {
-          font-family: 'Times New Roman';
-          font-weight: normal;
-          margin: 0px;
-        }
-
-        .margin-text {
-          margin-bottom: 2px;
-          margin-top: 2px;
-          text-align: justify;
-        }
-
-        .pembuka-surat {
-          vertical-align: top;
-        }
-
-    </style>
-  </head>
+<x-layout>
   <body>
-
     {{-- KOP SURAT --}}
     <table class="header-table" style="border-bottom: 4px double black">
       <tr>
@@ -90,7 +43,7 @@
             <tr class="pembuka-surat">
                 <td style="padding-top: 10px;">Kepada Yth</td>
                 <td style="padding-top: 10px;">:</td>
-                <td style="font-weight: bold; padding-top: 10px;">{{ $data->dosen->jabatan }}</td>
+                <td style="font-weight: bold; padding-top: 10px;">{{ $tujuan_after }}</td>
             </tr>
         </table>
     </div>
@@ -130,95 +83,56 @@
     </div>
 
     {{-- PENUTUP SURAT --}}
-    <div class="font-style margin-text" id="Isi Surat" style="margin-left: 17.4%; margin-bottom: 0px;">
+    <div class="font-style margin-text" id="Isi Surat" style="margin-left: 17.4%; margin-bottom: 0px; margin-bottom: 0%">
       <p>Kami berkomitmen dengan baik serta akan mematuhi seluruh peraturan yang berlaku. Oleh karena itu, kami sangat mengharapkan izin dan dukungan dari Bapak/Ibu agar kegiatan ini dapat berjalan dengan lancar.</p>
     </div>
 
-    {{-- TTD PENGESAHAN PENGURUS--}}
-    <div style="margin-bottom: 0px">
-      <div class="font-style margin-text" id="Isi Surat" style="margin-left: 17.4%">
-        <p style="margin-bottom: 0px;">Hormat Kami,</p>
-      </div>
+    {{-- PENGESAHAN SURAT --}}
+    <div>
       <div class="font-style" id="Isi Surat" style="margin-left: 17%">
-        @php
-          $info = $departemenMap[$data->departemen] ?? ['Sekretaris Umum', 'HMJ TI', 'Yemima Meilinda Munte', '236152003'];
-        @endphp
-        <table style="width: 100%; text-align: left; margin-top: 0px" class="pembuka-surat">
-          <tr>
-            <td style="width: 50%">Ketua Umum</td>
-            <td style="width: 50%">{{ $info[0] }}</td>
-          </tr>
-          <tr>
-            <td>HMJ TI</td>
-            <td>{{ $info[1] }}</td>
-          </tr>
-          <tr>
-            <td style="padding-top: 40px; font-weight: bold; text-decoration: underline;">Abdul Wahab Syahranie</td>
-            <td style="padding-top: 40px; font-weight: bold; text-decoration: underline;">{{ $info[2] }}</td>
-          </tr>
-          <tr>
-            <td>NIM. 236152003</td>
-            <td>{{ $info[3] }}</td>
-          </tr>
+        <table style="width: 100%; text-align: left;" class="pembuka-surat">
+          @for ($i = 0; $i < count($pengesahanInfo); $i += 2)
+            <tr>
+              @php
+                $total = count($pengesahanInfo);
+                // Ambil 2 item per baris: yang pertama (kanan), lalu yang kedua (kiri)
+                $firstIndex = $i;
+                $secondIndex = $i + 1;
+                $indexes = [];
+        
+                // Jika cukup dua item, urutannya dibalik
+                if (isset(array_values($pengesahanInfo)[$secondIndex])) {
+                    $indexes = [$secondIndex, $firstIndex]; // kanan ke kiri
+                } else {
+                    $indexes = [$firstIndex]; // sisa 1 kolom saja
+                }
+              @endphp
+        
+              @foreach ($indexes as $index)
+                @php
+                  $pengesahan = array_values($pengesahanInfo)[$index];
+                  if ($index === 0) {
+                      $keterangan = 'Hormat Saya';
+                  } elseif ($index === $total - 1) {
+                      $keterangan = 'Menyetujui';
+                  } else {
+                      $keterangan = 'Mengetahui';
+                  }
+                @endphp
+        
+                <td style="width: 50%; vertical-align: top; padding-right: 20px;">
+                  <p class="margin-text" style="margin-top: 1%">{{ $keterangan }},</p>
+                  <p class="margin-text">{{ $pengesahan['jabatan'] ?? '-' }}</p>
+                  <p class="margin-text">{{ $pengesahan['bidang'] ?? '-' }}</p>
+                  <p style="padding-top: 40px; font-weight: bold; text-decoration: underline;" class="margin-text">
+                    {{ $pengesahan['nama'] ?? '-' }}
+                  </p>
+                  <p class="margin-text">{{ $pengesahan['type_nomor_induk'] }}. {{ $pengesahan['nomor_induk'] ?? '-' }}</p>
+                </td>
+              @endforeach
+            </tr>
+          @endfor
         </table>
-      </div>
-    </div>
-
-    {{-- TTD PENGESAHAN PETINGGI --}}
-    <div style="margin-top: 10px;">
-      <div class="font-style" id="Isi Surat" style="margin-left: 17%">
-        {{-- SATU TANDA TANGAN --}}
-        @if(count($data->tandatangan) === 1)
-          @foreach ($data->tandatangan as $nama )
-            <table style="width: 100%; text-align: left; margin-top: 0px" class="pembuka-surat">
-              <tr>
-                <td style="width: 50%">Menyetujui,</td>
-              </tr>
-              <tr>
-                <td>{{ $dosenInfo[$nama]['jabatan'] ?? '-' }}</td>
-              </tr>
-              <tr>
-                <td>Teknologi Informasi</td>
-              </tr>
-              <tr>
-                <td style="padding-top: 40px; font-weight: bold; text-decoration: underline;">{{ $nama }}</td>
-              </tr>
-              <tr>
-                <td>NIP. {{ $dosenInfo[$nama]['nip'] ?? '-' }}</td>
-              </tr>
-            </table>
-          @endforeach
-
-        {{-- DUA TANDA TANGAN --}}
-        @elseif (count($data->tandatangan) === 2)
-        @php
-          $nama_satu = $data->tandatangan[0];
-          $nama_dua = $data->tandatangan[1];
-        @endphp
-          <table style="width: 100%; text-align: left; margin-top: 0px" class="pembuka-surat">
-            <tr>
-              <td style="width: 50%">Menyetujui,</td>
-              <td style="width: 50%">Mengetahui,</td>
-            </tr>
-            <tr>
-              <td>{{ $dosenInfo[$nama_satu]['jabatan'] ?? '-' }}</td>
-              <td>{{ $dosenInfo[$nama_dua]['jabatan'] ?? '-' }}</td>
-            </tr>
-            <tr>
-              <td>Teknologi Informasi</td>
-              <td>Teknologi Informasi</td>
-            </tr>
-            <tr>
-              <td style="padding-top: 40px; font-weight: bold; text-decoration: underline;">{{ $nama_satu }}</td>
-              <td style="padding-top: 40px; font-weight: bold; text-decoration: underline;">{{ $nama_dua }}</td>
-            </tr>
-            <tr>
-              <td>NIP. {{ $dosenInfo[$nama_satu]['nip'] ?? '-' }}</td>
-              <td>NIP. {{ $dosenInfo[$nama_dua]['nip'] ?? '-' }}</td>
-            </tr>
-          </table>
-
-        @endif
       </div>
     </div>
 
@@ -227,4 +141,4 @@
       <p style="font-size: 14px; font-style: italic">CP: Kania Afriansy (085298381263)</p>
     </div>
   </body>
-</html>
+</x-layout>

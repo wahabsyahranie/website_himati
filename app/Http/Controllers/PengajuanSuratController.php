@@ -8,51 +8,60 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class PengajuanSuratController extends Controller
 {
-    //Mengambil semua Data yang dibutuhkan
-    private function getDataSurat($slug)
+
+    //FUNGSI MENGAMBIL DATA
+    private function getDataPengesahan($slug)
     {
         $data = PengajuanSurat::where('slug', $slug)->firstOrFail();
+        $tandaTangan = $data->tandatangan;
+        $pengesahanInfo = [];
 
-        $departemenMap = [
-            'Kpm' => ['Kepala Departemen', 'KPSDM', 'M. Fikri Permana', '236152003'],
-            'Agm' => ['Kepala Departemen', 'Keagamaan', 'M. Rojaky', '236152003'],
-            'Min' => ['Kepala Departemen', 'Minat dan Bakat', 'Davien', '236152003'],
-            'Hum' => ['Kepala Departemen', 'Humas dan Media', 'M. Fikri Permana', '236152003'],
-            'Rt' => ['Kepala Departemen', 'Riset dan Teknologi', 'M. Fikri Permana', '236152003'],
-            'Dan' => ['Kepala Departemen', 'Dana dan Usaha', 'Lala Yunda', '236152003'],
-        ];
+        //MENGAMBIL DATA UNTUK TUJUAN SURAT (KEPADA YTH.)
+        $tujuan = $data->pengesahan_id;
+        $search_jabatan = \App\Models\Pengesahan::where('id', $tujuan)->first();
+        $found_jabatan = $search_jabatan->jabatan;
+        $found_bidang = $search_jabatan->bidang;
+        $tujuan_after = $found_jabatan . ' ' . $found_bidang;
 
-        $tandatangan = $data->tandatangan;
-        $dosenInfo = [];
-        foreach ($tandatangan as $nama) {
-            $dosen = \App\Models\Dosen::where('nama', $nama)->first();
-            if ($dosen) {
-                $dosenInfo[$nama] = [
-                    'jabatan' => $dosen->jabatan,
-                    'nip' => $dosen->nip
+        //MENGAMBIL DATA DARI MODEL PENGESAHAN
+        foreach ($tandaTangan as $nama) {
+            $pengesahan = \App\Models\Pengesahan::where('nama', $nama)->orderBy('prioritas')->first();
+            if ($pengesahan) {
+                $pengesahanInfo[$nama] = [
+                    'jabatan' => $pengesahan->jabatan,
+                    'nomor_induk' => $pengesahan->nomor_induk,
+                    'bidang' => $pengesahan->bidang,
+                    'nama' => $pengesahan->nama,
+                    'prioritas' => $pengesahan->prioritas,
+                    'type_nomor_induk' => $pengesahan->type_nomor_induk
                 ];
             }
         }
 
-        return compact('data', 'departemenMap', 'dosenInfo');
+        //MENGURUTKAN DATA BERDASARKAN PRIORITAS DARI BESAR KE KECIL
+        usort($pengesahanInfo, function ($a, $b) {
+            return $b['prioritas'] <=> $a['prioritas'];
+        });
+
+        //MENGEMBALIKAN DATA
+        return compact('data', 'pengesahanInfo', 'tujuan_after');
     }
 
     //Fungsi Melihat Surat
     public function show($slug)
     {
-        $data = $this->getDataSurat($slug);
+        $data = $this->getDataPengesahan($slug);
         $pdf = Pdf::loadView('surat_unduh', $data);
         return $pdf->stream('invoice.pdf');
     }
 
     public function unduh($slug)
     {
-        $data = $this->getDataSurat($slug);
+        $data = $this->getDataPengesahan($slug);
         $nama_file = $data['data']->slug;
         $pdf = Pdf::loadView('surat_unduh', $data);
         return $pdf->download($nama_file . ".pdf");
     }
-
 
     //Fungsi Mengunduh Surat dengan SpatieBrowserShoot
     // public function unduh($slug)

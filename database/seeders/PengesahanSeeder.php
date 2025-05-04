@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Dosen;
+use App\Models\Pengesahan;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DosenSeeder extends Seeder
+class PengesahanSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Dosen::factory(5)->create();
+        Pengesahan::factory(5)->create();
     }
 }

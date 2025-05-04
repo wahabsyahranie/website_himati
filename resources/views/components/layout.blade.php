@@ -6,6 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         @vite('resources/css/app.css')
         <title>Document</title>
+        <x-pdf_style></x-pdf_style>
     </head>
     <body class="bg-blue-100">
         {{ $slot }}

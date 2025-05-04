@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
-use App\Models\Dosen;
+use App\Models\Pengesahan;
 use Filament\Forms\Set;
 use Filament\Forms\Form;
 use App\Models\Pengaduan;
@@ -75,11 +75,11 @@ class PengajuanSuratResource extends Resource
                     ->autocomplete(false)
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Select::make('dosen_id')
+                Forms\Components\Select::make('pengesahan_id')
                     ->label('Tujuan Surat')
                     ->native(false)
                     ->required()
-                    ->relationship('dosen', 'jabatan'),
+                    ->relationship('pengesahan', 'jabatan'),
                 Forms\Components\Textarea::make('isi')
                     ->label('Isi Surat')
                     ->autocomplete(false)
@@ -116,7 +116,7 @@ class PengajuanSuratResource extends Resource
                     ->placeholder('Pilih tandatangan')
                     ->multiple()
                     ->options(function () {
-                        return Dosen::all()->pluck('nama', 'nama')->toArray();
+                        return Pengesahan::all()->pluck('nama', 'nama')->toArray();
                     }),
                 Forms\Components\TextInput::make('nama_cp')
                     ->label('Nama Kontak Person')
@@ -156,7 +156,7 @@ class PengajuanSuratResource extends Resource
                     ->copyable()
                     ->copyMessage('Nomor surat disalin')
                     ->copyMessageDuration(1500),
-                Tables\Columns\TextColumn::make('dosen.jabatan')
+                Tables\Columns\TextColumn::make('pengesahan.jabatan')
                     ->label('Tujuan Surat')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')
@@ -185,7 +185,7 @@ class PengajuanSuratResource extends Resource
                     }),
                 Tables\Filters\selectFilter::make('dosen_id')
                     ->options(function () {
-                        return \App\Models\Dosen::query()
+                        return \App\Models\Pengesahan::query()
                             ->pluck('jabatan', 'id')
                             ->unique()
                             ->sort()

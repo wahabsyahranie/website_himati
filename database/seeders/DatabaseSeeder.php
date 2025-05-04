@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Dosen;
 use App\Models\Kegiatan;
 use App\Models\Mahasiswa;
 use App\Models\Pengaduan;
 use App\Models\PengajuanSurat;
+use App\Models\Pengesahan;
 use App\Models\Pengurus;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             'password' => '123',
         ]);
 
-        $this->call([OrmawaSeeder::class, InventarisSeeder::class, MahasiswaSeeder::class, DosenSeeder::class, KegiatanSeeder::class]);
+        $this->call([OrmawaSeeder::class, InventarisSeeder::class, MahasiswaSeeder::class, PengesahanSeeder::class, KegiatanSeeder::class]);
 
         Pengaduan::factory(10)->recycle([
             Mahasiswa::all()
@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
 
         PengajuanSurat::factory(10)->recycle([
             Mahasiswa::all(),
-            Dosen::all()
+            Pengesahan::all()
         ])->create();
 
         Pengurus::factory(2)->recycle([

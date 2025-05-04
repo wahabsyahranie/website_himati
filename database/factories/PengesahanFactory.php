@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Dosen>
  */
-class DosenFactory extends Factory
+class PengesahanFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,7 +19,10 @@ class DosenFactory extends Factory
         return [
             'nama' => $this->faker->name(),
             'jabatan' => $this->faker->jobTitle(),
-            'nip' => $this->faker->unique()->numerify('##########'),
+            'bidang' => $this->faker->jobTitle(),
+            'prioritas' => $this->faker->numerify('#'),
+            'type_nomor_induk' => $this->faker->name(),
+            'nomor_induk' => $this->faker->unique()->numerify('##########'),
             'nomor_telepon' => $this->faker->phoneNumber(),
         ];
     }

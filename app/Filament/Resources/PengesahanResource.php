@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\DosenResource\Pages;
-use App\Filament\Resources\DosenResource\RelationManagers;
-use App\Models\Dosen;
+use App\Filament\Resources\PengesahanResource\Pages;
+use App\Filament\Resources\PengesahanResource\RelationManagers;
+use App\Models\Pengesahan;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,13 +13,13 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class DosenResource extends Resource
+class PengesahanResource extends Resource
 {
-    protected static ?string $model = Dosen::class;
+    protected static ?string $model = Pengesahan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user';
     protected static ?string $navigationGroup = 'Manajemen Data';
-    protected static ?string $navigationLabel = 'Dosen';
+    protected static ?string $navigationLabel = 'Pengesahan';
     protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
@@ -34,8 +34,22 @@ class DosenResource extends Resource
                     ->required()
                     ->autocomplete(false)
                     ->maxLength(255),
-                Forms\Components\TextInput::make('nip')
-                    ->label('NIP')
+                Forms\Components\TextInput::make('bidang')
+                    ->label('Bidang/Jurusan/Detail Jabatan')
+                    ->required()
+                    ->autocomplete(false)
+                    ->maxLength(255),
+                Forms\Components\Select::make('type_nomor_induk')
+                    ->label('Tipe Nomor Induk')
+                    ->required()
+                    ->native(false)
+                    ->options([
+                        'NIM' => 'NIM',
+                        'NIP' => 'NIP'
+                    ]),
+                Forms\Components\TextInput::make('nomor_induk')
+                    ->label('Nomor Induk')
+                    ->numeric()
                     ->autocomplete(false)
                     ->required()
                     ->maxLength(255),
@@ -44,6 +58,17 @@ class DosenResource extends Resource
                     ->autocomplete(false)
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Select::make('prioritas')
+                    ->label('Level Prioritas')
+                    ->native(false)
+                    ->required()
+                    ->options([
+                        1 => '1 (satu)', 
+                        2 => '2 (dua)',
+                        3 => '3 (tiga)',
+                        4 => '4 (empat)',
+                        5 => '5 (lima)'
+                    ]),
             ]);
     }
 
@@ -52,7 +77,7 @@ class DosenResource extends Resource
         return $table
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                    ->label('Tambah Dosen'),
+                    ->label('Tambah Pengesahan'),
             ])
             ->columns([
                 Tables\Columns\TextColumn::make('nama')
@@ -61,8 +86,10 @@ class DosenResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('jabatan')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('nip')
-                    ->label('NIP')
+                Tables\Columns\TextColumn::make('prioritas')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('nomor_induk')
+                    ->label('Nomor Induk')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nomor_telepon')
                     ->iconColor('primary')
@@ -70,13 +97,14 @@ class DosenResource extends Resource
                     ->copyable()
                     ->copyMessage('Nomor telepon disalin')
                     ->copyMessageDuration(1500)
-                    ->icon('heroicon-m-phone'),
+                    ->icon('heroicon-m-phone')
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\selectFilter::make('jabatan')
                     ->options(function () {
-                        return \App\Models\Dosen::query()
+                        return \App\Models\Pengesahan::query()
                             ->pluck('jabatan', 'jabatan')
                             ->unique()
                             ->sort()
@@ -107,9 +135,9 @@ class DosenResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListDosens::route('/'),
-            'create' => Pages\CreateDosen::route('/create'),
-            'edit' => Pages\EditDosen::route('/{record}/edit'),
+            'index' => Pages\ListPengesahans::route('/'),
+            'create' => Pages\CreatePengesahan::route('/create'),
+            'edit' => Pages\EditPengesahan::route('/{record}/edit'),
         ];
     }
 }
