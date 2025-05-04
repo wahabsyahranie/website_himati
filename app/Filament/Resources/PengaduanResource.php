@@ -67,6 +67,10 @@ class PengaduanResource extends Resource
                 Tables\Actions\CreateAction::make()
                     ->label('Buat Pengaduan'),
             ])
+            ->query(
+                static::getEloquentQuery()
+                    ->with('mahasiswa') // Eager load relasi di sini
+            )
             ->columns([
                 Tables\Columns\TextColumn::make('judul')
                     ->limit(25)

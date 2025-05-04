@@ -25,14 +25,14 @@ class PengajuanSuratResource extends Resource
     protected static ?string $navigationGroup = 'Kelola Layanan';
     protected static ?string $navigationLabel = 'Pembuatan Surat';
     protected static ?int $navigationSort = 7;
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::where('status', 'ditinjau')->count();
-    }
-    public static function getNavigationBadgeTooltip(): ?string
-    {
-        return 'Surat yang masih ditinjau';
-    }
+    // public static function getNavigationBadge(): ?string
+    // {
+    //     return static::getModel()::where('status', 'ditinjau')->count();
+    // }
+    // public static function getNavigationBadgeTooltip(): ?string
+    // {
+    //     return 'Surat yang masih ditinjau';
+    // }
 
     public static function form(Form $form): Form
     {

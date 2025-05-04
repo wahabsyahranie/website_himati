@@ -25,14 +25,14 @@ class KegiatanResource extends Resource
     protected static ?string $navigationGroup = 'Kelola Layanan';
     protected static ?string $navigationLabel = 'Jadwal Kegiatan';
     protected static ?int $navigationSort = 9;
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::where('status', 1)->count();
-    }
-    public static function getNavigationBadgeTooltip(): ?string
-    {
-        return 'Kegiatan yang sedang berlangsung';
-    }
+    // public static function getNavigationBadge(): ?string
+    // {
+    //     return static::getModel()::where('status', 1)->count();
+    // }
+    // public static function getNavigationBadgeTooltip(): ?string
+    // {
+    //     return 'Kegiatan yang sedang berlangsung';
+    // }
 
     public static function form(Form $form): Form
     {
