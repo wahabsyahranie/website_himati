@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
             Pengesahan::all()
         ])->create();
 
-        Pengurus::factory(2)->recycle([
+        Pengurus::factory(100)->recycle([
             Mahasiswa::all(),
         ])->create();
 

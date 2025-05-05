@@ -19,9 +19,7 @@ class KegiatansRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('detail')
-                    ->required()
-                    ->maxLength(255),
+                //
             ]);
     }
 
@@ -41,6 +39,15 @@ class KegiatansRelationManager extends RelationManager
                     }),
                 Tables\Columns\TextColumn::make('kegiatan.nama')
                     ->label('Nama Kegiatan'),
+                Tables\Columns\TextColumn::make('keterangan')
+                    ->label('Keterangan')
+                    ->badge()
+                    ->color(fn ($state) => match ($state) {
+                        'hadir' => 'success',
+                        'ijin' => 'warning',
+                        'alpa' => 'danger',
+                        default => 'secondary',
+                    }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Waktu Presensi')
                     ->iconColor('primary')
@@ -56,15 +63,14 @@ class KegiatansRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                // Tables\Actions\CreateAction::make(),
+                //
             ])
             ->actions([
-                // Tables\Actions\EditAction::make(),
-                // Tables\Actions\DeleteAction::make(),
+                //
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    // Tables\Actions\DeleteBulkAction::make(),
+                    //
                 ]),
             ]);
     }

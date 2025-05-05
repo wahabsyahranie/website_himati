@@ -162,25 +162,30 @@ class PengurusResource extends Resource
                     Tables\Actions\DeleteAction::make(),
                     Tables\Actions\Action::make('alb')
                         ->label('Tandai ALB')
+                        ->icon('heroicon-m-user')
                         ->color('info')
-                        ->visible(fn (Pengurus $record) => $record->status == 'pengurus')
-                        ->action(function (Pengurus $record){
-                            $record->update(['status' => 'alb']);
-                        }),
+                        ->tooltip('Tandai sebagai Anggota Luar Biasa')
+                        ->visible(fn (Pengurus $record) => $record->status === 'pengurus')
+                        ->requiresConfirmation()
+                        ->action(fn (Pengurus $record) => $record->update(['status' => 'alb'])),
+
                     Tables\Actions\Action::make('keluar')
-                        ->label('Tandai Bukan Pengurus')
+                        ->label('Tandai Keluar')
+                        ->icon('heroicon-o-user-minus')
                         ->color('danger')
+                        ->tooltip('Tandai sebagai bukan pengurus')
                         ->visible(fn (Pengurus $record) => $record->status !== 'keluar')
-                        ->action(function (Pengurus $record){
-                            $record->update(['status' => 'keluar']);
-                        }),
+                        ->requiresConfirmation()
+                        ->action(fn (Pengurus $record) => $record->update(['status' => 'keluar'])),
+
                     Tables\Actions\Action::make('pengurus')
                         ->label('Tandai Pengurus Aktif')
+                        ->icon('heroicon-m-user-plus')
                         ->color('success')
+                        ->tooltip('Tandai sebagai pengurus aktif')
                         ->visible(fn (Pengurus $record) => $record->status !== 'pengurus')
-                        ->action(function (Pengurus $record){
-                            $record->update(['status' => 'pengurus']);
-                        }),
+                        ->requiresConfirmation()
+                        ->action(fn (Pengurus $record) => $record->update(['status' => 'pengurus'])),
                 ])
             ])
             ->bulkActions([

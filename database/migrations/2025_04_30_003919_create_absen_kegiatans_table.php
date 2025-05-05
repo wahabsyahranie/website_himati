@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('penguruses_id')->constrained('penguruses')->cascadeOnDelete();
             $table->foreignId('kegiatan_id')->constrained('kegiatans')->cascadeOnDelete();
+            $table->enum('keterangan', ['ijin', 'alpa', 'hadir']);
             $table->timestamps();
         });
     }

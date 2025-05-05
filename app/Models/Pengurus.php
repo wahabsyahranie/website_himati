@@ -23,7 +23,7 @@ class Pengurus extends Model
 
     public function absenKegiatans() : HasMany
     {
-        return $this->hasMany(AbsenKegiatan::class, 'penguruses_id');
+        return $this->hasMany(AbsenKegiatan::class, 'penguruses_id')->where('keterangan', '!=', 'alpa');
     }
 
 }
