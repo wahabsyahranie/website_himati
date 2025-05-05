@@ -23,14 +23,6 @@ class PengaduanResource extends Resource
     protected static ?string $navigationLabel = 'Pengaduan';
     protected static ?int $navigationSort = 6;
 
-    //MEMBUAT WIDGET
-    public static function getWidgets(): array
-    {
-        return [
-            PengaduanOverview::class,
-        ];
-    }
-
     //MEMBUAT BADGE ANGKA PADA SIDE PANEL
     public static function getNavigationBadge(): ?string
     {

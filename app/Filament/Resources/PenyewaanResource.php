@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\PenyewaanResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PenyewaanResource\RelationManagers;
+use App\Filament\Resources\PenyewaanResource\Widgets\PenyewaanOverview;
 
 class PenyewaanResource extends Resource
 {
@@ -25,14 +26,6 @@ class PenyewaanResource extends Resource
     protected static ?string $navigationGroup = 'Kelola Layanan';
     protected static ?string $navigationLabel = 'Penyewaan Inventaris';
     protected static ?int $navigationSort = 8;
-    // public static function getNavigationBadge(): ?string
-    // {
-    //     return static::getModel()::where('status', 'ditinjau')->count();
-    // }
-    // public static function getNavigationBadgeTooltip(): ?string
-    // {
-    //     return 'Penyewaan yang menunggu persetujuan';
-    // }
     
     public static function form(Form $form): Form
     {
