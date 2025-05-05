@@ -87,7 +87,8 @@ class PengesahanResource extends Resource
                 Tables\Columns\TextColumn::make('jabatan')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('prioritas')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('nomor_induk')
                     ->label('Nomor Induk')
                     ->searchable(),

@@ -22,7 +22,7 @@ class KegiatanResource extends Resource
     protected static ?string $model = Kegiatan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-bookmark';
-    protected static ?string $navigationGroup = 'Kelola Layanan';
+    protected static ?string $navigationGroup = 'Layanan Pengurus';
     protected static ?string $navigationLabel = 'Jadwal Kegiatan';
     protected static ?int $navigationSort = 9;
     // public static function getNavigationBadge(): ?string
@@ -82,7 +82,7 @@ class KegiatanResource extends Resource
                         return ($tanggal) . ' | ' . ($waktu);
                     }),
                 Tables\Columns\ToggleColumn::make('status')
-                    ->label('Status'),
+                    ->label('Rapat dibuka'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Tanggal Dibuat')
                     ->dateTime()

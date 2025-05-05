@@ -19,6 +19,7 @@ return new class extends Migration
             $table->char('mahasiswa_id', 26);
             $table->foreign('mahasiswa_id')->references('id')->on('mahasiswas')->cascadeOnDelete();
             $table->json('departemen')->nullable();
+            $table->enum('status', ['pengurus', 'keluar', 'alb'])->default('pengurus');
             $table->timestamps();
         });
     }

@@ -35,7 +35,7 @@ class PenyewaanOverview extends BaseWidget
         return [
             Stat::make('', $totalPenyewaan->disetujui)
                 ->color('info')
-                ->description('Jumlah penyewaan disetujui')
+                ->description('Jumlah permintaan disetujui')
                 ->descriptionIcon('heroicon-m-check-circle', IconPosition::Before),
             Stat::make('', $totalBarangDisewa)
                 ->color('success')

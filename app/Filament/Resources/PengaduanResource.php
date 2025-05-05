@@ -19,7 +19,7 @@ class PengaduanResource extends Resource
     protected static ?string $model = Pengaduan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
-    protected static ?string $navigationGroup = 'Kelola Layanan';
+    protected static ?string $navigationGroup = 'Layanan Umum';
     protected static ?string $navigationLabel = 'Pengaduan';
     protected static ?int $navigationSort = 6;
 

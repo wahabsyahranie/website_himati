@@ -22,10 +22,10 @@ class PenyewaanResource extends Resource
 {
     protected static ?string $model = Penyewaan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-currency-dollar';
-    protected static ?string $navigationGroup = 'Kelola Layanan';
+    protected static ?string $navigationIcon = 'heroicon-o-cube';
+    protected static ?string $navigationGroup = 'Layanan Umum';
     protected static ?string $navigationLabel = 'Penyewaan Inventaris';
-    protected static ?int $navigationSort = 8;
+    protected static ?int $navigationSort = 7;
     
     public static function form(Form $form): Form
     {

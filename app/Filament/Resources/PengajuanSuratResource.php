@@ -4,14 +4,15 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
-use App\Models\Pengesahan;
 use Filament\Forms\Set;
 use Filament\Forms\Form;
 use App\Models\Pengaduan;
+use App\Models\Pengesahan;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use App\Models\PengajuanSurat;
 use Filament\Resources\Resource;
+use Filament\Tables\Enums\FiltersLayout;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PengajuanSuratResource\Pages;
@@ -22,9 +23,9 @@ class PengajuanSuratResource extends Resource
     protected static ?string $model = PengajuanSurat::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-plus';
-    protected static ?string $navigationGroup = 'Kelola Layanan';
+    protected static ?string $navigationGroup = 'Layanan Pengurus';
     protected static ?string $navigationLabel = 'Pembuatan Surat';
-    protected static ?int $navigationSort = 7;
+    protected static ?int $navigationSort = 8;
     // public static function getNavigationBadge(): ?string
     // {
     //     return static::getModel()::where('status', 'ditinjau')->count();
@@ -136,6 +137,10 @@ class PengajuanSuratResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->heading('Surat')
+            ->description('Kelola surat anda disini.')
+            ->deferLoading()
+            ->striped()
             ->headerActions([
                 Tables\Actions\CreateAction::make()
                     ->label('Buat Surat'),
@@ -192,7 +197,7 @@ class PengajuanSuratResource extends Resource
                             ->sort()
                             ->toArray();
                     })
-            ])
+                ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\Action::make('Lihat Surat')

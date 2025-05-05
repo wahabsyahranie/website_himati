@@ -11,8 +11,6 @@ class ListPengajuanSurats extends ListRecords
     protected static string $resource = PengajuanSuratResource::class;
     protected static ?string $title = 'Daftar Pengajuan Surat';
 
-    
-
     // protected function getHeaderActions(): array
     // {
     //     return [

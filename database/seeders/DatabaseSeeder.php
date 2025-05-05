@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([OrmawaSeeder::class, InventarisSeeder::class, MahasiswaSeeder::class, PengesahanSeeder::class, KegiatanSeeder::class]);
 
-        Pengaduan::factory(10)->recycle([
+        Pengaduan::factory(100)->recycle([
             Mahasiswa::all()
         ])->create();
 

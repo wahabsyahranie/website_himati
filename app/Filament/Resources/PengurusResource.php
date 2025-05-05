@@ -4,12 +4,14 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PengurusResource\Pages;
 use App\Filament\Resources\PengurusResource\RelationManagers;
+use App\Filament\Resources\PengurusResource\RelationManagers\KegiatansRelationManager;
 use App\Models\Pengurus;
 use DeepCopy\Filter\Filter;
 use Filament\Forms;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Form;
 use Filament\Forms\FormsComponent;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
@@ -71,6 +73,10 @@ class PengurusResource extends Resource
                         'danus' => 'DANUS',
                         'drt' => 'DRT',
                     ]),
+                Forms\Components\TextInput::make('status')
+                    ->label('Status Keanggotaan')
+                    ->default('Pengurus')
+                    ->disabled()
             ]);
     }
 
@@ -85,7 +91,8 @@ class PengurusResource extends Resource
                 Tables\Columns\TextColumn::make('nomor_induk')
                     ->label('NIA')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('mahasiswa.nama')
                     ->label('Nama')
                     ->limit(20)
@@ -107,9 +114,29 @@ class PengurusResource extends Resource
                             default => 'success',
                         };
                     }),
+                Tables\Columns\TextColumn::make('status')
+                    ->sortable()
+                    ->badge()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->color(function ($state) {
+                        return match ($state) {
+                            'alb' => 'info',
+                            'keluar' => 'danger',
+                            'pengurus' => 'success',
+                            default => 'warning',
+                        };
+                    }),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
+                SelectFilter::make('periode')
+                    ->options(function () {
+                        return \App\Models\Pengurus::query()
+                            ->pluck('periode', 'periode')
+                            ->unique()
+                            ->sort()
+                            ->toArray();
+                    }),
                 SelectFilter::make('jabatan')
                     ->options(function () {
                         return \App\Models\Pengurus::query()
@@ -117,13 +144,43 @@ class PengurusResource extends Resource
                             ->unique()
                             ->sort()
                             ->toArray();
+                    }),
+                SelectFilter::make('status')
+                    ->options(function () {
+                        return \App\Models\Pengurus::query()
+                            ->pluck('status', 'status')
+                            ->unique()
+                            ->sort()
+                            ->toArray();
                     })
             ])
+            
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\Action::make('alb')
+                        ->label('Tandai ALB')
+                        ->color('info')
+                        ->visible(fn (Pengurus $record) => $record->status == 'pengurus')
+                        ->action(function (Pengurus $record){
+                            $record->update(['status' => 'alb']);
+                        }),
+                    Tables\Actions\Action::make('keluar')
+                        ->label('Tandai Bukan Pengurus')
+                        ->color('danger')
+                        ->visible(fn (Pengurus $record) => $record->status !== 'keluar')
+                        ->action(function (Pengurus $record){
+                            $record->update(['status' => 'keluar']);
+                        }),
+                    Tables\Actions\Action::make('pengurus')
+                        ->label('Tandai Pengurus Aktif')
+                        ->color('success')
+                        ->visible(fn (Pengurus $record) => $record->status !== 'pengurus')
+                        ->action(function (Pengurus $record){
+                            $record->update(['status' => 'pengurus']);
+                        }),
                 ])
             ])
             ->bulkActions([
@@ -136,7 +193,7 @@ class PengurusResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\KegiatansRelationManager::class,
         ];
     }
 
