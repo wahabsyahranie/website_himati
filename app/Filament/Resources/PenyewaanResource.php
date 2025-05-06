@@ -178,7 +178,7 @@ class PenyewaanResource extends Resource
         return [
             'index' => Pages\ListPenyewaans::route('/'),
             'create' => Pages\CreatePenyewaan::route('/create'),
-            // 'edit' => Pages\EditPenyewaan::route('/{record}/edit'),
+            'edit' => Pages\EditPenyewaan::route('/{record}/edit'),
         ];
     }
 }
