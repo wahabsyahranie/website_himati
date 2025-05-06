@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Departemen;
 use App\Models\Kegiatan;
 use App\Models\Mahasiswa;
 use App\Models\Pengaduan;
@@ -42,5 +43,56 @@ class DatabaseSeeder extends Seeder
             Mahasiswa::all(),
         ])->create();
 
+        Departemen::factory()->createMany([
+            [
+                'kode' => 'BPI',
+                'nama' => 'Badan Pengurus Inti',
+                'deskripsi' => 'Badan Pengurus Inti merupakan struktur inti organisasi yang bertanggung jawab dalam mengkoordinasikan seluruh kegiatan dan departemen di bawahnya.',
+                'prioritas' => 1,
+                'gambar' => 'departemen/departemen-d1AAuB5rhWY1kX1L5m4sN3GGrQDn5n9N95SIlx7G.png',
+            ],
+            [
+                'kode' => 'Agm',
+                'nama' => 'Agama',
+                'deskripsi' => 'Departemen Agama bertugas mengelola kegiatan keagamaan, membina spiritualitas anggota, dan menyelenggarakan perayaan hari besar keagamaan.',
+                'prioritas' => 2,
+                'gambar' => 'departemen/departemen-d1AAuB5rhWY1kX1L5m4sN3GGrQDn5n9N95SIlx7G.png',
+            ],
+            [
+                'kode' => 'Kpm',
+                'nama' => 'Kaderisasi Pengembangan Sumber Daya Mahasiswa',
+                'deskripsi' => 'Departemen Kaderisasi dan PSDM fokus pada pengembangan potensi, pelatihan kepemimpinan, dan kaderisasi mahasiswa untuk membentuk generasi yang kompeten.',
+                'prioritas' => 2,
+                'gambar' => 'departemen/departemen-d1AAuB5rhWY1kX1L5m4sN3GGrQDn5n9N95SIlx7G.png',
+            ],
+            [
+                'kode' => 'Min',
+                'nama' => 'Minat dan Bakat',
+                'deskripsi' => 'Departemen Minat dan Bakat memfasilitasi dan mengembangkan potensi non-akademik mahasiswa melalui kegiatan seni, olahraga, dan hobi.',
+                'prioritas' => 2,
+                'gambar' => 'departemen/departemen-d1AAuB5rhWY1kX1L5m4sN3GGrQDn5n9N95SIlx7G.png',
+            ],
+            [
+                'kode' => 'Hum',
+                'nama' => 'Hubungan Masyarakat dan Media',
+                'deskripsi' => 'Departemen Humas dan Media bertugas membangun citra organisasi, menjalin komunikasi dengan pihak luar, serta mengelola konten informasi dan media sosial.',
+                'prioritas' => 2,
+                'gambar' => 'departemen/departemen-d1AAuB5rhWY1kX1L5m4sN3GGrQDn5n9N95SIlx7G.png',
+            ],
+            [
+                'kode' => 'Rt',
+                'nama' => 'Rumah Tangga',
+                'deskripsi' => 'Departemen Rumah Tangga bertanggung jawab dalam pengelolaan logistik, perlengkapan, dan kebutuhan operasional internal organisasi.',
+                'prioritas' => 2,
+                'gambar' => 'departemen/departemen-d1AAuB5rhWY1kX1L5m4sN3GGrQDn5n9N95SIlx7G.png',
+            ],
+            [
+                'kode' => 'Dan',
+                'nama' => 'Dana dan Usaha',
+                'deskripsi' => 'Departemen Dana dan Usaha bertugas merancang dan menjalankan kegiatan usaha serta penggalangan dana untuk menunjang keuangan organisasi.',
+                'prioritas' => 2,
+                'gambar' => 'departemen/departemen-d1AAuB5rhWY1kX1L5m4sN3GGrQDn5n9N95SIlx7G.png',
+            ]
+        ]);
     }
 }

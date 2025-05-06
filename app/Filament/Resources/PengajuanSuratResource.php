@@ -22,7 +22,7 @@ class PengajuanSuratResource extends Resource
 {
     protected static ?string $model = PengajuanSurat::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-plus';
+    // protected static ?string $navigationIcon = 'heroicon-o-document-plus';
     protected static ?string $navigationGroup = 'Layanan Pengurus';
     protected static ?string $navigationLabel = 'Pembuatan Surat';
     protected static ?int $navigationSort = 8;
@@ -104,7 +104,6 @@ class PengajuanSuratResource extends Resource
                     ->native(false)
                     ->required(),
                 Forms\Components\TimePicker::make('waktu_selesai')
-                    ->after('waktu_pelaksana')
                     ->label('Waktu Selesai')
                     ->native(false)
                     ->required(),

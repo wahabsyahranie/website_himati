@@ -17,7 +17,7 @@ class PengesahanResource extends Resource
 {
     protected static ?string $model = Pengesahan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user';
+    // protected static ?string $navigationIcon = 'heroicon-o-user';
     protected static ?string $navigationGroup = 'Manajemen Data';
     protected static ?string $navigationLabel = 'Pengesahan';
     protected static ?int $navigationSort = 3;

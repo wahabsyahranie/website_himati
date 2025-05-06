@@ -13,7 +13,7 @@ use Filament\Resources\RelationManagers\RelationManager;
 
 class KegiatansRelationManager extends RelationManager
 {
-    protected static string $relationship = 'absenKegiatans';
+    protected static string $relationship = 'absenKegiatanNotAlpas';
 
     public function form(Form $form): Form
     {

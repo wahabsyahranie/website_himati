@@ -18,7 +18,7 @@ class PengaduanResource extends Resource
 {
     protected static ?string $model = Pengaduan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    // protected static ?string $navigationIcon = 'heroicon-o-document-text';
     protected static ?string $navigationGroup = 'Layanan Umum';
     protected static ?string $navigationLabel = 'Pengaduan';
     protected static ?int $navigationSort = 6;
@@ -144,7 +144,7 @@ class PengaduanResource extends Resource
         return [
             'index' => Pages\ListPengaduans::route('/'),
             'create' => Pages\CreatePengaduan::route('/create'),
-            // 'edit' => Pages\EditPengaduan::route('/{record}/edit'),
+            'edit' => Pages\EditPengaduan::route('/{record}/edit'),
         ];
     }
 }

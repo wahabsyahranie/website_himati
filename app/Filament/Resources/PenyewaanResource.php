@@ -22,7 +22,7 @@ class PenyewaanResource extends Resource
 {
     protected static ?string $model = Penyewaan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-cube';
+    // protected static ?string $navigationIcon = 'heroicon-o-cube';
     protected static ?string $navigationGroup = 'Layanan Umum';
     protected static ?string $navigationLabel = 'Penyewaan Inventaris';
     protected static ?int $navigationSort = 7;
@@ -66,6 +66,9 @@ class PenyewaanResource extends Resource
                             ->required()
                             ->debounce(1000)
                             ->afterStateHydrated(function ($state, callable $set, callable $get) {
+                                $set('harga_total', (int) $get('harga_pcs') * (int) $state);
+                            })
+                            ->afterStateUpdated(function ($state, callable $set, callable $get) {
                                 $set('harga_total', (int) $get('harga_pcs') * (int) $state);
                             }),
                         Forms\Components\TextInput::make('harga_total')

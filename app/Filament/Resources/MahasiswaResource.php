@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class MahasiswaResource extends Resource
 {
     protected static ?string $model = Mahasiswa::class;
-    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
+    // protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
     protected static ?string $navigationGroup = 'Manajemen Data';
     protected static ?string $navigationLabel = 'Mahasiswa';
     protected static ?int $navigationSort = 1;
