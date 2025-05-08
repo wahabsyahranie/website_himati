@@ -12,7 +12,7 @@
   </div>
 
   {{-- PROMOTION --}}
-  <div class="bg-base p-20 w-full">
+  <div class="bg-base md:p-20 w-full p-10">
     <div class="md:flex text-center relative">
       <div class="absolute left-1/2 top-0 h-full md:border-l-2 border-dashed border-text-secondary"></div>
       <div class="md:w-1/2 pb-10 md:pr-10">
