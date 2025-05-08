@@ -1,45 +1,58 @@
-<div class="navbar bg-base-100 shadow-sm">
-<div class="navbar-start">
-    <div class="dropdown">
-    <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
-    </div>
-    <ul
-        tabindex="0"
-        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-        <li><a>Advokasi</a></li>
-        <li><a>Struktur Organisasi</a></li>
-        <li>
-            <a>Layanan Kami</a>
-            <ul class="p-2">
-                <li><a href="/admin/penyewaans">Penyewaan Inventaris</a></li>
-                <li><a href="/admin/pengaduans">Pengaduan Akademik</a></li>
-                <li><a href="/admin/pengajuan-surats">Pembuatan Surat</a></li>
-                <li><a href="/admin/kegiatans">Penjadwalan kegiatan</a></li>
-            </ul>
-         </li>
-    </ul>
-    </div>
-    <a href="/home" class="btn btn-ghost text-xl">HMJ TI</a>
-</div>
-<div class="navbar-center hidden lg:flex">
-    <div class="navbar-center hidden lg:flex">
-        <ul class="menu menu-horizontal px-1">
-          <li><a href="#advokasi">Advokasi</a></li>
-          <li><a href="#struktur-organisasi">Struktur Organisasi</a></li>
-          <li class="dropdown dropdown-hover">
-            <a tabindex="0">Layanan Kami</a>
-            <ul class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-              <li><a href="/admin/penyewaans">Penyewaan Inventaris</a></li>
-              <li><a href="/admin/pengaduans">Pengaduan Akademik</a></li>
-              <li><a href="/admin/pengajuan-surats">Pembuatan Surat</a></li>
-              <li><a href="/admin/kegiatans">Penjadwalan kegiatan</a></li>
-            </ul>
-          </li>
-        </ul>
+<nav class="bg-transparent" x-data="{ isOpen: false}">
+  <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+    <div class="relative flex h-16 items-center justify-between">
+      <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+        <!-- Mobile menu button-->
+        <button type="button" @click=" isOpen = !isOpen" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:outline-hidden focus:ring-inset" aria-controls="mobile-menu" aria-expanded="false">
+          <span class="absolute -inset-0.5"></span>
+          <span class="sr-only">Open main menu</span>
+          <svg :class="{'hidden': isOpen, 'block': !isOpen}" class="block size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+          <svg :class="{'block': isOpen, 'hidden': !isOpen}" class="hidden size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+        </button>
       </div>
-</div>
-<div class="navbar-end">
-    <a href="/admin" class="btn">Admin</a>
-</div>
-</div>
+
+      {{-- DEKSTOP MENU --}}
+      <div class="hidden md:flex items-center justify-between w-full px-4">
+        <!-- Kiri: Logo -->
+        <div class="flex-shrink-0">
+          <a class="px-3 py-2 text-sm font-bold text-text-primary" aria-current="page">HIMA TI.</a>
+        </div>
+      
+        <!-- Tengah: Menu -->
+        <div class="flex-1 flex justify-center">
+          <div class="flex space-x-4">
+            <a href="#" class="px-3 py-2 text-sm text-text-primary">Beranda</a>
+            <span class="px-3 py-2 text-sm text-text-primary">&bull;</span>
+            <a href="#" class="px-3 py-2 text-sm text-text-primary">Tentang Kami</a>
+            <span class="px-3 py-2 text-sm text-text-primary">&bull;</span>
+            <a href="#" class="px-3 py-2 text-sm text-text-primary">Organisasi</a>
+            <span class="px-3 py-2 text-sm text-text-primary">&bull;</span>
+            <a href="#" class="px-3 py-2 text-sm text-text-primary">Produk Kami</a>
+          </div>
+        </div>
+      
+        <!-- Kanan: Button Admin -->
+        <div class="flex-shrink-0">
+          <button class="px-4 py-2 text-sm bg-secondary text-text-primary rounded">
+            Admin
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Mobile menu, show/hide based on menu state. -->
+  <div x-show="isOpen" class="sm:hidden" id="mobile-menu">
+    <div class="space-y-1 px-2 pt-2 pb-3">
+      <a href="#" class="block rounded-md px-3 py-2 text-text-primary hover:bg-secondary ">Home</a>
+      <a href="#" class="block rounded-md px-3 py-2 text-text-primary hover:bg-secondary ">Advokasi</a>
+      <a href="#" class="block rounded-md px-3 py-2 text-text-primary hover:bg-secondary ">Struktur Organisasi</a>
+      <a href="#" class="block rounded-md px-3 py-2 text-text-primary hover:bg-secondary ">Layanan Kami</a>
+    </div>
+  </div>
+</nav>
