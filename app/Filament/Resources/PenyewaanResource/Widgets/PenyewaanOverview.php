@@ -17,10 +17,10 @@ class PenyewaanOverview extends BaseWidget
         //Ambil jumlah penyewaan per status
         $totalPenyewaan = Penyewaan::selectRaw('SUM(CASE WHEN status = "disetujui" THEN 1 ELSE 0 END) AS disetujui')->first();
 
-        // Total barang disewa
-        $totalBarangDisewa = DetailPenyewaan::whereHas('penyewaan', function ($query) { 
-            $query->where('status', 'disetujui'); 
-        })->count();
+        // // Total barang disewa
+        // $totalBarangDisewa = DetailPenyewaan::whereHas('penyewaan', function ($query) { 
+        //     $query->where('status', 'disetujui'); 
+        // })->count();
 
         // Total pendapatan: jumlahkan harga dari relasi ke model Inventaris
         $totalPendapatan = DetailPenyewaan::whereHas('penyewaan', function ($query) {
@@ -37,10 +37,10 @@ class PenyewaanOverview extends BaseWidget
                 ->color('info')
                 ->description('Jumlah permintaan disetujui')
                 ->descriptionIcon('heroicon-m-check-circle', IconPosition::Before),
-            Stat::make('', $totalBarangDisewa)
-                ->color('success')
-                ->description('Jumlah inventaris yang disewa')
-                ->descriptionIcon('heroicon-m-cube', IconPosition::Before),
+            // Stat::make('', $totalBarangDisewa)
+            //     ->color('success')
+            //     ->description('Jumlah inventaris yang disewa')
+            //     ->descriptionIcon('heroicon-m-cube', IconPosition::Before),
             Stat::make('', 'Rp ' . number_format($totalPendapatan, 0, ',', '.'))
                 ->color('success')
                 ->description('Total pendapatan')

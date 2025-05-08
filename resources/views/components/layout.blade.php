@@ -5,10 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         @vite('resources/css/app.css')
-        <title>Document</title>
+        <title>{{ $title ?? 'HIMA TI' }}</title>
         <x-pdf_style></x-pdf_style>
     </head>
-    <body class="bg-blue-100">
+    <body>
         {{ $slot }}
     </body>
 </html>

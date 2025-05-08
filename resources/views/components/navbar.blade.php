@@ -12,30 +12,34 @@
         <li>
             <a>Layanan Kami</a>
             <ul class="p-2">
-                <li><a>Peminjaman Inventaris</a></li>
-                <li><a>Pengaduan Akademik</a></li>
+                <li><a href="/admin/penyewaans">Penyewaan Inventaris</a></li>
+                <li><a href="/admin/pengaduans">Pengaduan Akademik</a></li>
+                <li><a href="/admin/pengajuan-surats">Pembuatan Surat</a></li>
+                <li><a href="/admin/kegiatans">Penjadwalan kegiatan</a></li>
             </ul>
          </li>
     </ul>
     </div>
-    <a class="btn btn-ghost text-xl">HMJ TI</a>
+    <a href="/home" class="btn btn-ghost text-xl">HMJ TI</a>
 </div>
 <div class="navbar-center hidden lg:flex">
-    <ul class="menu menu-horizontal px-1">
-    <li><a>Advokasi</a></li>
-    <li><a>Struktur Organisasi</a></li>
-    <li>
-        <details>
-        <summary>Layanan Kami</summary>
-        <ul class="p-2">
-            <li><a>Peminjaman Inventaris</a></li>
-            <li><a>Pengaduan Akademik</a></li>
+    <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal px-1">
+          <li><a href="#advokasi">Advokasi</a></li>
+          <li><a href="#struktur-organisasi">Struktur Organisasi</a></li>
+          <li class="dropdown dropdown-hover">
+            <a tabindex="0">Layanan Kami</a>
+            <ul class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+              <li><a href="/admin/penyewaans">Penyewaan Inventaris</a></li>
+              <li><a href="/admin/pengaduans">Pengaduan Akademik</a></li>
+              <li><a href="/admin/pengajuan-surats">Pembuatan Surat</a></li>
+              <li><a href="/admin/kegiatans">Penjadwalan kegiatan</a></li>
+            </ul>
+          </li>
         </ul>
-        </details>
-    </li>
-    </ul>
+      </div>
 </div>
 <div class="navbar-end">
-    {{-- <a class="btn">Button</a> --}}
+    <a href="/admin" class="btn">Admin</a>
 </div>
 </div>

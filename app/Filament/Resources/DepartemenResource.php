@@ -20,7 +20,7 @@ class DepartemenResource extends Resource
     protected static ?string $model = Departemen::class;
     // protected static ?string $navigationIcon  = 'heroicon-o-building-library';
     protected static ?string $navigationGroup = 'Pengaturan';
-    protected static ?string $navigationLabel = 'Data Organisasi';
+    protected static ?string $navigationLabel = 'Struktur Organisasi';
     protected static ?int $navigationSort = 10;
 
     public static function form(Form $form): Form

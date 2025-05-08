@@ -18,7 +18,7 @@ class InventarisFactory extends Factory
     {
         return [
             'nama' => fake()->name(),
-            'stok' => 3,
+            // 'stok' => 3,
             'harga' => 25999.99,
         ];
     }

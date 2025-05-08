@@ -1,4 +1,5 @@
 <x-layout>
+  <x-slot:title>Home</x-slot:title>
   <x-navbar></x-navbar>
   <div class="bg-base-300">
       {{-- GAMBAR TOP CARROUSEL --}}
@@ -23,9 +24,9 @@
       </div>
     </div>
   
-    {{-- ADVOKASI HMJ TI --}}
+    {{-- CARD ADVOKASI HMJ TI --}}
     @if ($datas['dataPengaduan']->count())
-      <div class="m-8">
+      <div id="advokasi" class="m-8">
         <h3 class="text-center font-bold text-3xl mb-4">ADVOKASI</h3>
         <div class="flex flex-col md:flex-row justify-center gap-4">
           @foreach ($datas['dataPengaduan'] as $data )
@@ -43,12 +44,12 @@
       </div>
     @endif
 
-    {{-- CARD STRUKTUR ORGANISASI --}}
+    {{-- CAROUSEL STRUKTUR ORGANISASI --}}
     @if ($datas['dataDepartemen']->count())
-      <div class="bg-base-100 p-8">
+      <div id="struktur-organisasi" class="bg-base-100 p-8">
         <h3 class="text-center font-bold text-3xl mb-4">STRUKTUR ORGANISASI</h3>
         <div class="carousel rounded-box w-full">
-          <div class="carousel-item gap-4">
+          <div class="carousel-item gap-4 p-4">
             @foreach ($datas['dataDepartemen'] as $data )
               <div class="card bg-base-100 w-81 shadow-lg flex-shrink-0">
                 <figure>
@@ -69,7 +70,7 @@
         </div>
       </div>
     @endif
-
-    
-</div>
+  </div>
+  
+  <x-footer></x-footer>
 </x-layout>

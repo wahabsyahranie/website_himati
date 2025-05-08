@@ -13,7 +13,11 @@ use App\Http\Controllers\PengajuanSuratController;
 //     return view('home');
 // });
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', function () {
+    return view('mulai');
+});
+
+Route::get('/home', [HomeController::class, 'index']);
 
 Route::get('/surat/{slug}', [PengajuanSuratController::class, 'show'])->name('surat.show');
 

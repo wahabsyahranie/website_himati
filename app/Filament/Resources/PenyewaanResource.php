@@ -62,25 +62,25 @@ class PenyewaanResource extends Resource
                             ->debounce(1000)
                             ->numeric( 0)
                             ->afterStateHydrated(fn($record, $set) => $set('harga_pcs', $record?->inventaris->harga)),
-                        Forms\Components\TextInput::make('jumlah')
-                            ->required()
-                            ->debounce(1000)
-                            ->afterStateHydrated(function ($state, callable $set, callable $get) {
-                                $set('harga_total', (int) $get('harga_pcs') * (int) $state);
-                            })
-                            ->afterStateUpdated(function ($state, callable $set, callable $get) {
-                                $set('harga_total', (int) $get('harga_pcs') * (int) $state);
-                            }),
-                        Forms\Components\TextInput::make('harga_total')
-                            ->label('Harga Pesanan')
-                            ->disabled()
-                            ->prefix('Rp.'),
+                        // Forms\Components\TextInput::make('jumlah')
+                        //     ->required()
+                        //     ->debounce(1000)
+                        //     ->afterStateHydrated(function ($state, callable $set, callable $get) {
+                        //         $set('harga_total', (int) $get('harga_pcs') * (int) $state);
+                        //     })
+                        //     ->afterStateUpdated(function ($state, callable $set, callable $get) {
+                        //         $set('harga_total', (int) $get('harga_pcs') * (int) $state);
+                        //     }),
+                        // Forms\Components\TextInput::make('harga_total')
+                        //     ->label('Harga Pesanan')
+                        //     ->disabled()
+                        //     ->prefix('Rp.'),
                     ])
                     ->grid(2)
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('harga_total')
                     ->placeholder(function (Set $set, Get $get) {
-                        $ttlpesan = collect($get('detail_penyewaans'))->pluck('harga_total')->sum();
+                        $ttlpesan = collect($get('detail_penyewaans'))->pluck('harga_pcs')->sum();
                         if (empty($ttlpesan)) {
                             $ttlpesan = 0;
                         } else {

@@ -31,10 +31,10 @@ class InventarisResource extends Resource
                     ->label('Nama Inventaris')
                     ->autocomplete(false)
                     ->required(),
-                Forms\Components\TextInput::make('stok')
-                    ->label('Stok Inventaris')
-                    ->autocomplete(false)
-                    ->required(),
+                // Forms\Components\TextInput::make('stok')
+                //     ->label('Stok Inventaris')
+                //     ->autocomplete(false)
+                //     ->required(),
                 Forms\Components\TextInput::make('harga')
                     ->label('Harga Sewa / Hari')
                     ->autocomplete(false)
@@ -63,9 +63,9 @@ class InventarisResource extends Resource
                     ->label('Nama')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('stok')
-                    ->label('Stok')
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('stok')
+                //     ->label('Stok')
+                //     ->sortable(),
                 Tables\Columns\TextColumn::make('harga')
                     ->label('Harga')
                     ->sortable()

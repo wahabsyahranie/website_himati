@@ -20,7 +20,7 @@ class PengaduanResource extends Resource
 
     // protected static ?string $navigationIcon = 'heroicon-o-document-text';
     protected static ?string $navigationGroup = 'Layanan Umum';
-    protected static ?string $navigationLabel = 'Pengaduan';
+    protected static ?string $navigationLabel = 'Advokasi';
     protected static ?int $navigationSort = 6;
 
     //MEMBUAT BADGE ANGKA PADA SIDE PANEL

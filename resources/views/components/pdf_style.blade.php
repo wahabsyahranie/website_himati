@@ -5,9 +5,13 @@
     border-collapse: collapse;
     }
     .header-table img {
-        width: 80px; /* sesuaikan ukuran */
+        width: 80px;
     }
-    
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     .content {
         margin-top: 20px;
     }
