@@ -1,5 +1,5 @@
 <nav class="bg-transparent" x-data="{ isOpen: false}">
-  <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-7xl sm:px-6 lg:px-20.5">
     <div class="relative flex h-16 items-center justify-between">
       <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
         <!-- Mobile menu button-->
@@ -16,10 +16,10 @@
       </div>
 
       {{-- DEKSTOP MENU --}}
-      <div class="hidden md:flex items-center justify-between w-full px-4">
+      <div class="hidden md:flex items-center justify-between w-full">
         <!-- Kiri: Logo -->
         <div class="flex-shrink-0">
-          <a class="px-3 py-2 text-sm font-bold text-text-primary" aria-current="page">HIMA TI.</a>
+          <a class="py-2 text-sm font-bold text-text-primary" aria-current="page">HIMA TI.</a>
         </div>
       
         <!-- Tengah: Menu -->
