@@ -9,6 +9,6 @@ class Departemen extends Model
 {
     use HasFactory;
     protected $table = 'departemens';
-    protected $fillable = ['kode', 'nama', 'deskripsi', 'gambar', 'prioritas'];
+    protected $fillable = ['kode', 'nama_lengkap', 'nama_pendek', 'deskripsi', 'gambar', 'prioritas'];
 
 }

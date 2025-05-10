@@ -1,10 +1,10 @@
 <x-layout>
 
   {{-- HERO --}}
-  <div class="w-full md:h-screen  font-display" style="background-image: url('{{ asset('img/aset/bgnav.png') }}'); background-size: cover; background-repeat: no-repeat; background-position: center; padding-bottom: 20px;">
+  <div id="beranda" class="w-full md:h-screen  font-display" style="background-image: url('{{ asset('img/aset/bgnav.png') }}'); background-size: cover; background-repeat: no-repeat; background-position: center; padding-bottom: 20px;">
     <x-navbar></x-navbar>
     <div class="flex flex-col justify-center items-center text-center text-sm md:text-text-primary space-y-8 md:px-32.5  md:mt-[5%]">
-      <p class="bg-white/20 backdrop-blur-md border border-white/30 pl-4 pr-4 pt-1 pb-1 rounded-4xl shadow-md text-text-primary">Mengumumkan Produk Beta Kami</p>
+      <p class="bg-white/20 border border-white/30 pl-4 pr-4 pt-1 pb-1 rounded-4xl shadow-md text-text-primary">Mengumumkan Produk Beta Kami</p>
       <p class="font-[700] text-xl md:text-[40px]/15 w-[80%] md:w-[100%] text-text-primary ">Kelola Kebutuhanmu Dengan Mudah Dari Penyewaan Inventaris, Advokasi, Hingga Pembuatan Surat Dan Jadwal Kegiatan. Semua Dalam Satu Platform Terintegrasi.</p>
       <p class="w-[70%] md:w-['60%'] text-text-primary">Bersama HMJ TI, Wujudkan Organisasi Yang Aktif, Transparan, Dan Modern.</p>
       <a href="#promotion" class="btn bg-secondary rounded pl-4 pr-4 pt-1 pb-1 shadow-xl text-text-primary hover:bg-text-primary hover:text-primary">Mulai Petualangan</a>
@@ -31,7 +31,7 @@
   </div>
 
   {{-- CARD PENGADUAN AKADEMIK--}}
-  <div class="bg-text-primary w-full md:h-screen pt-5 p-5 md:px-20 md:py-10">
+  <div id="advokasi" class="bg-text-primary w-full flex flex-col items-center justify-center p-5 md:px-20 md:py-10">
     {{-- FIREE --}}
     <div class="text-center text-text-light">
       <p class="font-bold text-4xl mb-3">Karena Waktu Anda Terlalu Berharga untuk Dibuang</p>
@@ -39,11 +39,12 @@
     </div>
 
     {{-- CARD --}}
+    @if (count($datas['dataPengaduan']) > 0)
     @php
-      $classes = ['bg-yellow', 'bg-green', 'bg-primary', 'text-primary', 'text-secondary'];
+    $classes = ['bg-yellow', 'bg-green', 'bg-primary', 'text-primary', 'text-secondary'];
     @endphp
     <div>
-      <div class="grid grid-cols-2 gap-4 px-4 py-8 w-full">
+      <div class="grid grid-cols-2 gap-4 px-4 pt-8 w-full">
         @foreach ($datas['dataPengaduan'] as $index => $pengaduan )
           @php
             $colorCard = $datas['cards'][$index]['colorCard'] ?? 'bg-primary';
@@ -66,74 +67,29 @@
         @endforeach
       </div>
     </div>
+    @endif
   </div>
 
   {{-- STRUKTUR KEPENGURUSAN --}}
-  <div id="struktur kepengurusan" class="bg-base w-full lg:h-screen px-5 pt-5 pb-7 md:px-20 md:py-5">
+  <div id="organisasi" class="bg-base w-full lg:h-screen px-5 pt-5 pb-7 md:px-20 md:py-5">
     <div class="bg-base">
       <p class="font-bold text-4xl mb-3 capitalize">Stuktur Kepengurusan</p>
       <p class="max-w-xl inline-block capitalize">sebuah kapal yang mengangkut puluhan orang, orang-orang ini adalah para kapten kapal. melakukan yang terbaik dan terus membawa kebaikan atas dasar cinta tanah air.</p>
 
       {{-- CAROUSEL --}}
-      <div class="container pt-8">
+      <div data-aos="zoom-in" data-aos-offset="150" data-aos-duration="500" class="container pt-8">
         <section class="slider-container">
           <div class="slider-images">
-            <div class="slider-img">
-              <img src="{{ asset('img/aset/1.png') }}" alt="1">
-              <h1>Danus</h1>
-              <div class="details">
-                <h2>Danus</h2>
-                <p>Dana dan Usaha</p>
+            @foreach ($datas['dataDepartemen'] as $departemen )
+              <div class="slider-img {{ $loop->iteration == 4 ? 'active' : '' }}">
+                <img src="{{ asset($departemen->gambar) }}" alt="1">
+                <h1>{{ $departemen->kode }}</h1>
+                <div class="details">
+                  <h2>{{ $departemen->nama_pendek }}</h2>
+                  <p>{{ $departemen->nama_lengkap }}</p>
+                </div>
               </div>
-            </div>
-            <div class="slider-img">
-              <img src="{{ asset('img/aset/2.png') }}" alt="2">
-              <h1>Minba</h1>
-              <div class="details">
-                <h2>Minba</h2>
-                <p>Minat dan Bakat</p>
-              </div>
-            </div>
-            <div class="slider-img">
-              <img src="{{ asset('img/aset/3.png') }}" alt="3">
-              <h1>Agama</h1>
-              <div class="details">
-                <h2>Agama</h2>
-                <p>Keagamaan</p>
-              </div>
-            </div>
-            <div class="slider-img active">
-              <img src="{{ asset('img/aset/4.png') }}" alt="4">
-              <h1>BPI</h1>
-              <div class="details">
-                <h2>BPI</h2>
-                <p>Badan Pengurus Inti</p>
-              </div>
-            </div>
-            <div class="slider-img">
-              <img src="{{ asset('img/aset/5.png') }}" alt="5">
-              <h1>KPSDM</h1>
-              <div class="details">
-                <h2>KPSDM</h2>
-                <p>Kaderisasi Pengembangan SDM</p>
-              </div>
-            </div>
-            <div class="slider-img">
-              <img src="{{ asset('img/aset/6.png') }}" alt="6">
-              <h1>Humed</h1>
-              <div class="details">
-                <h2>Humed</h2>
-                <p>Humas dan Media</p>
-              </div>
-            </div>
-            <div class="slider-img">
-              <img src="{{ asset('img/aset/7.png') }}" alt="7">
-              <h1>RT</h1>
-              <div class="details">
-                <h2>RT</h2>
-                <p>Rumah Tangga</p>
-              </div>
-            </div>
+            @endforeach
           </div>
         </section>
       </div>
@@ -144,7 +100,7 @@
   <div class="w-full md:px-32.5 px-5 py-5 text-text-light">
     <p class="text-right text-xl">&raquo;</p>
     <h2 class="text-2xl font-bold mb-4 text-right">Pendapat Kami</h2>
-    <div class="bg-text-primary rounded-lg md:flex md:flex-row-reverse md:items-center md:gap-8">
+    <div data-aos="fade-left" data-aos-offset="100" data-aos-duration="500" class="bg-text-primary rounded-lg md:flex md:flex-row-reverse md:items-center md:gap-8">
 
       <div class="md:w-1/3 flex justify-start md:justify-end">
         <img class="w-24 h-24 md:w-36 md:h-36 object-cover rounded-full shadow-lg" 
@@ -170,13 +126,13 @@
   </div>
 
   {{-- FOOTER --}}
-  <div class="w-full md:h-screen p-5 md:px-20 md:py-10 ">
+  <div id="tentang-kami" class="w-full md:h-screen p-5 md:px-20 md:py-10 ">
     {{-- HERO --}}
     <div class="flex items-center justify-center  rounded  md:h-[50%] text-text-primary text-center p-5 md:py-10 " style="background-image: url('{{ asset('img/aset/bgnav.png') }}'); background-size: cover; background-repeat: no-repeat; background-position: center;">
       <div class="max-w-2xl mx-auto text-center"> <!-- Container pembatas lebar -->
         <p class="capitalize font-bold text-xl md:text-[40px] mb-3 leading-tight">Sangat mudah untuk bergabung bersama kami</p>
         <p class="capitalize mb-5 line-clamp-3">Mulailah dengan mendaftarkan diri anda, dan nikmati perjalanan menuju digitalisasi bersama kami.</p>
-        <a href="#" class="inline-block btn bg-secondary rounded px-2 py-1 md:px-4 md:py-2 shadow-xl text-text-primary hover:bg-text-primary hover:text-primary transition-colors duration-200">daftar sekarang</a>
+        <a href="/admin" class="inline-block btn bg-secondary rounded px-2 py-1 md:px-4 md:py-2 shadow-xl text-text-primary hover:bg-text-primary hover:text-primary transition-colors duration-200">daftar sekarang</a>
       </div>
     </div>
 

@@ -324,12 +324,15 @@
         font-size: 20px;
         font-weight: 700;
         text-align: left;
-        line-height: 33px;
+        line-height: 20px;
         text-align: left;
         color: #ffffff;
         text-transform: uppercase;
         transition: 0.7s ease;
         display: none;
+
+        padding-left: 0px;
+        padding-right: 10px;
     }
     .slider-img.active {
         width: 445px !important;
@@ -341,5 +344,15 @@
     .slider-img.active .details p,
     .slider-img.active .details h2 {
         display: block;
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar {
+        backdrop-filter: blur(30px);
+        box-shadow: 0px 0px 30px rgba(227, 228, 237, 0.37);
+        border-bottom: 2px solid rgba(255, 255, 255, 0.18);
+        position: sticky;
+        top: 0;
     }
 }

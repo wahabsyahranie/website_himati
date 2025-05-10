@@ -29,7 +29,10 @@ class DepartemenResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('kode')
                     ->required(),
-                Forms\Components\TextInput::make('nama')
+                Forms\Components\TextInput::make('nama_pendek')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('nama_lengkap')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('deskripsi')
@@ -47,11 +50,15 @@ class DepartemenResource extends Resource
                         fn (TemporaryUploadedFile $file): string => 'departemen-' . $file->hashName()
                     ),
                 Forms\Components\Select::make('prioritas')
-                    ->label('Jenis')
                     ->required()
                     ->options([
-                        1 => 'BPI',
-                        2 => 'Departemen',
+                        1 => '1',
+                        2 => '2',
+                        3 => '3',
+                        4 => '4',
+                        5 => '5',
+                        6 => '6',
+                        7 => '7',
                     ]),
             ]);
     }
@@ -63,7 +70,7 @@ class DepartemenResource extends Resource
                 Tables\Columns\ImageColumn::make('gambar')
                     ->circular(),
                 Tables\Columns\TextColumn::make('kode'),
-                Tables\Columns\TextColumn::make('nama')
+                Tables\Columns\TextColumn::make('nama_lengkap')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()

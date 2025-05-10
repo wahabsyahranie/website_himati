@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('departemens', function (Blueprint $table) {
             $table->id();
             $table->enum('kode', ['Agm', 'Kpm', 'Min', 'Hum', 'Rt', 'Dan', 'BPI']);
-            $table->string('nama');
+            $table->string('nama_pendek');
+            $table->string('nama_lengkap');
             $table->longText('deskripsi');
             $table->string('gambar')->nullable();
             $table->integer('prioritas');

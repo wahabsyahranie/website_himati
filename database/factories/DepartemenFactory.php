@@ -18,7 +18,8 @@ class DepartemenFactory extends Factory
     {
         return [
             'kode' => fake()->randomElement(['BPI', 'Kpm', 'Agm', 'Min', 'Hum', 'Min', 'Dan']),
-            'nama' => fake()->name(),
+            'nama_lengkap' => fake()->name(),
+            'nama_pendek' => fake()->name(),
             'deskripsi' => fake()->name(),
             'prioritas' => 1,
         ];
