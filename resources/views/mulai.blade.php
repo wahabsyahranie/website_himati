@@ -39,9 +39,11 @@
     </div>
 
     {{-- CARD --}}
+    @php
+      $classes = ['bg-yellow', 'bg-green', 'bg-primary', 'text-primary', 'text-secondary'];
+    @endphp
     <div>
       <div class="grid grid-cols-2 gap-4 px-4 py-8 w-full">
-        {{-- {{ dd($datas['dataPengaduan']) }} --}}
         @foreach ($datas['dataPengaduan'] as $index => $pengaduan )
           @php
             $colorCard = $datas['cards'][$index]['colorCard'] ?? 'bg-primary';
@@ -67,7 +69,7 @@
   </div>
 
   {{-- STRUKTUR KEPENGURUSAN --}}
-  <div id="struktur kepengurusan" class="bg-base w-full lg:h-screen px-5 py-5 md:px-20 md:py-5">
+  <div id="struktur kepengurusan" class="bg-base w-full lg:h-screen px-5 pt-5 pb-7 md:px-20 md:py-5">
     <div class="bg-base">
       <p class="font-bold text-4xl mb-3 capitalize">Stuktur Kepengurusan</p>
       <p class="max-w-xl inline-block capitalize">sebuah kapal yang mengangkut puluhan orang, orang-orang ini adalah para kapten kapal. melakukan yang terbaik dan terus membawa kebaikan atas dasar cinta tanah air.</p>

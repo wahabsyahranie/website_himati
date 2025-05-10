@@ -23,10 +23,10 @@ class HomeController extends Controller
                 $colorCard = 'yellow';
                 $colorText = 'text-secondary';
             } elseif ($tujuan == 'hmj ti') {
-                $colorCard = 'midnight';
+                $colorCard = 'primary';
                 $colorText = 'text-primary';
             } elseif ($tujuan == 'jurusan') {
-                $colorCard = 'primary';
+                $colorCard = 'green';
                 $colorText = 'text-primary';
             } else {
                 $colorCard = 'yellow';

@@ -41,7 +41,7 @@ class DepartemenResource extends Resource
                     ->disk('public')
                     ->imageEditor()
                     ->image()
-                    ->imageCropAspectRatio('4:3')
+                    ->imageCropAspectRatio('1:1')
                     ->directory('departemen')
                     ->getUploadedFileNameForStorageUsing(
                         fn (TemporaryUploadedFile $file): string => 'departemen-' . $file->hashName()
