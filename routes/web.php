@@ -15,6 +15,8 @@ use App\Http\Controllers\PengajuanSuratController;
 
 Route::get('/', [HomeController::class, 'index']);
 
+Route::get('/advokasi', [HomeController::class, 'advokasi']);
+
 Route::get('/surat/{slug}', [PengajuanSuratController::class, 'show'])->name('surat.show');
 
 Route::get('/surat/unduh/{slug}', [PengajuanSuratController::class, 'unduh'])->name('surat.unduh');

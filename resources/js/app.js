@@ -10,4 +10,44 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+//// NAVBAR SCROLL BIASA, ALWAYS VISIBLE
+// window.addEventListener("scroll", function () {
+//     const navbar = document.getElementById("navbar");
+//     if (window.scrollY > 10) {
+//         navbar.classList.add("scrolled");
+//     } else {
+//         navbar.classList.remove("scrolled");
+//     }
+// });
+
+//// NAVBAR SCROLL TOP HIDDEN, DEFAULT VISIBLE
+let lastScrollTop = 0;
+
+window.addEventListener("scroll", function () {
+    const navbar = document.getElementById("navbar");
+    const currentScroll = window.scrollY;
+
+    if (currentScroll === 0) {
+        // Sudah sampai paling atas, aktifkan navbar lagi
+        navbar.classList.remove("scrolled");
+        navbar.style.pointerEvents = "auto";
+        navbar.style.opacity = "1";
+        return;
+    }
+
+    if (currentScroll > lastScrollTop) {
+        // Scroll ke bawah → aktifkan navbar
+        navbar.classList.add("scrolled");
+        navbar.style.pointerEvents = "auto";
+        navbar.style.opacity = "1";
+    } else {
+        // Scroll ke atas → nonaktifkan navbar
+        navbar.classList.remove("scrolled");
+        navbar.style.pointerEvents = "none";
+        navbar.style.opacity = "0";
+    }
+
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+});
+
 AOS.init();

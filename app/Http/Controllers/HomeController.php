@@ -49,4 +49,10 @@ class HomeController extends Controller
         $datas = $this->getData();
         return view('mulai', compact('datas'));
     }
+
+    public function advokasi()
+    {
+        $datas = $this->getData();
+        return view('advokasi',  compact('datas'));
+    }
 }
