@@ -70,7 +70,7 @@
                 <p class="text-{{ $colorText }}">{{ Str::limit($pengaduan->deskripsi, 85, '...') }}</p>
               </div>
               <div id="link detail" class="md:pl-7.5 hover:underline text-{{ $colorText }}">
-                <p><a href="/advokasi"> Read More &raquo;</a></p>
+                <p><a href="/advokasi/{{ $pengaduan->slug }}"> Read More &raquo;</a></p>
               </div>
             </div>
           </div>

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Mahasiswa;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,6 +23,7 @@ class PengaduanFactory extends Factory
             'deskripsi' => fake()->text(),
             'tujuan' => fake()->randomElement(['jurusan', 'dosen', 'hmj ti']),
             'mahasiswa_id' => Mahasiswa::factory(),
+            'slug' => Str::slug(fake()->sentence()),
         ];
     }
 }

@@ -9,4 +9,13 @@ use Filament\Resources\Pages\CreateRecord;
 class CreatePengaduan extends CreateRecord
 {
     protected static string $resource = PengaduanResource::class;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $slug = $data['judul'];
+        $slug_baru = str_replace(' ', '-', $slug);
+        $data['slug'] = $slug_baru;
+
+        return $data;
+    }
 }

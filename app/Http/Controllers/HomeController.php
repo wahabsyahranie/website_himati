@@ -7,6 +7,8 @@ use App\Models\Departemen;
 use App\Models\PengajuanSurat;
 use Illuminate\Http\Request;
 
+use function Pest\Laravel\get;
+
 class HomeController extends Controller
 {
     private function getData()
@@ -50,9 +52,16 @@ class HomeController extends Controller
         return view('mulai', compact('datas'));
     }
 
-    public function advokasi()
+    public function advokasi(Pengaduan $pengaduan)
     {
-        $datas = $this->getData();
-        return view('advokasi',  compact('datas'));
+        $datas = Pengaduan::where('status', 'dipublikasikan')->orderBy('created_at', 'desc')->limit(4)->get();
+        $collects =[];
+        foreach($datas as $data){
+            $get = $data->slug;
+            if($get !== $pengaduan->slug){
+                $collects[] = $data;
+            }
+        }
+        return view('advokasi',  compact('pengaduan', 'collects'));
     }
 }
