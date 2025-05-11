@@ -62,6 +62,7 @@ class HomeController extends Controller
                 $collects[] = $data;
             }
         }
+        // dd($collects);
         return view('advokasi',  compact('pengaduan', 'collects'));
     }
 }

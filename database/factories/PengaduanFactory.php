@@ -24,6 +24,7 @@ class PengaduanFactory extends Factory
             'tujuan' => fake()->randomElement(['jurusan', 'dosen', 'hmj ti']),
             'mahasiswa_id' => Mahasiswa::factory(),
             'slug' => Str::slug(fake()->sentence()),
+            'gambar' => 'departemen/departemen-am83xCHZaeI4weJJJ44DWoY7enUmY8Z28dLaiMOv.jpg',
         ];
     }
 }

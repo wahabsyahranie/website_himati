@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\PengaduanResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PengaduanResource\RelationManagers;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use App\Filament\Resources\PengaduanResource\Widgets\PengaduanOverview;
 
 class PengaduanResource extends Resource
@@ -47,6 +48,16 @@ class PengaduanResource extends Resource
                     ->rows(7)
                     ->autocomplete(false)
                     ->columnSpanFull(),
+                Forms\Components\FileUpload::make('gambar')
+                    ->helperText("Uploading an image is optional if none is available.")
+                    ->disk('public')
+                    ->imageEditor()
+                    ->image()
+                    ->imageCropAspectRatio('2:1')
+                    ->directory('pengaduan')
+                    ->getUploadedFileNameForStorageUsing(
+                        fn (TemporaryUploadedFile $file): string => 'pengaduan-' . $file->hashName()
+                    ),
                 Forms\Components\Select::make('tujuan')
                     ->native(false)
                     ->required()
@@ -75,6 +86,8 @@ class PengaduanResource extends Resource
                     ->with('mahasiswa') // Eager load relasi di sini
             )
             ->columns([
+                Tables\Columns\ImageColumn::make('gambar')
+                    ->square(),
                 Tables\Columns\TextColumn::make('judul')
                     ->limit(25)
                     ->searchable()

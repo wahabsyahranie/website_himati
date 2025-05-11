@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreign('mahasiswa_id')->references('id')->on('mahasiswas')->cascadeOnDelete();
             $table->timestamps();
             $table->string('slug')->unique();
+            $table->string('gambar')->nullable();
         });
     }
 

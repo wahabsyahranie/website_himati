@@ -11,7 +11,7 @@ class Pengaduan extends Model
 {
     use HasFactory;
     protected $table = 'pengaduans';
-    protected $fillable = ['judul', 'deskripsi', 'status', 'tujuan', 'mahasiswa_id', 'slug'];
+    protected $fillable = ['judul', 'deskripsi', 'status', 'tujuan', 'mahasiswa_id', 'slug', 'gambar'];
 
     public function mahasiswa() : BelongsTo
     {
