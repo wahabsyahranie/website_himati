@@ -2,17 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\InventarisResource\Pages;
-use App\Filament\Resources\InventarisResource\RelationManagers;
-use App\Models\Inventaris;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Filters\Filter;
+use Filament\Forms\Form;
+use App\Models\Inventaris;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Tables\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\InventarisResource\Pages;
+use App\Filament\Resources\InventarisResource\RelationManagers;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class InventarisResource extends Resource
 {
@@ -42,6 +43,15 @@ class InventarisResource extends Resource
                     ->prefix('Rp.')
                     ->numeric()
                     ->maxValue(42949672.95),
+                Forms\Components\FileUpload::make('gambar')
+                ->disk('public')
+                ->imageEditor()
+                ->image()
+                ->imageCropAspectRatio('1:1')
+                ->directory('produk')
+                ->getUploadedFileNameForStorageUsing(
+                    fn (TemporaryUploadedFile $file): string => 'pengaduan-' . $file->hashName()
+                ),
             ]);
     }
 
@@ -59,6 +69,8 @@ class InventarisResource extends Resource
                     ->label('Tambah Inventaris'),
             ])
             ->columns([
+                Tables\Columns\ImageColumn::make('gambar')
+                    ->circular(),
                 Tables\Columns\TextColumn::make('nama')
                     ->label('Nama')
                     ->searchable()

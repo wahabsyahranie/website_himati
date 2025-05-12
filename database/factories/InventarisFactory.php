@@ -20,6 +20,7 @@ class InventarisFactory extends Factory
             'nama' => fake()->name(),
             // 'stok' => 3,
             'harga' => 25999.99,
+            'gambar' => 'produk/bottle.png',
         ];
     }
 }

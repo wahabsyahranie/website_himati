@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pengaduan;
 use App\Models\Departemen;
+use App\Models\Inventaris;
 use App\Models\PengajuanSurat;
 use Illuminate\Http\Request;
 
@@ -64,5 +65,11 @@ class HomeController extends Controller
         }
         // dd($collects);
         return view('advokasi',  compact('pengaduan', 'collects'));
+    }
+
+    public function produk()
+    {
+        $datas = Inventaris::all();
+        return view('produk', compact('datas'));
     }
 }

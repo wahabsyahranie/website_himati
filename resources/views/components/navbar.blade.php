@@ -19,7 +19,7 @@
       <div class="hidden md:flex items-center justify-between w-full">
         <!-- Kiri: Logo -->
         <div class="flex-shrink-0">
-          <a href="#beranda" class="py-2 text-sm font-bold" aria-current="page">HIMA TI.</a>
+          <a href="/" class="py-2 text-sm font-bold" aria-current="page">HIMA TI.</a>
         </div>
       
         <!-- Tengah: Menu -->
@@ -29,9 +29,9 @@
             <span class="px-3 py-2 text-sm hidden lg:inline-block">&bull;</span>
             <a href="#tentang-kami" class="px-3 py-2 text-sm">Tentang Kami</a>
             <span class="px-3 py-2 text-sm hidden lg:inline-block">&bull;</span>
-            <a href="#organisasi" class="px-3 py-2 text-sm">Organisasi</a>
+            <a href="/#organisasi" class="px-3 py-2 text-sm">Organisasi</a>
             <span class="px-3 py-2 text-sm hidden lg:inline-block">&bull;</span>
-            <a href="#" class="px-3 py-2 text-sm">Produk Kami</a>
+            <a href="/produk" class="px-3 py-2 text-sm">Produk Kami</a>
           </div>
         </div>
       
@@ -51,8 +51,8 @@
     <div class="space-y-1 px-2 pt-2 pb-3">
       <a href="/" class="block rounded-md px-3 py-2 text-text-primary hover:bg-secondary hover:text-primary">Beranda</a>
       <a href="#tentang-kami" class="block rounded-md px-3 py-2 text-text-primary hover:bg-secondary hover:text-primary">Tentang Kami</a>
-      <a href="#organisasi" class="block rounded-md px-3 py-2 text-text-primary hover:bg-secondary hover:text-primary">Organisasi</a>
-      <a href="#" class="block rounded-md px-3 py-2 text-text-primary hover:bg-secondary hover:text-primary">Produk Kami</a>
+      <a href="/#organisasi" class="block rounded-md px-3 py-2 text-text-primary hover:bg-secondary hover:text-primary">Organisasi</a>
+      <a href="/produk" class="block rounded-md px-3 py-2 text-text-primary hover:bg-secondary hover:text-primary">Produk Kami</a>
     </div>
   </div>
 </nav>

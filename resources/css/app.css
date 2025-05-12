@@ -361,7 +361,7 @@
         border: 1px solid rgba(255, 255, 255, 0.4);
         border-radius: 20px;
         width: calc(100% - 20px); /* mengurangi lebar */
-        margin-top: 10px;
+        margin: 10px;
     }
 }
 

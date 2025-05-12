@@ -11,7 +11,7 @@ class Inventaris extends Model
 {
     use HasFactory;
     protected $table = 'inventaris';
-    protected $fillable = ['nama', 'stok', 'harga'];
+    protected $fillable = ['nama', 'stok', 'harga', 'gambar'];
 
     protected $casts = [
         'harga' => MoneyCast::class,

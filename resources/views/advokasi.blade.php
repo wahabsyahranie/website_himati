@@ -27,7 +27,7 @@
             @endif
           @endif
           <p class="bg-base rounded px-3 w-fit mb-[3%]">{{ $collect->created_at->translatedFormat('l, j F Y') }}</p>
-          <p class="font-bold w-[70%] mb-[10%]">{{ $collect->judul }}</p>
+          <p class="font-bold w-[70%] mb-[10%]"> <a href="/advokasi/{{ $collect->slug }}">{{ $collect->judul }}</a></p>
         @endforeach
       </div>
     </div>
