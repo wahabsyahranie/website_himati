@@ -9,10 +9,6 @@ use App\Http\Controllers\PengajuanSuratController;
 //     return view('welcome');
 // });
 
-// Route::get('/home', function () {
-//     return view('home');
-// });
-
 Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/advokasi/{pengaduan:slug}', [HomeController::class, 'advokasi']);
