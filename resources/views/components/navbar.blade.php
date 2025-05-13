@@ -1,4 +1,4 @@
-<nav id="navbar" x-data="{ isOpen: false }" :class="isOpen ? ' shadow-lg rounded-xl mx-4 mt-2 text-left glassmorphism':'bg-transparent text-white'" class="fixed top-0 w-full z-50 transition-all duration-300">
+<nav id="navbar" x-data="{ isOpen: false }" :class="isOpen ? ' shadow-lg rounded-xl mx-0 md:mx-4 mt-2 text-left glassmorphism':'bg-transparent text-white'" class="fixed top-0 w-full z-50 transition-all duration-300">
   <div class="mx-auto max-w-7xl sm:px-6 md:px-20.5">
     <div class="relative flex h-16 items-center justify-between">
       <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">

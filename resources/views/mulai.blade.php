@@ -64,6 +64,7 @@
             <div class="bg-{{ $colorCard }} rounded h-full w-full p-5">
               <div id="label">
                 <p class="bg-text-primary text-{{ $colorCard }} pl-2 pr-2 md:pl-6 md:pr-6 rounded inline-block uppercase">{{ $pengaduan->tujuan }}</p>
+                <p class="bg-secondary text-base mt-1 md:mt-0 pl-2 pr-2 md:pl-6 md:pr-6 rounded inline-block">Advokasi</p>
               </div>
               <div id="deskripsi" class="md:pl-7.5 md:pr-8 pt-3 md:pt-5 pb-5">
                 <p class="font-bold text-{{ $colorText }} text-xl pb-2">{{ $pengaduan->judul }}</p>
