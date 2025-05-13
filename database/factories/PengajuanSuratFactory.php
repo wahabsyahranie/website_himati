@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Departemen;
 use App\Models\Mahasiswa;
 use App\Models\Pengesahan;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,7 +22,7 @@ class PengajuanSuratFactory extends Factory
         return [
             'type' => fake()->randomElement(['SIk', 'SPm', 'ST', 'Spe', 'Und',
             'Peng', 'ST']),
-            'departemen' => fake()->randomElement(['Agm', 'Kpm', 'Min', 'Hum', 'Rt', 'Dan']),
+            'departemen_id' => Departemen::factory(),
             'nomor_surat' => fake()->randomDigit(),
             'lampiran' => '-',
             'perihal' => fake()->word(),

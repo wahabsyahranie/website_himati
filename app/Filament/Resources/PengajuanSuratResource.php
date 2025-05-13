@@ -58,19 +58,11 @@ class PengajuanSuratResource extends Resource
                         'Peng' => 'Surat Pengumuman',
                         'SM' => 'Surat Mandat',
                     ]),
-                Forms\Components\Select::make('departemen')
+                Forms\Components\Select::make('departemen_id')
                     ->label('Departemen')
                     ->native(false)
                     ->required()
-                    ->options([
-                        'Agm' => 'Keagamaan',
-                        'Kpm' => 'KPSDM',
-                        'Min' => 'Minat dan Bakat',
-                        'Hum' => 'Humas dan Media',
-                        'Rt' => 'Rumah Tangga',
-                        'Dan' => 'Dana dan Usaha',
-                        'Bpi' => 'Badan Pengurus Inti',
-                    ]),
+                    ->relationship('departemen', 'kode'),
                 Forms\Components\TextInput::make('perihal')
                     ->label('Perihal Surat')
                     ->autocomplete(false)

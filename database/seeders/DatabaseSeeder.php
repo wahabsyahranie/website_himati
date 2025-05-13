@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
             Mahasiswa::all()
         ])->create();
 
-        PengajuanSurat::factory(10)->recycle([
+        PengajuanSurat::factory(100)->recycle([
             Mahasiswa::all(),
             Pengesahan::all()
         ])->create();

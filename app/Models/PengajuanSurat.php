@@ -10,7 +10,7 @@ class PengajuanSurat extends Model
 {
     use HasFactory;
     protected $table = 'pengajuan_surats';
-    protected $fillable = ['type', 'departemen', 'nomor_surat', 'lampiran', 'perihal', 'Tertuju', 'isi', 'tanggal_pelaksana', 'waktu_pelaksana', 'tanggal_selesai', 'waktu_selesai', 'tempat_pelaksana', 'nama_cp', 'nomor_cp', 'slug', 'mahasiswa_id', 'pengesahan_id', 'status', 'tandatangan'];
+    protected $fillable = ['type', 'departemen_id', 'nomor_surat', 'lampiran', 'perihal', 'Tertuju', 'isi', 'tanggal_pelaksana', 'waktu_pelaksana', 'tanggal_selesai', 'waktu_selesai', 'tempat_pelaksana', 'nama_cp', 'nomor_cp', 'slug', 'mahasiswa_id', 'pengesahan_id', 'status', 'tandatangan'];
 
     protected $casts = [
         'tandatangan' => 'array',
@@ -23,5 +23,10 @@ class PengajuanSurat extends Model
     public function pengesahan() : BelongsTo
     {
         return $this->belongsTo(Pengesahan::class);
+    }
+
+    public function departemen() : BelongsTo
+    {
+        return $this->belongsTo(Departemen::class);
     }
 }

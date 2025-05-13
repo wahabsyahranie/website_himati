@@ -3,10 +3,11 @@
 namespace App\Filament\Resources\PengajuanSuratResource\Pages;
 
 use Filament\Actions;
+use App\Models\Departemen;
 use App\Models\PengajuanSurat;
+use Filament\Support\Exceptions\Halt;
 use Filament\Resources\Pages\CreateRecord;
 use App\Filament\Resources\PengajuanSuratResource;
-use Filament\Support\Exceptions\Halt;
 
 class CreatePengajuanSurat extends CreateRecord
 {
@@ -15,7 +16,6 @@ class CreatePengajuanSurat extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $type_after = $data['type'];
-        $dept = $data['departemen'];
         $organisasi = 'HIMA-TI';
         $tahun = now()->year;
         $bulan = now()->month;
@@ -39,6 +39,8 @@ class CreatePengajuanSurat extends CreateRecord
         }
 
         //set nomor surat
+        $departemen = Departemen::find($data['departemen_id']);
+        $dept = $departemen->kode;
         if($dept !== 'Bpi'){
             $nos_final = $nomor_baru . '/' . $type_after . '/' . $organisasi . '/' . $dept . '/' . $romawi . '/' . $tahun;
             $data['nomor_surat'] = $nos_final;
