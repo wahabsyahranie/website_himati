@@ -2,22 +2,25 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Forms;
+use Filament\Tables;
+use App\Models\Pengurus;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use DeepCopy\Filter\Filter;
+use Filament\Resources\Resource;
+use Filament\Forms\FormsComponent;
+use Filament\Forms\Components\Repeater;
+use Filament\Tables\Actions\ExportAction;
+use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Exports\PengurusExporter;
+use Filament\Tables\Actions\ExportBulkAction;
 use App\Filament\Resources\PengurusResource\Pages;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Resources\RelationManagers\RelationManager;
 use App\Filament\Resources\PengurusResource\RelationManagers;
 use App\Filament\Resources\PengurusResource\RelationManagers\KegiatansRelationManager;
-use App\Models\Pengurus;
-use DeepCopy\Filter\Filter;
-use Filament\Forms;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Form;
-use Filament\Forms\FormsComponent;
-use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PengurusResource extends Resource
 {
@@ -86,6 +89,9 @@ class PengurusResource extends Resource
             ->headerActions([
                 Tables\Actions\CreateAction::make()
                     ->label('Tambah Pengurus'),
+                ExportAction::make()
+                    ->exporter(PengurusExporter::class)
+                    ->label('Ekspor Data'),
             ])
             ->columns([
                 Tables\Columns\TextColumn::make('nomor_induk')
@@ -190,6 +196,9 @@ class PengurusResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
+                    ExportBulkAction::make()
+                        ->exporter(PengurusExporter::class)
+                        ->label('Ekspor Data'),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);

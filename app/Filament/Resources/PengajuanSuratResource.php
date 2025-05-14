@@ -13,7 +13,10 @@ use Illuminate\Support\Str;
 use App\Models\PengajuanSurat;
 use Filament\Resources\Resource;
 use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Actions\ExportAction;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Actions\ExportBulkAction;
+use App\Filament\Exports\PengajuanSuratExporter;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PengajuanSuratResource\Pages;
 use App\Filament\Resources\PengajuanSuratResource\RelationManagers;
@@ -133,6 +136,9 @@ class PengajuanSuratResource extends Resource
             ->deferLoading()
             ->striped()
             ->headerActions([
+                ExportAction::make()
+                    ->exporter(PengajuanSuratExporter::class)
+                    ->label('Ekspor Data'),
                 Tables\Actions\CreateAction::make()
                     ->label('Buat Surat'),
             ])
@@ -225,6 +231,9 @@ class PengajuanSuratResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
+                    ExportBulkAction::make()
+                        ->exporter(PengajuanSuratExporter::class)
+                        ->label('Ekspor Data'),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);

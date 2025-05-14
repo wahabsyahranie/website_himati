@@ -12,3 +12,5 @@ Artisan::command('inspire', function () {
 // Schedule::command('app:kembalikan-stoks')->dailyAt('00:01');
 Schedule::command('queue:work --stop-when-empty')->everyMinute();
 // Schedule::command('app:kembalikan-stoks')->everyMinute();
+
+////TO RUN SCHEDULER YOU NEED IMPLEMENT CRON ON CPANEL IF USING SHAREDHOSTING
