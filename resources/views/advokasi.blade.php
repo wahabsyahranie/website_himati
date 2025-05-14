@@ -17,7 +17,7 @@
         <p class="text-sm md:text-lg">{{ $pengaduan->deskripsi }}</p>
       </div>
       <div class="basis-1/4 mt-[1%]">
-        <p class="text-xs md:text-lg md:font-bold mb-[3%]">Mungkin anda suka</p>
+        <p class="text-[10px] md:text-lg md:font-bold mb-[3%]">Mungkin anda suka</p>
         @foreach ($collects as $collect)
           @if ($loop->first)
             @if ($collect->gambar !== null)
@@ -27,7 +27,7 @@
             @endif
           @endif
           <p class="bg-base hidden lg:block text-lg rounded px-1 md:px-3 w-fit mb-[3%]">{{ $collect->created_at->translatedFormat('l, j F Y') }}</p>
-          <p class="font-bold text-sm md:text-lg w-[70%] mb-[10%]"> <a href="/advokasi/{{ $collect->slug }}">{{ $collect->judul }}</a></p>
+          <p class="font-bold text-[10px] md:text-lg w-[100%] mb-[10%]"> <a href="/advokasi/{{ $collect->slug }}">{{ $collect->judul }}</a></p>
         @endforeach
       </div>
     </div>
