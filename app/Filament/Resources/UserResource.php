@@ -2,16 +2,20 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
-use App\Models\User;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\User;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use App\Filament\Exports\UserExporter;
+use Filament\Tables\Actions\ExportAction;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Actions\ExportBulkAction;
+use App\Filament\Resources\UserResource\Pages;
+use Filament\Actions\Exports\Enums\ExportFormat;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\UserResource\RelationManagers;
 
 class UserResource extends Resource
 {
@@ -74,6 +78,9 @@ class UserResource extends Resource
             ->headerActions([
                 Tables\Actions\CreateAction::make()
                     ->label('Tambah Mahasiswa'),
+                ExportAction::make()
+                    ->exporter(UserExporter::class)
+                    ->label('Ekspor Data'),
             ])
             ->columns([
                 Tables\Columns\TextColumn::make('nim')
@@ -135,7 +142,11 @@ class UserResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
+                    ExportBulkAction::make()
+                        ->exporter(UserExporter::class)
+                        ->label('Ekspor Data'),
                     Tables\Actions\DeleteBulkAction::make(),
+                    
                 ]),
         ]);
     }

@@ -8,6 +8,7 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-Schedule::command('app:kurangi-stoks')->dailyAt('00:01');
-Schedule::command('app:kembalikan-stoks')->dailyAt('00:01');
+// Schedule::command('app:kurangi-stoks')->dailyAt('00:01');
+// Schedule::command('app:kembalikan-stoks')->dailyAt('00:01');
+Schedule::command('queue:work --stop-when-empty')->everyMinute();
 // Schedule::command('app:kembalikan-stoks')->everyMinute();
