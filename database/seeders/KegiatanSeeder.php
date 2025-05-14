@@ -3,8 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Kegiatan;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class KegiatanSeeder extends Seeder
 {
@@ -13,6 +14,37 @@ class KegiatanSeeder extends Seeder
      */
     public function run(): void
     {
-        Kegiatan::factory(5)->create();
+        DB::table('kegiatans')->insert([
+            [
+                'nama' => 'Rapat Umum Awal Tahun',
+                'tanggal_pelaksana' => '2025-01-15 09:00:00',
+                'status' => 0,
+                'jenis_kegiatan' => 'rapat umum',
+            ],
+            [
+                'nama' => 'Rapat Koordinasi Panitia SERASI',
+                'tanggal_pelaksana' => '2025-02-10 13:30:00',
+                'status' => 0,
+                'jenis_kegiatan' => 'rapat panitia',
+            ],
+            [
+                'nama' => 'Pelaksanaan SERASI 2025',
+                'tanggal_pelaksana' => '2025-03-20 08:00:00',
+                'status' => 0,
+                'jenis_kegiatan' => 'proker primer',
+            ],
+            [
+                'nama' => 'Pembuatan Konten Sosial Media',
+                'tanggal_pelaksana' => '2025-02-25 15:00:00',
+                'status' => 0,
+                'jenis_kegiatan' => 'proker sekunder',
+            ],
+            [
+                'nama' => 'Rapat Evaluasi Tengah Periode',
+                'tanggal_pelaksana' => '2025-04-05 10:00:00',
+                'status' => 0,
+                'jenis_kegiatan' => 'rapat umum',
+            ],
+        ]);
     }
 }

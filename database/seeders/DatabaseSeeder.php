@@ -2,13 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Departemen;
-use App\Models\Pengaduan;
-use App\Models\PengajuanSurat;
-use App\Models\Pengesahan;
-use App\Models\Pengurus;
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,90 +13,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'wahab',
-            'email' => 'wahab@polnes.com',
-            'password' => '123',
-            'nim' => '236152003',
-            'tahun_masuk' => '2023',
-            'prodi' => 'TI',
-            'nomor_telepon' => '081258765977',
-        ]);
-
-        $this->call([OrmawaSeeder::class, InventarisSeeder::class, UserSeeder::class, PengesahanSeeder::class, KegiatanSeeder::class]);
-
-        Pengaduan::factory(100)->recycle([
-            User::all()
-        ])->create();
-
-        PengajuanSurat::factory(100)->recycle([
-            User::all(),
-            Pengesahan::all()
-        ])->create();
-
-        Pengurus::factory(100)->recycle([
-            User::all(),
-        ])->create();
-
-        Departemen::factory()->createMany([
-            [
-                'kode' => 'BPI',
-                'nama_pendek' => 'BPI',
-                'nama_lengkap' => 'Badan Pengurus Inti',
-                'deskripsi' => 'Badan Pengurus Inti merupakan struktur inti organisasi yang bertanggung jawab dalam mengkoordinasikan seluruh kegiatan dan departemen di bawahnya.',
-                'prioritas' => 4,
-                'gambar' => 'departemen-vYNBIJW3b7ZUnVhAilnpFbfQvKaFQ1rAqRhQ6ews.jpg',
-            ],
-            [
-                'kode' => 'Agm',
-                'nama_pendek' => 'Agama',
-                'nama_lengkap' => 'Keagamaan',
-                'deskripsi' => 'Departemen Agama bertugas mengelola kegiatan keagamaan, membina spiritualitas anggota, dan menyelenggarakan perayaan hari besar keagamaan.',
-                'prioritas' => 3,
-                'gambar' => 'departemen-vYNBIJW3b7ZUnVhAilnpFbfQvKaFQ1rAqRhQ6ews.jpg',
-            ],
-            [
-                'kode' => 'Kpm',
-                'nama_pendek' => 'KPSDM',
-                'nama_lengkap' => 'Kaderisasi Pengembangan SDM',
-                'deskripsi' => 'Departemen Kaderisasi dan PSDM fokus pada pengembangan potensi, pelatihan kepemimpinan, dan kaderisasi mahasiswa untuk membentuk generasi yang kompeten.',
-                'prioritas' => 5,
-                'gambar' => 'departemen-vYNBIJW3b7ZUnVhAilnpFbfQvKaFQ1rAqRhQ6ews.jpg',
-            ],
-            [
-                'kode' => 'Min',
-                'nama_pendek' => 'Minba',
-                'nama_lengkap' => 'Minat dan Bakat',
-                'deskripsi' => 'Departemen Minat dan Bakat memfasilitasi dan mengembangkan potensi non-akademik mahasiswa melalui kegiatan seni, olahraga, dan hobi.',
-                'prioritas' => 2,
-                'gambar' => 'departemen-vYNBIJW3b7ZUnVhAilnpFbfQvKaFQ1rAqRhQ6ews.jpg',
-            ],
-            [
-                'kode' => 'Hum',
-                'nama_pendek' => 'Humed',
-                'nama_lengkap' => 'Hubungan Masyarakat dan Media',
-                'deskripsi' => 'Departemen Humas dan Media bertugas membangun citra organisasi, menjalin komunikasi dengan pihak luar, serta mengelola konten informasi dan media sosial.',
-                'prioritas' => 6,
-                'gambar' => 'departemen-vYNBIJW3b7ZUnVhAilnpFbfQvKaFQ1rAqRhQ6ews.jpg',
-            ],
-            [
-                'kode' => 'Rt',
-                'nama_pendek' => 'RT',
-                'nama_lengkap' => 'Rumah Tangga',
-                'deskripsi' => 'Departemen Rumah Tangga bertanggung jawab dalam pengelolaan logistik, perlengkapan, dan kebutuhan operasional internal organisasi.',
-                'prioritas' => 1,
-                'gambar' => 'departemen-vYNBIJW3b7ZUnVhAilnpFbfQvKaFQ1rAqRhQ6ews.jpg',
-            ],
-            [
-                'kode' => 'Dan',
-                'nama_pendek' => 'Danus',
-                'nama_lengkap' => 'Dana dan Usaha',
-                'deskripsi' => 'Departemen Dana dan Usaha bertugas merancang dan menjalankan kegiatan usaha serta penggalangan dana untuk menunjang keuangan organisasi.',
-                'prioritas' => 7,
-                'gambar' => 'departemen-vYNBIJW3b7ZUnVhAilnpFbfQvKaFQ1rAqRhQ6ews.jpg',
-            ]
+        $this->call([
+            UserSeeder::class,
+            PengaduanSeeder::class,
+            PengurusSeeder::class,
+            DepartemenSeeder::class,
+            InventarisSeeder::class,
+            OrmawaSeeder::class,
+            KegiatanSeeder::class,
+            PengesahanSeeder::class,
+            PengajuanSuratSeeder::class,
+            PenyewaanSeeder::class,
         ]);
     }
 }
