@@ -16,8 +16,8 @@ return new class extends Migration
             $table->integer('nomor_induk');
             $table->enum('jabatan', ['ketua umum', 'wakil ketua umum', 'sekretaris umum', 'bendahara umum', 'kepala departemen', 'sekretaris departemen', 'anggota departemen']);
             $table->year('periode');
-            $table->char('mahasiswa_id', 26);
-            $table->foreign('mahasiswa_id')->references('id')->on('mahasiswas')->cascadeOnDelete();
+            $table->char('user_id', 26);
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->json('departemen')->nullable();
             $table->enum('status', ['pengurus', 'keluar', 'alb'])->default('pengurus');
             $table->timestamps();

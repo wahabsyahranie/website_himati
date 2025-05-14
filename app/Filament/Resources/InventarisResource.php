@@ -50,7 +50,7 @@ class InventarisResource extends Resource
                 ->imageCropAspectRatio('1:1')
                 ->directory('produk')
                 ->getUploadedFileNameForStorageUsing(
-                    fn (TemporaryUploadedFile $file): string => 'pengaduan-' . $file->hashName()
+                    fn (TemporaryUploadedFile $file): string => 'produk-' . $file->hashName()
                 ),
             ]);
     }

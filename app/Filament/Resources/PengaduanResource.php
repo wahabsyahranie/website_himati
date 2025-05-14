@@ -66,10 +66,12 @@ class PengaduanResource extends Resource
                         'dosen' => 'Dosen',
                         'hmj ti' => 'HMJ TI',
                     ]),
-                Forms\Components\Select::make('mahasiswa_id')
+                Forms\Components\Select::make('user_id')
+                    ->searchable()
+                    ->preload()
                     ->native(false)
                     ->label('Pelapor')
-                    ->relationship('mahasiswa', 'nama')
+                    ->relationship('user', 'name')
                     ->required(),
             ]);
     }
@@ -83,7 +85,7 @@ class PengaduanResource extends Resource
             ])
             ->query(
                 static::getEloquentQuery()
-                    ->with('mahasiswa') // Eager load relasi di sini
+                    ->with('user') // Eager load relasi di sini
             )
             ->columns([
                 Tables\Columns\ImageColumn::make('gambar')
@@ -91,7 +93,7 @@ class PengaduanResource extends Resource
                 Tables\Columns\TextColumn::make('judul')
                     ->limit(25)
                     ->searchable()
-                    ->description(fn (Pengaduan $record): string => $record->mahasiswa->nama, position: 'above'),
+                    ->description(fn (Pengaduan $record): string => $record->user->name, position: 'above'),
                 Tables\Columns\TextColumn::make('tujuan'),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()->color(function ($record) {

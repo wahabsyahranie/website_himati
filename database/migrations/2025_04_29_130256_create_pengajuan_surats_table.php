@@ -31,8 +31,8 @@ return new class extends Migration
             $table->enum('status', ['ditinjau', 'disetujui', 'ditolak'])->default('ditinjau');
             $table->json('tandatangan')->nullable();
 
-            $table->char('mahasiswa_id', 26);
-            $table->foreign('mahasiswa_id')->references('id')->on('mahasiswas')->cascadeOnDelete();
+            $table->char('user_id', 26);
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             
             $table->timestamps();
         });

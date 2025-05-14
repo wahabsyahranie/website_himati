@@ -17,8 +17,8 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->enum('status', ['ditinjau', 'dipublikasikan', 'ditolak'])->default('ditinjau');
             $table->enum('tujuan', ['jurusan', 'dosen', 'hmj ti']);
-            $table->char('mahasiswa_id', 26);
-            $table->foreign('mahasiswa_id')->references('id')->on('mahasiswas')->cascadeOnDelete();
+            $table->char('user_id', 26);
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
             $table->string('slug')->unique();
             $table->string('gambar')->nullable();

@@ -3,14 +3,18 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasUlids;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +25,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'tahun_masuk',
+        'nomor_telepon',
+        'prodi',
+        'nim',
     ];
 
     /**
@@ -44,5 +52,17 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function pengaduans() : HasMany {
+        return $this->hasMany(Pengaduan::class);
+    }
+
+    public function pengajuanSurats() : HasMany {
+        return $this->hasMany(PengajuanSurat::class);
+    }
+
+    public function pengurus() : HasOne {
+        return $this->hasOne(Pengurus::class);
     }
 }

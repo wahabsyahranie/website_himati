@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Mahasiswa;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,7 +22,7 @@ class PengurusFactory extends Factory
             'nomor_induk' => fake()->randomNumber(8),
             'jabatan' => fake()->randomElement(['Ketua Umum', 'Wakil Ketua Umum', 'Sekretaris Umum', 'Bendahara Umum']),
             'periode' => fake()->year(),
-            'mahasiswa_id' => Mahasiswa::factory(),
+            'user_id' => User::factory(),
         ];
     }
 }

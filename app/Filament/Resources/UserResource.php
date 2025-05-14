@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\MahasiswaResource\Pages;
-use App\Filament\Resources\MahasiswaResource\RelationManagers;
-use App\Models\Mahasiswa;
+use App\Filament\Resources\UserResource\Pages;
+use App\Filament\Resources\UserResource\RelationManagers;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,14 +13,14 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class MahasiswaResource extends Resource
+class UserResource extends Resource
 {
-    protected static ?string $model = Mahasiswa::class;
-    // protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
+    protected static ?string $model = User::class;
+
     protected static ?string $navigationGroup = 'Manajemen Data';
     protected static ?string $navigationLabel = 'Mahasiswa';
     protected static ?int $navigationSort = 1;
-    
+
     public static function form(Form $form): Form
     {
         return $form
@@ -30,7 +30,7 @@ class MahasiswaResource extends Resource
                     ->required()
                     ->maxLength(9)
                     ->autocomplete(false),
-                Forms\Components\TextInput::make('nama')
+                Forms\Components\TextInput::make('name')
                     ->required()
                     ->autocomplete(false)
                     ->maxLength(255),
@@ -80,7 +80,7 @@ class MahasiswaResource extends Resource
                     ->label('NIM')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('nama')
+                Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->limit(20)
                     ->sortable(),
@@ -119,7 +119,7 @@ class MahasiswaResource extends Resource
                     ]),
                 Tables\Filters\SelectFilter::make('tahun_masuk')
                     ->options(function () {
-                        return \App\Models\Mahasiswa::query()
+                        return \App\Models\User::query()
                             ->pluck('tahun_masuk', 'tahun_masuk')
                             ->unique()
                             ->sort()
@@ -137,22 +137,22 @@ class MahasiswaResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+        ]);
     }
 
     public static function getRelations(): array
     {
         return [
-            RelationManagers\PengaduansRelationManager::class,
+            //
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListMahasiswas::route('/'),
-            'create' => Pages\CreateMahasiswa::route('/create'),
-            'edit' => Pages\EditMahasiswa::route('/{record}/edit'),
+            'index' => Pages\ListUsers::route('/'),
+            'create' => Pages\CreateUser::route('/create'),
+            'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
 }

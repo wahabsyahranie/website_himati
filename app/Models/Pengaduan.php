@@ -11,10 +11,10 @@ class Pengaduan extends Model
 {
     use HasFactory;
     protected $table = 'pengaduans';
-    protected $fillable = ['judul', 'deskripsi', 'status', 'tujuan', 'mahasiswa_id', 'slug', 'gambar'];
+    protected $fillable = ['judul', 'deskripsi', 'status', 'tujuan', 'user_id', 'slug', 'gambar'];
 
-    public function mahasiswa() : BelongsTo
+    public function user() : BelongsTo
     {
-        return $this->belongsTo(Mahasiswa::class);
+        return $this->belongsTo(User::class);
     }
 }

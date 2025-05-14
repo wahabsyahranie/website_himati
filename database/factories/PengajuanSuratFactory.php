@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Departemen;
 use App\Models\Mahasiswa;
 use App\Models\Pengesahan;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -36,7 +37,7 @@ class PengajuanSuratFactory extends Factory
             'nama_cp' => fake()->name(),
             'nomor_cp' => fake()->randomNumber(),
             'slug' => fake()->slug(),
-            'mahasiswa_id' => Mahasiswa::factory(),
+            'user_id' => User::factory(),
         ];
     }
 }

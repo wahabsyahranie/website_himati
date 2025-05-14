@@ -39,11 +39,11 @@ class PengajuanSuratResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('mahasiswa_id')
+                Forms\Components\Select::make('user_id')
                     ->native(false)
                     ->label('Pilih Mahasiswa')
                     ->columnSpanFull()
-                    ->relationship('mahasiswa', 'nama')
+                    ->relationship('user', 'name')
                     ->required(),
                 Forms\Components\Select::make('type')
                     ->native(false)
