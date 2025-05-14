@@ -22,6 +22,7 @@ class PengaduanSeeder extends Seeder
                 'user_id' => '01jv7pqks6n8zz8psysam0ewk9', // ID Wahab
                 'slug' => 'kuliah-perdana-mahasiswa-ti-2023',
                 'gambar' => 'pengaduan/pengaduan-spzttRHXvNRpnXY78iz2HZGxK2Qky47A50djUzKq.png',
+                'created_at' => now(),
             ],
             [
                 'judul' => 'Pelatihan Dosen TI Mengenai AI',
@@ -30,6 +31,7 @@ class PengaduanSeeder extends Seeder
                 'user_id' => '01jv7pqks6n8zz8psysam0ewka', // ID Eva
                 'slug' => 'pelatihan-dosen-ti-mengenai-ai',
                 'gambar' => 'pengaduan/pengaduan-spzttRHXvNRpnXY78iz2HZGxK2Qky47A50djUzKq.png',
+                'created_at' => now(),
             ],
             [
                 'judul' => 'Rapat Koordinasi HMJ TI',
@@ -38,6 +40,7 @@ class PengaduanSeeder extends Seeder
                 'user_id' => '01jv7pqks6n8zz8psysam0ewkb', // ID Rizki
                 'slug' => 'rapat-koordinasi-hmj-ti',
                 'gambar' => 'pengaduan/pengaduan-spzttRHXvNRpnXY78iz2HZGxK2Qky47A50djUzKq.png',
+                'created_at' => now(),
             ],
             [
                 'judul' => 'Lomba Desain UI/UX untuk Mahasiswa',
@@ -46,6 +49,7 @@ class PengaduanSeeder extends Seeder
                 'user_id' => '01jv7pqks6n8zz8psysam0ewkc', // ID Dewi
                 'slug' => 'lomba-desain-uiux-untuk-mahasiswa',
                 'gambar' => 'pengaduan/pengaduan-spzttRHXvNRpnXY78iz2HZGxK2Qky47A50djUzKq.png',
+                'created_at' => now(),
             ],
             [
                 'judul' => 'Seminar Keprofesian Dosen TI',
@@ -54,6 +58,7 @@ class PengaduanSeeder extends Seeder
                 'user_id' => '01jv7pqks6n8zz8psysam0ewkd', // ID Fajar
                 'slug' => 'seminar-keprofesian-dosen-ti',
                 'gambar' => 'pengaduan/pengaduan-spzttRHXvNRpnXY78iz2HZGxK2Qky47A50djUzKq.png',
+                'created_at' => now(),
             ],
         ]);
     }
