@@ -8,7 +8,6 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class PengajuanSuratController extends Controller
 {
-
     //FUNGSI MENGAMBIL DATA
     private function getDataPengesahan($slug)
     {
@@ -51,17 +50,28 @@ class PengajuanSuratController extends Controller
     public function show($slug)
     {
         $data = $this->getDataPengesahan($slug);
-        $pdf = Pdf::loadView('surat_unduh', $data);
-        return $pdf->stream('invoice.pdf');
+        $nama_file = $data['data']->slug;
+        $pdf = Pdf::loadView('surat_a', $data);
+        return $pdf->stream($nama_file . ".pdf");
     }
 
     public function unduh($slug)
     {
         $data = $this->getDataPengesahan($slug);
         $nama_file = $data['data']->slug;
-        $pdf = Pdf::loadView('surat_unduh', $data);
+        $pdf = Pdf::loadView('surat_a', $data);
         return $pdf->download($nama_file . ".pdf");
     }
+
+    // public function testing($slug)
+    // {
+    //     $data = $this->getDataPengesahan($slug);
+    //     $nama_file = $data['data']->slug;
+    //     $pdf = Pdf::loadView('surat_b', $data);
+    //     return $pdf->stream($nama_file . ".pdf");
+    // }
+
+    
 
     //Fungsi Mengunduh Surat dengan SpatieBrowserShoot
     // public function unduh($slug)

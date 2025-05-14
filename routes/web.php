@@ -18,3 +18,7 @@ Route::get('/produk', [HomeController::class, 'produk']);
 Route::get('/surat/{slug}', [PengajuanSuratController::class, 'show'])->name('surat.show');
 
 Route::get('/surat/unduh/{slug}', [PengajuanSuratController::class, 'unduh'])->name('surat.unduh');
+
+Route::get('/test/{slug}', [PengajuanSuratController::class, 'testing']);
+
+
