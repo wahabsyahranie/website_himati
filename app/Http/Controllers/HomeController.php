@@ -69,7 +69,7 @@ class HomeController extends Controller
 
     public function produk()
     {
-        $datas = Inventaris::all();
+        $datas = Inventaris::where('status', 'tersedia')->get();
         return view('produk', compact('datas'));
     }
 }

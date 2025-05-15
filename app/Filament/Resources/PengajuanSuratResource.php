@@ -168,7 +168,8 @@ class PengajuanSuratResource extends Resource
                     ->label('Tujuan Surat')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')
-                    ->badge()->color(function ($record) {
+                    ->badge()
+                    ->color(function ($record) {
                         return match ($record->status) {
                             'disetujui' => 'success',
                             'ditolak' => 'danger',

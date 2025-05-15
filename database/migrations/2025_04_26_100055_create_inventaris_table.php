@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('inventaris', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            // $table->integer('stok');
             $table->integer('harga');
             $table->string('gambar');
+            $table->text('deskripsi')->nullable();
+            $table->enum('status', ['tersedia', 'rusak'])->default('tersedia');
             $table->timestamps();
         });
     }

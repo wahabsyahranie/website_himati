@@ -16,29 +16,53 @@ class InventarisSeeder extends Seeder
     {
         DB::table('inventaris')->insert([
             [
-                'nama' => 'Botol Minum Polnes',
-                'harga' => 259999.99,
+                'nama' => 'Toa',
+                'harga' => 500000,
                 'gambar' => 'produk/produk-BsOULTLS2JdPFXrcaGgD8IhWRQCVa7YW4CnudkS9.png',
+                'deskripsi' => 'Toa portabel dengan baterai isi ulang, dilengkapi charger bawaan. Kondisi prima dan siap digunakan untuk kebutuhan suara yang optimal.',
+                'status' => 'tersedia',
             ],
             [
-                'nama' => 'Tote Bag Polnes',
-                'harga' => 190999.99,
+                'nama' => 'Sound System',
+                'harga' => 2000000,
                 'gambar' => 'produk/produk-BsOULTLS2JdPFXrcaGgD8IhWRQCVa7YW4CnudkS9.png',
+                'deskripsi' => 'Sistem suara profesional dengan kualitas audio jernih dan daya keluaran tinggi, ideal untuk berbagai acara indoor maupun outdoor.',
+                'status' => 'tersedia',
             ],
             [
-                'nama' => 'Notebook Polnes',
-                'harga' => 140999.99,
+                'nama' => 'Sound System dan Mic',
+                'harga' => 3000000,
                 'gambar' => 'produk/produk-BsOULTLS2JdPFXrcaGgD8IhWRQCVa7YW4CnudkS9.png',
+                'deskripsi' => 'Paket lengkap sound system beserta mikrofon berkualitas tinggi, memberikan solusi audio yang sempurna untuk presentasi dan pertunjukan.',
+                'status' => 'tersedia',
             ],
             [
-                'nama' => 'Stiker Logo TI',
-                'harga' => 49999.99,
+                'nama' => 'Lampu Sorot',
+                'harga' => 2500000,
                 'gambar' => 'produk/produk-BsOULTLS2JdPFXrcaGgD8IhWRQCVa7YW4CnudkS9.png',
+                'deskripsi' => 'Lampu sorot LED dengan pencahayaan kuat dan tahan lama, cocok untuk pencahayaan panggung dan area outdoor.',
+                'status' => 'tersedia',
             ],
             [
-                'nama' => 'Gantungan Kunci HMJ TI',
-                'harga' => 79899.99,
+                'nama' => 'Stand Mic',
+                'harga' => 2000000,
                 'gambar' => 'produk/produk-BsOULTLS2JdPFXrcaGgD8IhWRQCVa7YW4CnudkS9.png',
+                'deskripsi' => 'Stand microphone yang kokoh dan mudah disesuaikan, memberikan kenyamanan bagi pengguna dalam berbagai acara.',
+                'status' => 'tersedia',
+            ],
+            [
+                'nama' => 'Cajon',
+                'harga' => 2000000,
+                'gambar' => 'produk/produk-BsOULTLS2JdPFXrcaGgD8IhWRQCVa7YW4CnudkS9.png',
+                'deskripsi' => 'Instrumen cajon berkualitas dengan suara resonan yang hangat, cocok untuk musik akustik dan pertunjukan panggung.',
+                'status' => 'tersedia',
+            ],
+            [
+                'nama' => 'Gitar',
+                'harga' => 1500000,
+                'gambar' => 'produk/produk-BsOULTLS2JdPFXrcaGgD8IhWRQCVa7YW4CnudkS9.png',
+                'deskripsi' => 'Gitar akustik dengan suara kaya dan build quality yang handal, ideal untuk latihan maupun penampilan live.',
+                'status' => 'tersedia',
             ],
         ]);
     }

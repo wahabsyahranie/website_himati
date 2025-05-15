@@ -53,13 +53,19 @@ window.addEventListener("scroll", function () {
 AOS.init();
 
 ////MODAL JS
-// Pastikan jQuery sudah dimuat sebelum kode ini dijalankan
 $(document).ready(function () {
     $(".open-modal").on("click", function () {
-        $("#modal_container").addClass("show");
+        const nama = $(this).data("nama");
+        const harga = $(this).data("harga");
+        const desk = $(this).data("desk");
+
+        $("#modal-nama").text(nama);
+        $("#modal-desk").text(desk);
+        $("#modal-harga").text("Rp " + harga);
+        $("#global-modal").addClass("show");
     });
 
     $(".close-modal").on("click", function () {
-        $("#modal_container").removeClass("show");
+        $("#global-modal").removeClass("show");
     });
 });

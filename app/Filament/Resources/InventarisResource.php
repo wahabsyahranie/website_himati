@@ -43,6 +43,12 @@ class InventarisResource extends Resource
                     ->prefix('Rp.')
                     ->numeric()
                     ->maxValue(42949672.95),
+                Forms\Components\TextArea::make('deskripsi')
+                    ->label('Deskripsi Barang')
+                    ->cols(5)
+                    ->rows(5)
+                    ->autocomplete(false)
+                    ->required(),
                 Forms\Components\FileUpload::make('gambar')
                 ->disk('public')
                 ->imageEditor()
@@ -75,14 +81,20 @@ class InventarisResource extends Resource
                     ->label('Nama')
                     ->searchable()
                     ->sortable(),
-                // Tables\Columns\TextColumn::make('stok')
-                //     ->label('Stok')
-                //     ->sortable(),
                 Tables\Columns\TextColumn::make('harga')
                     ->label('Harga')
                     ->sortable()
                     // ->prefix('Rp. '),
                     ->money('IDR', locale: 'nl'),
+                Tables\Columns\TextColumn::make('status')
+                    ->badge()
+                    ->color(function ($record) {
+                        return match ($record->status) {
+                            'tersedia' => 'success',
+                            'rusak' => 'danger',
+                            default => 'gray',
+                        };
+                    }),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
@@ -93,6 +105,20 @@ class InventarisResource extends Resource
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\Action::make('Tandai Tersedia')
+                        ->color('success')
+                        ->icon('heroicon-o-check-circle') 
+                        ->visible(fn (Inventaris $record) => $record->status !== 'tersedia')
+                        ->action(function (Inventaris $record) {
+                            $record->update(['status' => 'tersedia']);
+                        }),
+                    Tables\Actions\Action::make('Tandai Rusak')
+                        ->color('danger')
+                        ->icon('heroicon-o-x-circle')
+                        ->visible(fn (Inventaris $record) => $record->status !== 'rusak')
+                        ->action(function (Inventaris $record) {
+                            $record->update(['status' => 'rusak']);
+                        }),
                 ])
             ])
             ->bulkActions([

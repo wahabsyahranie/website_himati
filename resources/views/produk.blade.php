@@ -4,7 +4,7 @@
   <div class="relative px-5 md:px-21 w-ful pb-10 pt-12 md:py-0 md:h-[700px] lg:h-screen bg-primary flex flex-row items-center" style="background-image: url('{{ asset('img/aset/bgnav.png') }}'); background-size: cover; background-repeat: no-repeat; background-position: center;">
     <div class="text-text-primary md:max-w-[50%]">
       <p class="text-md md:text-xl uppercase my-1" >steel bottle</p>
-      <div class="max-w-[70%] md:max-w-[90%] lg:max-w-[50%]">
+      <div class="max-w-[70%] md:max-w-[90%] lg:max-w-[70%]">
         <p class="leading-snug text-xl md:text-4xl uppercase">which needed <span class="font-bold text-[20px] md:text-[40px]">every day</span></p>
       </div>
       <p class="text-sm md:text-xl my-[3%] max-w-[220px] md:max-w-[500px]">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci sed quia doloremque illum iure perspiciatis id, odio aut nesciunt ab hic cupiditate maxime illo suscipit magnam? Blanditiis aut asperiores beatae?</p>
@@ -18,14 +18,14 @@
   </div>
 
   {{-- KATALOG --}}
-  <div class="py-5 px-5 md:px-21">
+  <div class="py-10 px-5 md:px-21">
     <p class="text-center font-bold text-md md:text-2xl mb-5">Produk kami</p>
     <div class="grid grid-cols-3 lg:grid-cols-4 gap-5">
       @foreach ($datas as $data )
         <div data-aos="fade-up">
           <div class="bg-base rounded">
             <img class="w-[100px] h-[100px] md:w-[200px] md:h-[200px] mx-auto" src="{{ asset($data->gambar) }}" alt="gambar{{ $loop->iteration }}">
-            <button class="open-modal text-xs md:text-lg bg-primary text-center w-full text-base uppercase py-1 cursor-pointer hover:bg-base hover:text-primary">Lihat Detail</button>
+            <button class="open-modal text-xs md:text-lg bg-primary text-center w-full text-base uppercase py-1 cursor-pointer hover:bg-base hover:text-primary" data-nama="{{ $data->nama }}" data-harga="{{ number_format($data->harga, 2, ',', '.') }}" data-desk="{{ $data->deskripsi }}">Lihat Detail</button>
           </div>
           <p class="text-xs md:text-lg capitalize font-bold my-1">{{ $data->nama }}</p>
           <p class="text-xs md:text-lg capitalize">Rp {{ number_format($data->harga, 2, ',', '.') }}</p>
@@ -33,6 +33,13 @@
       @endforeach
     </div>
   </div>
+
+  {{-- MODAL --}}
+  <x-modal>
+    <h1 id="modal-nama" class="text-lg font-bold"></h1>
+    <p id="modal-desk" class="text-[14px] py-2"></p>
+    <p id="modal-harga" class="text-[14px] py-2 font-semibold"></p>
+  </x-modal>
 
   {{-- FOOTER --}}
   <div class="relative px-5 md:px-21 flex flex-row justify-center py-10 md:py-15 w-full bg-primary items-center text-text-primary text-center overflow-hidden"
@@ -47,10 +54,4 @@
     </div>
     <img class="w-[150px] md:w-[200px] lg:w-[300px] absolute bottom-[-40px] right-[-40px] rotate-[-30deg]" src="{{ asset('produk/bottle.png') }}" alt="">
   </div>
-
-  <x-modal>
-    <h1 class="font-bold text-lg">Detail Produk</h1>
-    <p class="text-[14px] py-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum fugit fugiat magni ipsa ab? Perspiciatis incidunt, asperiores facere eveniet odit commodi? Beatae qui accusamus ipsum! Quidem alias corrupti expedita facere?</p>
-    <button class="rounded px-[10px] py-[5px] close-modal text-[14px] bg-primary text-center text-base py-1 cursor-pointer">Tutup</button>
-  </x-modal>
 </x-layout>
