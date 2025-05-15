@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Departemen extends Model
+class Struktur extends Model
 {
     use HasFactory;
-    protected $table = 'departemens';
+    protected $table = 'strukturs';
     protected $fillable = ['kode', 'nama_lengkap', 'nama_pendek', 'deskripsi', 'gambar', 'prioritas'];
 
     public function pengajuan_surats() : HasMany {

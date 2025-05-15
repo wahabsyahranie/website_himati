@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('pengajuan_surats', function (Blueprint $table) {
             $table->id();
             $table->enum('type', ['SIk', 'SPm', 'ST', 'Spe', 'Und', 'Peng', 'SM']);
-            $table->enum('departemen', ['Agm', 'Kpm', 'Min', 'Hum', 'Rt', 'Dan', 'Bpi']);
+            $table->foreignId('struktur_id')->constrained('strukturs')->cascadeOnDelete();
             $table->string('nomor_surat');
             $table->string('lampiran')->default('-');
             $table->string('perihal');
-            $table->string('tertuju');
+            $table->foreignId('pengesahan_id')->constrained('pengesahans')->cascadeOnDelete();
             $table->text('isi');
             $table->date('tanggal_pelaksana');
             $table->date('tanggal_selesai')->nullable();

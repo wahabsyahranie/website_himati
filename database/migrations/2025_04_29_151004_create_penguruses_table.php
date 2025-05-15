@@ -18,7 +18,7 @@ return new class extends Migration
             $table->year('periode');
             $table->char('user_id', 26);
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->foreignId('departemen_id')->references('id')->on('departemens')->cascadeOnDelete();
+            $table->foreignId('struktur_id')->references('id')->on('strukturs')->cascadeOnDelete();
             $table->enum('status', ['pengurus', 'keluar', 'alb'])->default('pengurus');
             $table->timestamps();
         });

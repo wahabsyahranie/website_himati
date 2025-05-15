@@ -2,22 +2,22 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\DepartemenResource\Pages;
-use App\Filament\Resources\DepartemenResource\RelationManagers;
-use App\Models\Departemen;
-use Filament\Actions\ActionGroup;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Struktur;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+use Filament\Resources\Resource;
+use Filament\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\StrukturResource\Pages;
+use App\Filament\Resources\StrukturResource\RelationManagers;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
-class DepartemenResource extends Resource
+class StrukturResource extends Resource
 {
-    protected static ?string $model = Departemen::class;
+    protected static ?string $model = Struktur::class;
     // protected static ?string $navigationIcon  = 'heroicon-o-building-library';
     protected static ?string $navigationGroup = 'Pengaturan';
     protected static ?string $navigationLabel = 'Struktur Organisasi';
@@ -45,9 +45,9 @@ class DepartemenResource extends Resource
                     ->imageEditor()
                     ->image()
                     ->imageCropAspectRatio('1:1')
-                    ->directory('departemen')
+                    ->directory('struktur')
                     ->getUploadedFileNameForStorageUsing(
-                        fn (TemporaryUploadedFile $file): string => 'departemen-' . $file->hashName()
+                        fn (TemporaryUploadedFile $file): string => 'struktur-' . $file->hashName()
                     ),
                 Forms\Components\Select::make('prioritas')
                     ->required()
@@ -104,9 +104,9 @@ class DepartemenResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListDepartemens::route('/'),
-            'create' => Pages\CreateDepartemen::route('/create'),
-            'edit' => Pages\EditDepartemen::route('/{record}/edit'),
+            'index' => Pages\ListStruktur::route('/'),
+            'create' => Pages\CreateStruktur::route('/create'),
+            'edit' => Pages\EditStruktur::route('/{record}/edit'),
         ];
     }
 }

@@ -65,12 +65,11 @@ class PengurusResource extends Resource
                     ->required()
                     ->autocomplete(false)
                     ->numeric(),
-                Forms\Components\Select::make('departemen_id')
+                Forms\Components\Select::make('struktur_id')
                     ->searchable()
                     ->preload()
-                    ->relationship('departemen', 'nama_pendek')
-                    ->required()
-                    ->placeholder('Pilih Departemen'),
+                    ->relationship('struktur', 'nama_pendek')
+                    ->required(),
                 Forms\Components\TextInput::make('status')
                     ->label('Status Keanggotaan')
                     ->default('Pengurus')
@@ -105,7 +104,7 @@ class PengurusResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('periode')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('departemen.nama_pendek')
+                Tables\Columns\TextColumn::make('struktur.nama_pendek')
                     ->label('Struktur')
                     ->badge()
                     ->limitList(1)

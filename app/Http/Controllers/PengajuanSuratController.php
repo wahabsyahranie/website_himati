@@ -23,10 +23,10 @@ class PengajuanSuratController extends Controller
         $tujuan_after = $found_jabatan . ' ' . $found_bidang;
 
         //MENGAMBIL DATA DARI MODEL PENGESAHAN
-        foreach ($tandaTangan as $nama) {
-            $pengesahan = \App\Models\Pengesahan::where('nama', $nama)->orderBy('prioritas')->first();
+        foreach ($tandaTangan as $id) {
+            $pengesahan = \App\Models\Pengesahan::where('id', $id)->orderBy('prioritas')->first();
             if ($pengesahan) {
-                $pengesahanInfo[$nama] = [
+                $pengesahanInfo[$id] = [
                     'jabatan' => $pengesahan->jabatan,
                     'nomor_induk' => $pengesahan->nomor_induk,
                     'bidang' => $pengesahan->bidang,

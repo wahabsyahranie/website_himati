@@ -6,14 +6,14 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class DepartemenSeeder extends Seeder
+class StrukturSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('departemens')->insert([
+        DB::table('strukturs')->insert([
             [
                 'kode' => 'BPI',
                 'nama_pendek' => 'BPI',

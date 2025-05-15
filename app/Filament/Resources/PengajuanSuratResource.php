@@ -63,11 +63,11 @@ class PengajuanSuratResource extends Resource
                         'Peng' => 'Surat Pengumuman',
                         'SM' => 'Surat Mandat',
                     ]),
-                Forms\Components\Select::make('departemen_id')
-                    ->label('Departemen')
+                Forms\Components\Select::make('struktur_id')
+                    ->label('Struktur')
                     ->native(false)
                     ->required()
-                    ->relationship('departemen', 'kode'),
+                    ->relationship('struktur', 'nama_pendek'),
                 Forms\Components\TextInput::make('perihal')
                     ->label('Perihal Surat')
                     ->autocomplete(false)
@@ -114,7 +114,7 @@ class PengajuanSuratResource extends Resource
                     ->placeholder('Pilih tandatangan')
                     ->multiple()
                     ->options(function () {
-                        return Pengesahan::all()->pluck('nama', 'nama')->toArray();
+                        return Pengesahan::all()->pluck('nama', 'id')->toArray();
                     }),
                 Forms\Components\TextInput::make('nama_cp')
                     ->label('Nama Kontak Person')

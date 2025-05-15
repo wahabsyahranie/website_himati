@@ -17,7 +17,7 @@ class PengajuanSuratSeeder extends Seeder
         DB::table('pengajuan_surats')->insert([
             [
                 'type' => 'SIk',
-                'departemen_id' => 1,
+                'struktur_id' => 1,
                 'nomor_surat' => '001/TI/HMJ/2025',
                 'lampiran' => '-',
                 'perihal' => 'Pengajuan Izin Seminar Teknologi',
@@ -35,7 +35,7 @@ class PengajuanSuratSeeder extends Seeder
             ],
             [
                 'type' => 'SPm',
-                'departemen_id' => 2,
+                'struktur_id' => 2,
                 'nomor_surat' => '002/TI/HMJ/2025',
                 'lampiran' => '-',
                 'perihal' => 'Permohonan Tempat Kegiatan Rapat',
@@ -53,7 +53,7 @@ class PengajuanSuratSeeder extends Seeder
             ],
             [
                 'type' => 'ST',
-                'departemen_id' => 3,
+                'struktur_id' => 3,
                 'nomor_surat' => '003/TI/HMJ/2025',
                 'lampiran' => '-',
                 'perihal' => 'Surat Tugas Delegasi Workshop',
@@ -71,7 +71,7 @@ class PengajuanSuratSeeder extends Seeder
             ],
             [
                 'type' => 'Und',
-                'departemen_id' => 4,
+                'struktur_id' => 4,
                 'nomor_surat' => '004/TI/HMJ/2025',
                 'lampiran' => '-',
                 'perihal' => 'Undangan Rapat Koordinasi Divisi',
@@ -89,7 +89,7 @@ class PengajuanSuratSeeder extends Seeder
             ],
             [
                 'type' => 'Spe',
-                'departemen_id' => 5,
+                'struktur_id' => 5,
                 'nomor_surat' => '005/TI/HMJ/2025',
                 'lampiran' => '-',
                 'perihal' => 'Permohonan Pengesahan Proposal Kegiatan',

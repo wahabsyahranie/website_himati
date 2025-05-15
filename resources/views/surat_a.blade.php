@@ -122,7 +122,7 @@
 
     {{-- KONTAK PERSON --}}
     <div class="font-style margin-text" id="Isi Surat" style="margin-left: 17.4%">
-      <p style="font-size: 14px; font-style: italic">CP: Kania Afriansy (085298381263)</p>
+      <p style="font-size: 14px; font-style: italic">CP: {{ $data->nama_cp }} ({{ $data->nomor_cp }}) </p>
     </div>
   </body>
 </x-layout>

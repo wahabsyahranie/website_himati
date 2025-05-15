@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departemens', function (Blueprint $table) {
+        Schema::create('strukturs', function (Blueprint $table) {
             $table->id();
-            $table->enum('kode', ['Agm', 'Kpm', 'Min', 'Hum', 'Rt', 'Dan', 'BPI']);
+            $table->string('kode');
             $table->string('nama_pendek');
             $table->string('nama_lengkap');
             $table->longText('deskripsi');
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('departemens');
+        Schema::dropIfExists('strukturs');
     }
 };

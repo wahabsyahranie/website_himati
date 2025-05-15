@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\PengajuanSuratResource\Pages;
 
 use Filament\Actions;
-use App\Models\Departemen;
+use App\Models\Struktur;
 use App\Models\PengajuanSurat;
 use Filament\Support\Exceptions\Halt;
 use Filament\Resources\Pages\CreateRecord;
@@ -39,8 +39,8 @@ class CreatePengajuanSurat extends CreateRecord
         }
 
         //set nomor surat
-        $departemen = Departemen::find($data['departemen_id']);
-        $dept = $departemen->kode;
+        $struktur = Struktur::find($data['struktur_id']);
+        $dept = $struktur->kode;
         if($dept !== 'Bpi'){
             $nos_final = $nomor_baru . '/' . $type_after . '/' . $organisasi . '/' . $dept . '/' . $romawi . '/' . $tahun;
             $data['nomor_surat'] = $nos_final;

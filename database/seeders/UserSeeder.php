@@ -48,7 +48,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'id' => '01jv7pqks6n8zz8psysam0ewkc',
-                'name' => 'Dewi',
+                'name' => 'Zahra',
                 'email' => 'dewi@polnes.com',
                 'password' => Hash::make('123'),
                 'nim' => '236152006',
@@ -58,7 +58,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'id' => '01jv7pqks6n8zz8psysam0ewkd',
-                'name' => 'Fajar',
+                'name' => 'Abi',
                 'email' => 'fajar@polnes.com',
                 'password' => Hash::make('123'),
                 'nim' => '236152007',
