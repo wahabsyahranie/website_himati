@@ -172,7 +172,7 @@ class PengurusResource extends Resource
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\DeleteAction::make(),
                     Tables\Actions\Action::make('alb')
-                        ->label('Tandai ALB')
+                        ->label('ALB')
                         ->icon('heroicon-m-user')
                         ->color('info')
                         ->tooltip('Tandai sebagai Anggota Luar Biasa')
@@ -181,7 +181,7 @@ class PengurusResource extends Resource
                         ->action(fn (Pengurus $record) => $record->update(['status' => 'alb'])),
 
                     Tables\Actions\Action::make('keluar')
-                        ->label('Tandai Keluar')
+                        ->label('Keluar')
                         ->icon('heroicon-o-user-minus')
                         ->color('danger')
                         ->tooltip('Tandai sebagai bukan pengurus')
@@ -190,7 +190,7 @@ class PengurusResource extends Resource
                         ->action(fn (Pengurus $record) => $record->update(['status' => 'keluar'])),
 
                     Tables\Actions\Action::make('pengurus')
-                        ->label('Tandai Pengurus Aktif')
+                        ->label('Aktif')
                         ->icon('heroicon-m-user-plus')
                         ->color('success')
                         ->tooltip('Tandai sebagai pengurus aktif')

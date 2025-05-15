@@ -17,6 +17,8 @@ return new class extends Migration
             $table->dateTime('tanggal_pelaksana');
             $table->boolean('status')->default(0);
             $table->enum('jenis_kegiatan', ['rapat umum', 'rapat panitia', 'proker primer', 'proker sekunder']);
+            $table->text('tujuan_rapat');
+            $table->string('tempat_pelaksanaan');
             $table->timestamps();
         });
     }

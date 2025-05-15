@@ -54,7 +54,17 @@ class KegiatanResource extends Resource
                         'rapat panitia' => 'Rapat Panitia',
                         'proker primer' => 'Proker Primer',
                         'proker sekunder' => 'Proker Sekunder',
-                    ])
+                    ]),
+                Forms\Components\TextInput::make('tempat_pelaksanaan')
+                    ->required()
+                    ->autocomplete(false)
+                    ->maxLength(255),
+                Forms\Components\TextArea::make('tujuan_rapat')
+                    ->required()
+                    ->autocomplete(false)
+                    ->rows(5)
+                    ->cols(20)
+                    ->placeholder('Membahas progres selama 1 bulan sebelumnya...'),
             ]);
     }
 
@@ -112,6 +122,12 @@ class KegiatanResource extends Resource
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\Action::make('send')
+                        ->color('success')
+                        ->tooltip('Kirim ke Whatsapp')
+                        ->icon('heroicon-m-chat-bubble-left-ellipsis')
+                        ->openUrlInNewTab()
+                        ->url(fn ($record) => route('kegiatan.send', $record->id)),
                 ])
             ])
             ->bulkActions([
