@@ -16,20 +16,23 @@ class UserExporter extends Exporter
     {
         return [
             ExportColumn::make('id')
-                ->label('ID'),
-            ExportColumn::make('nim'),
+                ->label('id'),
+            ExportColumn::make('nim')
+                ->label('nim'),
             ExportColumn::make('name')
-                ->label('Nama'),
-            ExportColumn::make('tahun_masuk'),
-            ExportColumn::make('nomor_telepon'),
-            ExportColumn::make('prodi'),
-            ExportColumn::make('email'),
-            ExportColumn::make('email_verified_at')
-                ->label('Diverifikasi pada'),
+                ->label('name'),
+            ExportColumn::make('tahun_masuk')
+                ->label('tahun_masuk'),
+            ExportColumn::make('nomor_telepon')
+                ->label('nomor_telepon'),
+            ExportColumn::make('prodi')
+                ->label('prodi'),
+            ExportColumn::make('email')
+                ->label('email'),
             ExportColumn::make('created_at')
-                ->label('Dibuat pada'),
-            ExportColumn::make('updated_at')
-                ->label('Diupdate pada'),
+                ->label('created_at'),
+            ExportColumn::make('password')
+                ->label('password'),
         ];
     }
 

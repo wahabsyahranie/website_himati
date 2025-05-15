@@ -12,9 +12,11 @@ use Filament\Resources\Resource;
 use Filament\Forms\FormsComponent;
 use Filament\Forms\Components\Repeater;
 use Filament\Tables\Actions\ExportAction;
+use Filament\Tables\Actions\ImportAction;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Exports\PengurusExporter;
+use App\Filament\Imports\PengurusImporter;
 use Filament\Tables\Actions\ExportBulkAction;
 use App\Filament\Resources\PengurusResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -92,6 +94,9 @@ class PengurusResource extends Resource
                 ExportAction::make()
                     ->exporter(PengurusExporter::class)
                     ->label('Ekspor Data'),
+                ImportAction::make()
+                    ->importer(PengurusImporter::class)
+                    ->label('Impor Data'),
             ])
             ->columns([
                 Tables\Columns\TextColumn::make('nomor_induk')

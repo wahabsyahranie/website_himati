@@ -9,7 +9,9 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use App\Filament\Exports\UserExporter;
+use App\Filament\Imports\UserImporter;
 use Filament\Tables\Actions\ExportAction;
+use Filament\Tables\Actions\ImportAction;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Actions\ExportBulkAction;
 use App\Filament\Resources\UserResource\Pages;
@@ -81,6 +83,9 @@ class UserResource extends Resource
                 ExportAction::make()
                     ->exporter(UserExporter::class)
                     ->label('Ekspor Data'),
+                ImportAction::make()
+                    ->importer(UserImporter::class)
+                    ->label('Impor Data'),
             ])
             ->columns([
                 Tables\Columns\TextColumn::make('nim')

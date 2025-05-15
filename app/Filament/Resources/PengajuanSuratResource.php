@@ -14,9 +14,11 @@ use App\Models\PengajuanSurat;
 use Filament\Resources\Resource;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Actions\ExportAction;
+use Filament\Tables\Actions\ImportAction;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Actions\ExportBulkAction;
 use App\Filament\Exports\PengajuanSuratExporter;
+use App\Filament\Imports\PengajuanSuratImporter;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PengajuanSuratResource\Pages;
 use App\Filament\Resources\PengajuanSuratResource\RelationManagers;
@@ -136,11 +138,14 @@ class PengajuanSuratResource extends Resource
             ->deferLoading()
             ->striped()
             ->headerActions([
+                Tables\Actions\CreateAction::make()
+                    ->label('Buat Surat'),
                 ExportAction::make()
                     ->exporter(PengajuanSuratExporter::class)
                     ->label('Ekspor Data'),
-                Tables\Actions\CreateAction::make()
-                    ->label('Buat Surat'),
+                ImportAction::make()
+                    ->importer(PengajuanSuratImporter::class)
+                    ->label('Impor Data'),
             ])
             ->columns([
                 Tables\Columns\TextColumn::make('created_at')

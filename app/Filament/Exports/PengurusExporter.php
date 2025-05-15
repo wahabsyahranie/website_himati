@@ -16,16 +16,21 @@ class PengurusExporter extends Exporter
     {
         return [
             ExportColumn::make('id')
-                ->label('ID'),
-            ExportColumn::make('nomor_induk'),
-            ExportColumn::make('jabatan'),
-            ExportColumn::make('periode'),
-            ExportColumn::make('user.name'),
+                ->label('id'),
+            ExportColumn::make('nomor_induk')
+                ->label('nomor_induk'),
+            ExportColumn::make('jabatan')
+                ->label('jabatan'),
+            ExportColumn::make('periode')
+                ->label('periode'),
+            ExportColumn::make('user_id')
+                ->label('user_id'),
             ExportColumn::make('departemen')
-                ->label('Struktur'),
-            ExportColumn::make('status'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+                ->label('departemen'),
+            ExportColumn::make('status')
+                ->label('status'),
+            ExportColumn::make('created_at')
+                ->label('created_at'),
         ];
     }
 
