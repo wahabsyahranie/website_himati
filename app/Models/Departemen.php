@@ -15,4 +15,9 @@ class Departemen extends Model
     public function pengajuan_surats() : HasMany {
         return $this->hasMany(PengajuanSurat::class);
     }
+
+    public function penguruses()
+    {
+        return $this->hasMany(Pengurus::class);
+    }
 }

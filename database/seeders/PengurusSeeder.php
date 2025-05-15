@@ -17,33 +17,38 @@ class PengurusSeeder extends Seeder
         DB::table('penguruses')->insert([
             [
                 'nomor_induk' => '10000001',
-                'jabatan' => 'ketua umum', // Menggunakan jabatan sesuai enum migrasi
+                'jabatan' => 'ketua umum',
                 'periode' => '2024',
                 'user_id' => '01jv7pqks6n8zz8psysam0ewk9',
+                'departemen_id' => 1,
             ],
             [
                 'nomor_induk' => '10000002',
-                'jabatan' => 'wakil ketua umum', // Menggunakan jabatan sesuai enum migrasi
+                'jabatan' => 'wakil ketua umum',
                 'periode' => '2024',
                 'user_id' => '01jv7pqks6n8zz8psysam0ewka',
+                'departemen_id' => 1,
             ],
             [
                 'nomor_induk' => '10000003',
-                'jabatan' => 'sekretaris umum', // Menggunakan jabatan sesuai enum migrasi
+                'jabatan' => 'sekretaris umum',
                 'periode' => '2024',
                 'user_id' => '01jv7pqks6n8zz8psysam0ewkb',
+                'departemen_id' => 1,
             ],
             [
                 'nomor_induk' => '10000004',
-                'jabatan' => 'bendahara umum', // Menggunakan jabatan sesuai enum migrasi
+                'jabatan' => 'bendahara umum',
                 'periode' => '2024',
                 'user_id' => '01jv7pqks6n8zz8psysam0ewkc',
+                'departemen_id' => 1,
             ],
             [
                 'nomor_induk' => '10000005',
-                'jabatan' => 'kepala departemen', // Menggunakan jabatan sesuai enum migrasi
+                'jabatan' => 'kepala departemen',
                 'periode' => '2024',
                 'user_id' => '01jv7pqks6n8zz8psysam0ewkd',
+                'departemen_id' => 2,
             ],
         ]);
     }

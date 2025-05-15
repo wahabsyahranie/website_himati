@@ -65,19 +65,12 @@ class PengurusResource extends Resource
                     ->required()
                     ->autocomplete(false)
                     ->numeric(),
-                Forms\Components\Select::make('departemen')
+                Forms\Components\Select::make('departemen_id')
                     ->searchable()
-                    ->multiple()
+                    ->preload()
+                    ->relationship('departemen', 'nama_pendek')
                     ->required()
-                    ->placeholder('Pilih Departemen')
-                    ->options([
-                        'kpsdm' => 'KPSDM',
-                        'agama' => 'Agama',
-                        'minba' => 'MINBA',
-                        'humed' => 'HUMED',
-                        'danus' => 'DANUS',
-                        'drt' => 'DRT',
-                    ]),
+                    ->placeholder('Pilih Departemen'),
                 Forms\Components\TextInput::make('status')
                     ->label('Status Keanggotaan')
                     ->default('Pengurus')
@@ -112,16 +105,17 @@ class PengurusResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('periode')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('departemen')
+                Tables\Columns\TextColumn::make('departemen.nama_pendek')
+                    ->label('Struktur')
                     ->badge()
                     ->limitList(1)
                     ->color(function ($state) {
                         return match ($state) {
-                            'minba' => 'warning',
-                            'kpsdm' => 'success',
-                            'agama' => 'info',
-                            'humed' => 'danger',
-                            'danus' => 'info',
+                            'Minba' => 'warning',
+                            'KPSDM' => 'success',
+                            'Agama' => 'info',
+                            'Humed' => 'danger',
+                            'Danus' => 'info',
                             default => 'success',
                         };
                     }),
