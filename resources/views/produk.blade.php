@@ -25,7 +25,7 @@
         <div data-aos="fade-up">
           <div class="bg-base rounded">
             <img class="w-[100px] h-[100px] md:w-[200px] md:h-[200px] mx-auto" src="{{ asset($data->gambar) }}" alt="gambar{{ $loop->iteration }}">
-            <p class="text-xs md:text-lg bg-primary text-center text-base uppercase py-1">Lihat Detail</p>
+            <button class="open-modal text-xs md:text-lg bg-primary text-center w-full text-base uppercase py-1 cursor-pointer hover:bg-base hover:text-primary">Lihat Detail</button>
           </div>
           <p class="text-xs md:text-lg capitalize font-bold my-1">{{ $data->nama }}</p>
           <p class="text-xs md:text-lg capitalize">Rp {{ number_format($data->harga, 2, ',', '.') }}</p>
@@ -37,16 +37,20 @@
   {{-- FOOTER --}}
   <div class="relative px-5 md:px-21 flex flex-row justify-center py-10 md:py-15 w-full bg-primary items-center text-text-primary text-center overflow-hidden"
      style="background-image: url('{{ asset('img/aset/bgnav.png') }}'); background-size: cover; background-repeat: no-repeat; background-position: center;">
-  <img class="w-[150px] md:w-[200px] lg:w-[350px] absolute bottom-[-55px] left-[-55px] rotate-[30deg]" src="{{ asset('produk/bottle.png') }}" alt="">
-  <div class="max-w-xl z-10">
-    <p class="uppercase text-xl md:text-4xl max-w-[300px] md:max-w-[500px] mx-auto">The best water bottle starter <span class="font-bold">today</span></p>
-    <p class="py-3 text-xs md:text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi saepe amet ipsam modi, vitae tempore explicabo ducimus eveniet ullam sed eius nobis velit officia architecto vel autem totam, earum dolorum.</p>
-    <a href="/admin/penyewaans" class="text-xs md:text-lg capitalize btn bg-secondary rounded px-4 py-1 shadow-xl text-text-primary hover:bg-text-primary hover:text-primary">
-      beli sekarang
-    </a>
+    <img class="w-[150px] md:w-[200px] lg:w-[350px] absolute bottom-[-55px] left-[-55px] rotate-[30deg]" src="{{ asset('produk/bottle.png') }}" alt="">
+    <div class="max-w-xl z-10">
+      <p class="uppercase text-xl md:text-4xl max-w-[300px] md:max-w-[500px] mx-auto">The best water bottle starter <span class="font-bold">today</span></p>
+      <p class="py-3 text-xs md:text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi saepe amet ipsam modi, vitae tempore explicabo ducimus eveniet ullam sed eius nobis velit officia architecto vel autem totam, earum dolorum.</p>
+      <a href="/admin/penyewaans" class="text-xs md:text-lg capitalize btn bg-secondary rounded px-4 py-1 shadow-xl text-text-primary hover:bg-text-primary hover:text-primary">
+        beli sekarang
+      </a>
+    </div>
+    <img class="w-[150px] md:w-[200px] lg:w-[300px] absolute bottom-[-40px] right-[-40px] rotate-[-30deg]" src="{{ asset('produk/bottle.png') }}" alt="">
   </div>
-  <img class="w-[150px] md:w-[200px] lg:w-[300px] absolute bottom-[-40px] right-[-40px] rotate-[-30deg]" src="{{ asset('produk/bottle.png') }}" alt="">
 
-</div>
-
+  <x-modal>
+    <h1 class="font-bold text-lg">Detail Produk</h1>
+    <p class="text-[14px] py-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum fugit fugiat magni ipsa ab? Perspiciatis incidunt, asperiores facere eveniet odit commodi? Beatae qui accusamus ipsum! Quidem alias corrupti expedita facere?</p>
+    <button class="rounded px-[10px] py-[5px] close-modal text-[14px] bg-primary text-center text-base py-1 cursor-pointer">Tutup</button>
+  </x-modal>
 </x-layout>

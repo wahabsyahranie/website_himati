@@ -22,7 +22,7 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap");
 
-/* MOBILE */
+/* CAROUSEL */
 @media (max-width: 767px) {
     .container {
         /* margin: 0px;
@@ -347,6 +347,7 @@
     }
 }
 
+/* NAVBAR */
 @media (min-width: 768px) {
     #navbar {
         background: transparent;
@@ -377,4 +378,26 @@
     background: white; /* Background putih saat scroll di mobile */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sedikit shadow */
     background-color: #003655;
+}
+
+/* MODAL */
+.modal-container {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.3);
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 50;
+}
+
+.modal-container.show {
+    pointer-events: auto;
+    opacity: 1;
 }

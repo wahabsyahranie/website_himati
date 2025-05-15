@@ -51,3 +51,15 @@ window.addEventListener("scroll", function () {
 });
 
 AOS.init();
+
+////MODAL JS
+// Pastikan jQuery sudah dimuat sebelum kode ini dijalankan
+$(document).ready(function () {
+    $(".open-modal").on("click", function () {
+        $("#modal_container").addClass("show");
+    });
+
+    $(".close-modal").on("click", function () {
+        $("#modal_container").removeClass("show");
+    });
+});
