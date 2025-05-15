@@ -62,6 +62,7 @@ $(document).ready(function () {
         $("#modal-nama").text(nama);
         $("#modal-desk").text(desk);
         $("#modal-harga").text("Rp " + harga);
+        $("#modal-satuan").text("per hari");
         $("#global-modal").addClass("show");
     });
 

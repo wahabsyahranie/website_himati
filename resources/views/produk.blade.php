@@ -38,7 +38,8 @@
   <x-modal>
     <h1 id="modal-nama" class="text-lg font-bold"></h1>
     <p id="modal-desk" class="text-[14px] py-2"></p>
-    <p id="modal-harga" class="text-[14px] py-2 font-semibold"></p>
+    <p id="modal-harga" class="text-[14px] pt-2 font-semibold"></p>
+    <p id="modal-satuan" class="text-[12px] text-gray-500 -mt-1"></p>
   </x-modal>
 
   {{-- FOOTER --}}
