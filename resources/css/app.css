@@ -6,8 +6,6 @@
 @source '../**/*.js';
 @source "../views";
 
-/* @plugin "daisyui"; */
-
 @theme {
     --font-display: "Inter", sans-serif;
     --color-base: #f0f7fa;
