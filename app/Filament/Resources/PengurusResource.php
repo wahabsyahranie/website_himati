@@ -80,6 +80,10 @@ class PengurusResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->heading('Data pengurus')
+            ->description('Kelola pengurus HMJ TI disini.')
+            ->deferLoading()
+            ->striped()
             ->headerActions([
                 Tables\Actions\CreateAction::make()
                     ->label('Tambah Pengurus'),

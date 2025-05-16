@@ -71,6 +71,10 @@ class KegiatanResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->heading('Agenda Kegiatan')
+            ->description('Kelola kegiatan HMJ TI disini.')
+            ->deferLoading()
+            ->striped()
             ->headerActions([
                 Tables\Actions\CreateAction::make()
                     ->label('Buat Kegiatan'),

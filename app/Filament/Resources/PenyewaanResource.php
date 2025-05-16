@@ -97,6 +97,10 @@ class PenyewaanResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->heading('Layanan penyewaan')
+            ->description('Kelola data penyewaan disini.')
+            ->deferLoading()
+            ->striped()
             ->headerActions([
                 Tables\Actions\CreateAction::make()
                     ->label('Ajukan Penyewaan'),

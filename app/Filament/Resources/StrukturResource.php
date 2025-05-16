@@ -66,6 +66,10 @@ class StrukturResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->heading('Data struktur')
+            ->description('Kelola struktur organisasi HMJ TI disini.')
+            ->deferLoading()
+            ->striped()
             ->columns([
                 Tables\Columns\TextColumn::make('no')
                     ->label('No')

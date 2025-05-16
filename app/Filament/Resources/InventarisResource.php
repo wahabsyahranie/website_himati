@@ -70,6 +70,10 @@ class InventarisResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->heading('Data inventaris')
+            ->description('Kelola inventaris HMJ TI disini.')
+            ->deferLoading()
+            ->striped()
             ->headerActions([
                 Tables\Actions\CreateAction::make()
                     ->label('Tambah Inventaris'),

@@ -65,22 +65,22 @@ class AdminPanelProvider extends PanelProvider
                 NavigationGroup::make()
                     ->label('Manajemen Data')
                     ->icon('heroicon-o-folder')
-                    ->collapsed(),
+                    ->collapsed(false),
 
                 NavigationGroup::make()
                     ->label('Layanan Umum')
                     ->icon('heroicon-o-globe-alt')
-                    ->collapsed(),
+                    ->collapsed(false),
 
                 NavigationGroup::make()
                     ->label('Layanan Pengurus')
                     ->icon('heroicon-o-user-group')
-                    ->collapsed(),
+                    ->collapsed(false),
 
                 NavigationGroup::make()
                     ->label('Pengaturan')
                     ->icon('heroicon-o-cog-8-tooth')
-                    ->collapsed(),
+                    ->collapsed(false),
             ]);
 
     }

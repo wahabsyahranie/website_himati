@@ -79,6 +79,10 @@ class PengaduanResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->heading('Layanan advokasi')
+            ->description('Kelola data pengaduan mahasiswa disini.')
+            ->deferLoading()
+            ->striped()
             ->headerActions([
                 Tables\Actions\CreateAction::make()
                     ->label('Buat Pengaduan'),

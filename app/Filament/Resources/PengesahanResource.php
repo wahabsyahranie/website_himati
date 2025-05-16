@@ -75,6 +75,10 @@ class PengesahanResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->heading('Data pengesahan')
+            ->description('Kelola pengesahan untuk pembuatan surat disini.')
+            ->deferLoading()
+            ->striped()
             ->headerActions([
                 Tables\Actions\CreateAction::make()
                     ->label('Tambah Pengesahan'),
