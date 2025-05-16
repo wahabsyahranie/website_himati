@@ -38,6 +38,8 @@ class Register extends BaseRegister
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'nomor_telepon' => $data['nomor_telepon'],
+            'tipe_akun' => $data['tipe_akun']
+            
         ]);
 
         if(!empty($data['nim']) && !empty($data['prodi']) && !empty($data['tahun_masuk'])) {

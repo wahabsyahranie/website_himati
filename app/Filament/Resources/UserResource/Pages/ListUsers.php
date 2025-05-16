@@ -14,23 +14,20 @@ class ListUsers extends ListRecords
     protected static ?string $title = 'Data Pengguna';
 
     public function getTabs(): array
-{
-    return [
-        'all' => Tab::make()
-            ->label('Semua'),
-        'mahasiswa' => Tab::make()
-            ->label('Mahasiswa')
-            ->modifyQueryUsing(fn (Builder $query) => $query->has('userDetail')),
-        'ormawa' => Tab::make()
-            ->label('Ormawa')
-            ->modifyQueryUsing(fn (Builder $query) => $query->doesntHave('userDetail')),
-    ];
-}
+    {
+        return [
+            'all' => Tab::make()
+                ->label('Semua'),
+            'mahasiswa' => Tab::make()
+                ->label('Mahasiswa')
+                // ->modifyQueryUsing(fn (Builder $query) => $query->has('userDetail')),
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('tipe_akun', 'mahasiswa')),
+            'ormawa' => Tab::make()
+                ->label('Ormawa')
+                // ->modifyQueryUsing(fn (Builder $query) => $query->doesntHave('userDetail')),
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('tipe_akun', 'ormawa')),
+        ];
+    }
 
-    // protected function getHeaderActions(): array
-    // {
-    //     return [
-    //         Actions\CreateAction::make(),
-    //     ];
-    // }
+    
 }

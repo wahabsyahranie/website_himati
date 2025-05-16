@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use Filament\Forms;
 use App\Models\User;
 use Filament\Tables;
+use Filament\Forms\Get;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
@@ -55,7 +56,16 @@ class UserResource extends Resource
                     ->password()
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Select::make('tipe_akun')
+                    ->required()
+                    ->live()
+                    ->label('Tipe Akun')
+                    ->options([
+                        'mahasiswa' => 'mahasiswa',
+                        'ormawa' => 'ormawa',
+                    ]),
                 Forms\Components\Fieldset::make('userDetail')
+                    ->visible(fn (Get $get) => $get('tipe_akun') === 'mahasiswa')
                     ->label('Detail Mahasiswa')
                     ->relationship('userDetail')
                     ->schema([
@@ -64,7 +74,9 @@ class UserResource extends Resource
                         Forms\Components\Select::make('prodi')
                             ->options(fn() => [
                                 'TI' => 'Teknik Informatika',
+                                'TK' => 'Teknik Komputer',
                                 'TIM' => 'Teknik Informatika Multimedia',
+                                'TRK' => 'Teknologi Rekayasa Komputer',
                             ])
                             ->searchable()
                             ->columnSpanFull(),

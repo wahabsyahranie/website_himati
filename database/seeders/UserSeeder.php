@@ -15,59 +15,6 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // DB::table('users')->insert([
-        //     [
-        //         'id' => '01jv7pqks6n8zz8psysam0ewk9',
-        //         'name' => 'Wahab',
-        //         'email' => 'wahab@polnes.com',
-        //         'password' => Hash::make('123'),
-        //         'nim' => '236152003',
-        //         'tahun_masuk' => '2023',
-        //         'prodi' => 'TI',
-        //         'nomor_telepon' => '081258765977',
-        //     ],
-        //     [
-        //         'id' => '01jv7pqks6n8zz8psysam0ewka',
-        //         'name' => 'Eva',
-        //         'email' => 'eva@polnes.com',
-        //         'password' => Hash::make('123'),
-        //         'nim' => '236152004',
-        //         'tahun_masuk' => '2023',
-        //         'prodi' => 'TI',
-        //         'nomor_telepon' => '081234567890',
-        //     ],
-        //     [
-        //         'id' => '01jv7pqks6n8zz8psysam0ewkb',
-        //         'name' => 'Rizki',
-        //         'email' => 'rizki@polnes.com',
-        //         'password' => Hash::make('123'),
-        //         'nim' => '236152005',
-        //         'tahun_masuk' => '2023',
-        //         'prodi' => 'TI',
-        //         'nomor_telepon' => '081298765432',
-        //     ],
-        //     [
-        //         'id' => '01jv7pqks6n8zz8psysam0ewkc',
-        //         'name' => 'Zahra',
-        //         'email' => 'dewi@polnes.com',
-        //         'password' => Hash::make('123'),
-        //         'nim' => '236152006',
-        //         'tahun_masuk' => '2023',
-        //         'prodi' => 'TI',
-        //         'nomor_telepon' => '081212345678',
-        //     ],
-        //     [
-        //         'id' => '01jv7pqks6n8zz8psysam0ewkd',
-        //         'name' => 'Abi',
-        //         'email' => 'fajar@polnes.com',
-        //         'password' => Hash::make('123'),
-        //         'nim' => '236152007',
-        //         'tahun_masuk' => '2023',
-        //         'prodi' => 'TI',
-        //         'nomor_telepon' => '081276543210',
-        //     ],
-        // ]);
-
         DB::table('users')->insert([
             [
                 'id' => '01jv7pqks6n8zz8psysam0ewk9',
@@ -75,6 +22,7 @@ class UserSeeder extends Seeder
                 'email' => 'wahab@polnes.com',
                 'password' => Hash::make('123'),
                 'nomor_telepon' => '081258765977',
+                'tipe_akun' => 'mahasiswa',
             ],
             [
                 'id' => '01jv7pqks6n8zz8psysam0ewka',
@@ -82,6 +30,7 @@ class UserSeeder extends Seeder
                 'email' => 'eva@polnes.com',
                 'password' => Hash::make('123'),
                 'nomor_telepon' => '081234567890',
+                'tipe_akun' => 'mahasiswa',
             ],
             [
                 'id' => '01jv7pqks6n8zz8psysam0ewkb',
@@ -89,6 +38,7 @@ class UserSeeder extends Seeder
                 'email' => 'rizki@polnes.com',
                 'password' => Hash::make('123'),
                 'nomor_telepon' => '081298765432',
+                'tipe_akun' => 'mahasiswa',
             ],
             [
                 'id' => '01jv7pqks6n8zz8psysam0ewkc',
@@ -96,6 +46,7 @@ class UserSeeder extends Seeder
                 'email' => 'dewi@polnes.com',
                 'password' => Hash::make('123'),
                 'nomor_telepon' => '081212345678',
+                'tipe_akun' => 'mahasiswa',
             ],
             [
                 'id' => '01jv7pqks6n8zz8psysam0ewkd',
@@ -103,6 +54,7 @@ class UserSeeder extends Seeder
                 'email' => 'fajar@polnes.com',
                 'password' => Hash::make('123'),
                 'nomor_telepon' => '081276543210',
+                'tipe_akun' => 'mahasiswa',
             ],
             [
                 'id' => '01jv7pqks6n8zz8psysam0ewke',
@@ -110,6 +62,7 @@ class UserSeeder extends Seeder
                 'email' => 'bemti@polnes.ac.id',
                 'password' => Hash::make('bemti123'),
                 'nomor_telepon' => '081234567890',
+                'tipe_akun' => 'ormawa',
             ],
             [
                 'id' => '01jv7pqks6n8zz8psysam0ewkf',
@@ -117,6 +70,7 @@ class UserSeeder extends Seeder
                 'email' => 'dpmiti@polnes.ac.id',
                 'password' => Hash::make('dpmiti123'),
                 'nomor_telepon' => '082345678901',
+                'tipe_akun' => 'ormawa',
             ],
             [
                 'id' => '01jv7pqks6n8zz8psysam0ewkg',
@@ -124,6 +78,7 @@ class UserSeeder extends Seeder
                 'email' => 'tekim@polnes.ac.id',
                 'password' => Hash::make('himatif123'),
                 'nomor_telepon' => '083456789012',
+                'tipe_akun' => 'ormawa',
             ],
             [
                 'id' => '01jv7pqks6n8zz8psysam0ewkh',
@@ -131,6 +86,7 @@ class UserSeeder extends Seeder
                 'email' => 'ujur@polnes.ac.id',
                 'password' => Hash::make('ukmpc123'),
                 'nomor_telepon' => '084567890123',
+                'tipe_akun' => 'ormawa',
             ],
         ]);
     }

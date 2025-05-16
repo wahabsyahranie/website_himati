@@ -27,9 +27,7 @@ class User extends Authenticatable
         'email',
         'password',
         'nomor_telepon',
-        // 'tahun_masuk',
-        // 'prodi',
-        // 'nim',
+        'tipe_akun'
     ];
 
     /**

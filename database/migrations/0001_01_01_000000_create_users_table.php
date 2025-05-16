@@ -22,18 +22,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->timestamps();
-        });
-
-        Schema::create('user_details', function (Blueprint $table) {
-            $table->id();
-            $table->string('nim')->nullable();
-            $table->year('tahun_masuk')->nullable();
-            $table->enum('prodi', ['TI', 'TK', 'TIM', 'TRK'])->nullable();
-
-            $table->char('user_id', 26);
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->nullable();
-
+            $table->string('tipe_akun');
             $table->timestamps();
         });
 
