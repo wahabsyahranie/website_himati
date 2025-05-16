@@ -91,6 +91,9 @@ class PengurusResource extends Resource
                     ->label('Impor Data'),
             ])
             ->columns([
+                Tables\Columns\TextColumn::make('no')
+                    ->label('No')
+                    ->rowIndex(),
                 Tables\Columns\TextColumn::make('nomor_induk')
                     ->label('NIA')
                     ->numeric()

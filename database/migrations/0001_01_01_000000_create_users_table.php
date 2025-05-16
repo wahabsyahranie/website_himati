@@ -13,15 +13,27 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->string('nim');
+            // $table->string('nim');
             $table->string('name');
-            $table->year('tahun_masuk');
+            // $table->year('tahun_masuk');
             $table->string('nomor_telepon');
-            $table->enum('prodi', ['TI', 'TK', 'TIM', 'TRK']);
+            // $table->enum('prodi', ['TI', 'TK', 'TIM', 'TRK']);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->timestamps();
+        });
+
+        Schema::create('user_details', function (Blueprint $table) {
+            $table->id();
+            $table->string('nim')->nullable();
+            $table->year('tahun_masuk')->nullable();
+            $table->enum('prodi', ['TI', 'TK', 'TIM', 'TRK'])->nullable();
+
+            $table->char('user_id', 26);
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->nullable();
+
             $table->timestamps();
         });
 

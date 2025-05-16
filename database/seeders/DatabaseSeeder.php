@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             StrukturSeeder::class,
             PengurusSeeder::class,
             InventarisSeeder::class,
-            OrmawaSeeder::class,
+            // OrmawaSeeder::class,
             KegiatanSeeder::class,
             PengesahanSeeder::class,
             PengajuanSuratSeeder::class,

@@ -29,6 +29,8 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->sidebarCollapsibleOnDesktop()
+            ->sidebarWidth('15rem')
             ->registration(Register::class)
             ->databaseNotifications()
             ->databaseNotificationsPolling('5s')

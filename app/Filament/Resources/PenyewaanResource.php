@@ -31,8 +31,8 @@ class PenyewaanResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('ormawa_id')
-                    ->relationship('ormawa', 'nama')
+                Forms\Components\Select::make('user_id')
+                    ->relationship('user', 'name')
                     ->native(false)
                     ->required()
                     ->columnSpanFull(),
@@ -102,8 +102,11 @@ class PenyewaanResource extends Resource
                     ->label('Ajukan Penyewaan'),
             ])
             ->columns([
-                Tables\Columns\TextColumn::make('ormawa.nama')
-                    ->label('Ormawa')
+                Tables\Columns\TextColumn::make('no')
+                    ->label('No')
+                    ->rowIndex(),
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('Nama')
                     ->sortable()
                     ->searchable()
                     ->description(

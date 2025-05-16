@@ -67,6 +67,9 @@ class StrukturResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('no')
+                    ->label('No')
+                    ->rowIndex(),
                 Tables\Columns\ImageColumn::make('gambar')
                     ->circular(),
                 Tables\Columns\TextColumn::make('kode'),

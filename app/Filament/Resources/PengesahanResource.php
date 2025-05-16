@@ -80,6 +80,9 @@ class PengesahanResource extends Resource
                     ->label('Tambah Pengesahan'),
             ])
             ->columns([
+                Tables\Columns\TextColumn::make('no')
+                    ->label('No')
+                    ->rowIndex(),
                 Tables\Columns\TextColumn::make('nama')
                     ->sortable()
                     ->limit(20)

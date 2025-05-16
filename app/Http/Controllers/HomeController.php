@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengaduan;
-use App\Models\Departemen;
 use App\Models\Inventaris;
 use App\Models\PengajuanSurat;
+use App\Models\Struktur;
 use Illuminate\Http\Request;
 
 use function Pest\Laravel\get;
@@ -17,7 +17,7 @@ class HomeController extends Controller
         $dataPengaduan = Pengaduan::where('status', 'dipublikasikan')->orderBy('created_at', 'desc')->limit(4)->get();
         $countPengaduan = Pengaduan::count();
         $countSurat = PengajuanSurat::count();
-        $dataDepartemen = Departemen::orderBy('prioritas', 'asc')->get();
+        $dataStruktur = Struktur::orderBy('prioritas', 'asc')->get();
 
         $cards = [];
         foreach ($dataPengaduan as $pengaduan) {
@@ -42,7 +42,7 @@ class HomeController extends Controller
             ];
         }
 
-        return compact('dataPengaduan' , 'dataDepartemen', 'countPengaduan', 'countSurat', 'cards');
+        return compact('dataPengaduan' , 'dataStruktur', 'countPengaduan', 'countSurat', 'cards');
 
         
     }

@@ -28,7 +28,7 @@ class DetailPenyewaansRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('description')
             ->columns([
-                Tables\Columns\TextColumn::make('penyewaan.ormawa.nama'),
+                Tables\Columns\TextColumn::make('penyewaan.user.name'),
                 // Tables\Columns\TextColumn::make('jumlah'),
                 Tables\Columns\TextColumn::make('segments')
                     ->label('Tanggal Penyewaan')

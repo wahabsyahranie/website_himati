@@ -11,15 +11,15 @@ class Penyewaan extends Model
 {
     use HasFactory;
     protected $table = 'penyewaans';
-    protected $fillable = ['tanggal_pinjam', 'tanggal_kembali', 'ormawa_id', 'status'];
+    protected $fillable = ['tanggal_pinjam', 'tanggal_kembali', 'user_id', 'status'];
 
     public function detail_penyewaans() : HasMany
     {
         return $this->hasMany(DetailPenyewaan::class);
     }
 
-    public function ormawa() : BelongsTo
+    public function user() : BelongsTo
     {
-        return $this->belongsTo(Ormawa::class);
+        return $this->belongsTo(User::class);
     }
 }

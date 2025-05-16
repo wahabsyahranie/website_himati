@@ -88,6 +88,9 @@ class PengaduanResource extends Resource
                     ->with('user') // Eager load relasi di sini
             )
             ->columns([
+                Tables\Columns\TextColumn::make('no')
+                    ->label('No')
+                    ->rowIndex(),
                 Tables\Columns\ImageColumn::make('gambar')
                     ->square(),
                 Tables\Columns\TextColumn::make('judul')

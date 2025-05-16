@@ -76,6 +76,9 @@ class KegiatanResource extends Resource
                     ->label('Buat Kegiatan'),
             ])
             ->columns([
+                Tables\Columns\TextColumn::make('no')
+                    ->label('No')
+                    ->rowIndex(),
                 Tables\Columns\TextColumn::make('nama')
                     ->label('Nama Kegiatan')
                     ->description(fn (Kegiatan $record): string => $record->jenis_kegiatan, position: 'above')

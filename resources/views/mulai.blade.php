@@ -91,13 +91,13 @@
       <div data-aos="zoom-in" data-aos-offset="150" data-aos-duration="500" class="container pt-8">
         <section class="slider-container">
           <div class="slider-images">
-            @foreach ($datas['dataDepartemen'] as $departemen )
+            @foreach ($datas['dataStruktur'] as $struktur )
               <div class="slider-img {{ $loop->iteration == 4 ? 'active' : '' }}">
-                <img src="{{ asset($departemen->gambar) }}" alt="1">
-                <h1>{{ $departemen->kode }}</h1>
+                <img src="{{ asset($struktur->gambar) }}" alt="1">
+                <h1>{{ $struktur->kode }}</h1>
                 <div class="details">
-                  <h2>{{ $departemen->nama_pendek }}</h2>
-                  <p>{{ $departemen->nama_lengkap }}</p>
+                  <h2>{{ $struktur->nama_pendek }}</h2>
+                  <p>{{ $struktur->nama_lengkap }}</p>
                 </div>
               </div>
             @endforeach

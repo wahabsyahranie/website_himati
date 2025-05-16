@@ -10,6 +10,7 @@ use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use App\Filament\Exports\UserExporter;
 use App\Filament\Imports\UserImporter;
+use Filament\Forms\Components\Repeater;
 use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Actions\ImportAction;
 use Illuminate\Database\Eloquent\Builder;
@@ -24,18 +25,13 @@ class UserResource extends Resource
     protected static ?string $model = User::class;
 
     protected static ?string $navigationGroup = 'Manajemen Data';
-    protected static ?string $navigationLabel = 'Mahasiswa';
+    protected static ?string $navigationLabel = 'Pengguna';
     protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nim')
-                    ->label('NIM')
-                    ->required()
-                    ->maxLength(9)
-                    ->autocomplete(false),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->autocomplete(false)
@@ -59,18 +55,20 @@ class UserResource extends Resource
                     ->password()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('tahun_masuk')
-                    ->required()
-                    ->autocomplete(false),
-                Forms\Components\Select::make('prodi')
-                    ->required()
-                    ->native(false)
-                    ->options([
-                        'TI' => 'D3 - Teknik Informatika',
-                        'TK' => 'D3 - Teknik Komputer',
-                        'TIM' => 'D4 - Teknik Informatika dan Multimedia',
-                        'TRK' => 'D4 -  Teknologi Rekayasa Komputer',
-                    ])
+                Forms\Components\Fieldset::make('userDetail')
+                    ->label('Detail Mahasiswa')
+                    ->relationship('userDetail')
+                    ->schema([
+                        Forms\Components\TextInput::make('nim'),
+                        Forms\Components\TextInput::make('tahun_masuk'),
+                        Forms\Components\Select::make('prodi')
+                            ->options(fn() => [
+                                'TI' => 'Teknik Informatika',
+                                'TIM' => 'Teknik Informatika Multimedia',
+                            ])
+                            ->searchable()
+                            ->columnSpanFull(),
+                    ]),
             ]);
     }
 
@@ -79,7 +77,7 @@ class UserResource extends Resource
         return $table
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                    ->label('Tambah Mahasiswa'),
+                    ->label('Tambah Pengguna'),
                 ExportAction::make()
                     ->exporter(UserExporter::class)
                     ->label('Ekspor Data'),
@@ -88,19 +86,13 @@ class UserResource extends Resource
                     ->label('Impor Data'),
             ])
             ->columns([
-                Tables\Columns\TextColumn::make('nim')
-                    ->label('NIM')
-                    ->searchable()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('no')
+                    ->label('No')
+                    ->rowIndex(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->limit(20)
                     ->sortable(),
-                Tables\Columns\TextColumn::make('tahun_masuk')
-                    ->label('Tahun Masuk')
-                    ->limit(4)
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('prodi'),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable()
                     ->sortable()
@@ -119,24 +111,26 @@ class UserResource extends Resource
                     ->copyable()
                     ->copyMessage('Nomor telepon disalin')
                     ->copyMessageDuration(1500),
+                Tables\Columns\TextColumn::make('userDetail.nim')
+                    ->label('NIM')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('userDetail.prodi')
+                    ->label('Prodi')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('userDetail.tahun_masuk')
+                    ->label('Tahun Masuk')
+                    ->limit(4)
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\SelectFilter::make('prodi')
-                    ->options([
-                        'TI' => 'D3 - Teknik Informatika',
-                        'TK' => 'D3 - Teknik Komputer',
-                        'TIM' => 'D4 - Teknik Informatika dan Multimedia',
-                        'TRK' => 'D4 -  Teknologi Rekayasa Komputer',
-                    ]),
-                Tables\Filters\SelectFilter::make('tahun_masuk')
-                    ->options(function () {
-                        return \App\Models\User::query()
-                            ->pluck('tahun_masuk', 'tahun_masuk')
-                            ->unique()
-                            ->sort()
-                            ->toArray();
-                    }),
+                    ->relationship('userDetail', 'prodi'),
+                    Tables\Filters\SelectFilter::make('tahun_masuk')
+                    ->relationship('userDetail', 'tahun_masuk'),
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([

@@ -75,6 +75,9 @@ class InventarisResource extends Resource
                     ->label('Tambah Inventaris'),
             ])
             ->columns([
+                Tables\Columns\TextColumn::make('no')
+                    ->label('No')
+                    ->rowIndex(),
                 Tables\Columns\ImageColumn::make('gambar')
                     ->circular(),
                 Tables\Columns\TextColumn::make('nama')
