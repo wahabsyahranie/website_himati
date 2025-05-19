@@ -63,7 +63,7 @@ class PengajuanSuratResource extends Resource
                         'Und' => 'Surat Undangan',
                         'SM' => 'Surat Mandat',
                         'Spn' => 'Surat Pernyataan Aktif',
-                        'SD' => 'Surat Dispen',
+                        'Spm' => 'Surat Permohonan Dispen',
                     ]),
                 Forms\Components\Select::make('pengesahan_id')
                     ->label('Tujuan Surat')
@@ -90,7 +90,7 @@ class PengajuanSuratResource extends Resource
                     ->rows(5)
                     ->maxLength(330)
                     ->helperText('Maksimal 380 karakter')
-                    ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['Spn'])),
+                    ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['Spn', 'Spm'])),
                 Forms\Components\DatePicker::make('tanggal_pelaksana')
                     ->label('Tanggal Mulai')
                     ->native(false)
@@ -143,7 +143,7 @@ class PengajuanSuratResource extends Resource
                     ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
                 Repeater::make('lampiran')
                     ->label('Detail Lampiran')
-                    ->visible(fn (Get $get) => in_array($get('tipe_surat'), ['SPm', 'Und', 'SM', 'Spn']))
+                    ->visible(fn (Get $get) => in_array($get('tipe_surat'), ['SPm', 'Und', 'SM', 'Spn', 'Spm']))
                     ->schema([
                         TextInput::make('nama')
                             ->required(),
@@ -151,7 +151,10 @@ class PengajuanSuratResource extends Resource
                             ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SPm']))
                             ->required(),
                         TextInput::make('nim')
-                            ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SM', 'Spn']))
+                            ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SM', 'Spn', 'Spm']))
+                            ->required(),
+                        TextInput::make('kelas')
+                            ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['Spm']))
                             ->required(),
                         TextInput::make('prodi')
                             ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SM', 'Spn']))
