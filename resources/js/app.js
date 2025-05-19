@@ -70,3 +70,5 @@ $(document).ready(function () {
         $("#global-modal").removeClass("show");
     });
 });
+
+////PENDAPAT SWIPE MENGGUNAKAN ALPHINE JS

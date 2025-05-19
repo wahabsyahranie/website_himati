@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Review;
+use App\Models\Struktur;
 use App\Models\Pengaduan;
 use App\Models\Inventaris;
-use App\Models\PengajuanSurat;
-use App\Models\Struktur;
 use Illuminate\Http\Request;
 
+use App\Models\PengajuanSurat;
 use function Pest\Laravel\get;
 
 class HomeController extends Controller
 {
     private function getData()
     {
+        $dataReview = Review::with('user')->where('status', 'disetujui')->limit(4)->get();
         $dataPengaduan = Pengaduan::where('status', 'dipublikasikan')->orderBy('created_at', 'desc')->limit(4)->get();
         $countPengaduan = Pengaduan::count();
         $countSurat = PengajuanSurat::count();
@@ -42,7 +44,7 @@ class HomeController extends Controller
             ];
         }
 
-        return compact('dataPengaduan' , 'dataStruktur', 'countPengaduan', 'countSurat', 'cards');
+        return compact('dataPengaduan' , 'dataStruktur', 'countPengaduan', 'countSurat', 'cards', 'dataReview');
 
         
     }

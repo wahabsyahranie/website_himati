@@ -15,17 +15,17 @@
       <div class="flex flex-col md:flex-row gap-8 text-text-light">
         <!-- Kolom 1: Kontak -->
         <div class="md:w-1/3">
-          <h3 class="text-lg md:text-xl font-bold mb-4 text-text-secondary">HIMA TI.</h3>
+          <h3 class="text-md md:text-xl font-bold mb-4 text-text-secondary">HIMA TI.</h3>
           <address class="not-italic">
-            <p class="text-sm md:text-lg mb-2 leading-8 max-w-[70%] hover:underline"> <a href="https://maps.app.goo.gl/CKTYSW3dYXXKwwoU9" target="_blank">Jalan Cipto Mangunkusumo Kampus Gunung Panjang Samarinda 75131</a></p>
-            <p class="text-sm md:text-lg lowercase text-primary hover:underline"><a href="mailto:himati@polnes.ac.id">himati@polnes.ac.id</a></p>
+            <p class="text-xs md:text-lg mb-2 leading-8 max-w-[70%] hover:underline"> <a href="https://maps.app.goo.gl/CKTYSW3dYXXKwwoU9" target="_blank">Jalan Cipto Mangunkusumo Kampus Gunung Panjang Samarinda 75131</a></p>
+            <p class="text-xs md:text-lg lowercase text-primary hover:underline"><a href="mailto:himati@polnes.ac.id">himati@polnes.ac.id</a></p>
           </address>
         </div>
   
         <!-- Kolom 2: Layanan -->
         <div class="md:w-1/3">
           <h3 class="text-sm md:text-lg font-bold mb-4">Layanan</h3>
-          <ul class="space-y-2 text-sm md:text-lg">
+          <ul class="space-y-2 text-xs md:text-lg">
             <li><a href="/admin/pengaduans">Advokasi</a></li>
             <li><a href="/admin/penyewaans">Penyewaan Inventaris</a></li>
             <li><a href="/admin/pengajuan-surats">Pembuatan Surat</a></li>
@@ -36,7 +36,7 @@
         <!-- Kolom 3: Tentang Kami -->
         <div class="md:w-1/3">
           <h3 class="font-bold mb-4 text-sm md:text-lg">Tentang Kami</h3>
-          <ul class="space-y-2 text-sm md:text-lg">
+          <ul class="space-y-2 text-xs md:text-lg">
             <li>Kontak</li>
             <li>Kerjasama</li>
           </ul>

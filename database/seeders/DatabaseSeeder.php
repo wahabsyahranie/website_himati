@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             // OrmawaSeeder::class,
             KegiatanSeeder::class,
             PengesahanSeeder::class,
+            ReviewSeeder::class,
             PengajuanSuratSeeder::class,
             PenyewaanSeeder::class,
         ]);
