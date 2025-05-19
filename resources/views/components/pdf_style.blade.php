@@ -60,8 +60,32 @@
     .text-bold {
       font-weight: bold;
     }
+    .text-underline {
+      text-decoration: underline;
+      text-underline-position: under;
+    }
 
     .text-right {
       text-align: right;
     }
+
+    .container {
+      margin: 13px;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .table-margin {
+      margin-left: 5px;
+      margin-right: 5px;
+      width: 80%;
+    }
+
+    .table-margin tr.group-start {
+      border-top: 12px solid transparent;
+    }
+
+
 </style>

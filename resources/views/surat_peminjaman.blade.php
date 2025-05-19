@@ -139,7 +139,7 @@
     @foreach ($data->lampiran as $lampiran )
       <tr>
         <td style="width: 10%; text-align: center;z">{{ $loop->iteration }}</td>
-        <td>{{ $lampiran['nama_barang'] }}</td>
+        <td>{{ $lampiran['nama'] }}</td>
         <td>{{ $lampiran['jumlah'] }}</td>
       </tr>
     @endforeach

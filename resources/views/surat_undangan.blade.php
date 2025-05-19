@@ -134,7 +134,7 @@
     @foreach ($data->lampiran as $lampiran )
       <tr>
         <td class="text-right">{{ $loop->iteration }}.</td>
-        <td>{{ $lampiran['nama_ormawa'] }}</td>
+        <td>{{ $lampiran['nama'] }}</td>
       </tr>
     @endforeach
   </table>

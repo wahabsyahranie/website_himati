@@ -54,6 +54,7 @@ class PengajuanSuratController extends Controller
             'Und' => 'surat_undangan',
             'SIk' => 'surat_izin_kegiatan',
             'SPm' => 'surat_peminjaman',
+            'SM' => 'surat_mandat'
         ];
 
         return $mapView[$tipe] ?? abort(404, 'Tipe surat tidak dikenali.');
@@ -85,7 +86,7 @@ class PengajuanSuratController extends Controller
     // {
     //     $data = $this->getDataPengesahan($slug);
     //     $nama_file = $data['data']->slug;
-    //     $pdf = Pdf::loadView('surat_undangan', $data);
+    //     $pdf = Pdf::loadView('surat_mandat', $data);
     //     return $pdf->stream($nama_file . ".pdf");
     // }
 

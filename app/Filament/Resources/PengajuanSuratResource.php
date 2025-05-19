@@ -22,6 +22,9 @@ use App\Filament\Imports\PengajuanSuratImporter;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PengajuanSuratResource\Pages;
 use App\Filament\Resources\PengajuanSuratResource\RelationManagers;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Get;
 
 class PengajuanSuratResource extends Resource
 {
@@ -47,72 +50,79 @@ class PengajuanSuratResource extends Resource
                 Forms\Components\Select::make('user_id')
                     ->native(false)
                     ->label('Pilih Mahasiswa')
-                    ->columnSpanFull()
                     ->relationship('user', 'name')
                     ->required(),
                 Forms\Components\Select::make('tipe_surat')
                     ->native(false)
                     ->label('Jenis Surat')
                     ->required()
+                    ->live()
                     ->options([
                         'SIk' => 'Surat Izin Kegiatan',
                         'SPm' => 'Surat Peminjaman',
-                        'ST' => 'Surat Tugas',
-                        'Spe' => 'Surat Pemberitahuan',
                         'Und' => 'Surat Undangan',
-                        'Peng' => 'Surat Pengumuman',
                         'SM' => 'Surat Mandat',
+                        'SPn' => 'Surat Pernyataan',
+                        'SD' => 'Surat Dispen',
                     ]),
+                Forms\Components\Select::make('pengesahan_id')
+                    ->label('Tujuan Surat')
+                    ->native(false)
+                    ->required()
+                    ->relationship('pengesahan', 'jabatan'),
                 Forms\Components\Select::make('struktur_id')
-                    ->label('Struktur')
+                    ->label('Pembuat')
                     ->native(false)
                     ->required()
                     ->relationship('struktur', 'nama_pendek'),
                 Forms\Components\TextInput::make('nama_kegiatan')
-                    ->label('Nama Surat')
+                    ->label('Nama Kegiatan')
                     ->autocomplete(false)
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->columnSpanFull()
+                    ->hidden(fn (Get $get) => $get('tipe_surat') === 'SM'),
                 Forms\Components\Textarea::make('tujuan_kegiatan')
-                    ->label('Tujuan Surat')
+                    ->label('Tujuan Kegiatan')
                     ->autocomplete(false)
                     ->required()
                     ->columnSpanFull()
                     ->rows(5)
                     ->maxLength(330)
                     ->helperText('Maksimal 380 karakter'),
-                Forms\Components\Select::make('pengesahan_id')
-                    ->label('Tujuan Surat')
-                    ->native(false)
-                    ->required()
-                    ->relationship('pengesahan', 'jabatan'),
                 Forms\Components\DatePicker::make('tanggal_pelaksana')
                     ->label('Tanggal Mulai')
                     ->native(false)
-                    ->required(),
+                    ->required()
+                    ->hidden(fn (Get $get) => $get('tipe_surat') === 'SM'),
                 Forms\Components\DatePicker::make('tanggal_selesai')
                     ->afterOrEqual('tanggal_pelaksana')
                     ->label('Tanggal Selesai')
                     ->native(false)
                     ->helperText('Jika dihari yang sama. maka, pilih tanggal yang sama dengan tanggal mulai.')
-                    ->required(),
+                    ->required()
+                    ->hidden(fn (Get $get) => $get('tipe_surat') === 'SM'),
                 Forms\Components\TimePicker::make('waktu_pelaksana')
                     ->label('Waktu Mulai')
                     ->native(false)
-                    ->required(),
+                    ->required()
+                    ->hidden(fn (Get $get) => $get('tipe_surat') === 'SM'),
                 Forms\Components\TimePicker::make('waktu_selesai')
                     ->label('Waktu Selesai')
                     ->native(false)
-                    ->required(),
+                    ->required()
+                    ->hidden(fn (Get $get) => $get('tipe_surat') === 'SM'),
                 Forms\Components\TextInput::make('tempat_pelaksana')
                     ->label('Tempat Pelaksanaan')
                     ->autocomplete(false)
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->hidden(fn (Get $get) => $get('tipe_surat') === 'SM'),
                 Forms\Components\Select::make('tandatangan')
                     ->label('Tandatangan')
                     ->placeholder('Pilih tandatangan')
                     ->multiple()
+                    ->columnSpanFull(fn (Get $get) => $get('tipe_surat') === 'SM')
                     ->required()
                     ->options(function () {
                         return Pengesahan::all()->pluck('nama', 'id')->toArray();
@@ -121,15 +131,39 @@ class PengajuanSuratResource extends Resource
                     ->label('Nama Kontak Person')
                     ->autocomplete(false)
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->hidden(fn (Get $get) => $get('tipe_surat') === 'SM'),
                 Forms\Components\TextInput::make('nomor_cp')
                     ->label('Nomor Kontak Person')
                     ->autocomplete(false)
                     ->numeric()
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('lampiran')
-                    ->label('Lampiran'),
+                    ->maxLength(255)
+                    ->hidden(fn (Get $get) => $get('tipe_surat') === 'SM'),
+                Repeater::make('lampiran')
+                    ->label('Detail Lampiran')
+                    ->visible(fn (Get $get) => in_array($get('tipe_surat'), ['SPm', 'Und', 'SM']))
+                    ->schema([
+                        TextInput::make('nama')
+                            ->required(),
+                        TextInput::make('jumlah')
+                            ->visible(fn (Get $get) => $get('../../tipe_surat') === 'SPm')
+                            ->required(),
+                        TextInput::make('nim')
+                            ->visible(fn (Get $get) => $get('../../tipe_surat') === 'SM')
+                            ->required(),
+                        TextInput::make('prodi')
+                            ->visible(fn (Get $get) => $get('../../tipe_surat') === 'SM')
+                            ->required(),
+                        TextInput::make('no_hp')
+                            ->visible(fn (Get $get) => $get('../../tipe_surat') === 'SM')
+                            ->required(),
+                        TextInput::make('jabatan')
+                            ->visible(fn (Get $get) => $get('../../tipe_surat') === 'SM')
+                            ->required(),
+                    ])
+                    ->grid(4)
+                    ->columnSpanFull(),
             ]);
     }
 

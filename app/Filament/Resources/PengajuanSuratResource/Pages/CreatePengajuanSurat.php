@@ -15,7 +15,7 @@ class CreatePengajuanSurat extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $type_after = $data['type'];
+        $type_after = $data['tipe_surat'];
         $organisasi = 'HIMA-TI';
         $tahun = now()->year;
         $bulan = now()->month;
@@ -41,14 +41,14 @@ class CreatePengajuanSurat extends CreateRecord
         //set nomor surat
         $struktur = Struktur::find($data['struktur_id']);
         $dept = $struktur->kode;
-        if($dept !== 'Bpi'){
+        if($dept !== 'BPI'){
             $nos_final = $nomor_baru . '/' . $type_after . '/' . $organisasi . '/' . $dept . '/' . $romawi . '/' . $tahun;
             $data['nomor_surat'] = $nos_final;
         } else {
             $nos_final = $nomor_baru . '/' . $type_after . '/' . $organisasi . '/' . $romawi . '/' . $tahun;
             $data['nomor_surat'] = $nos_final;
         }
-
+        
         // mengatur slug
         $slug = $data['nomor_surat'];
         $slug_baru = str_replace('/', '-', $slug);
