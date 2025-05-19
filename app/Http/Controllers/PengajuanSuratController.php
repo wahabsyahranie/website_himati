@@ -11,16 +11,17 @@ class PengajuanSuratController extends Controller
     //FUNGSI MENGAMBIL DATA
     private function getDataPengesahan($slug)
     {
-        $data = PengajuanSurat::where('slug', $slug)->firstOrFail();
-        $tandaTangan = $data->tandatangan;
-        $pengesahanInfo = [];
+        $data = PengajuanSurat::where('slug', $slug)->firstOrFail(); //
+        $pengesahanInfo = []; //
 
         //MENGAMBIL DATA UNTUK TUJUAN SURAT (KEPADA YTH.)
+
+        $tandaTangan = $data->tandatangan;
         $tujuan = $data->pengesahan_id;
         $search_jabatan = \App\Models\Pengesahan::where('id', $tujuan)->first();
         $found_jabatan = $search_jabatan->jabatan;
         $found_bidang = $search_jabatan->bidang;
-        $tujuan_after = $found_jabatan . ' ' . $found_bidang;
+        $tujuan_after = $found_jabatan . ' ' . $found_bidang; //
 
         //MENGAMBIL DATA DARI MODEL PENGESAHAN
         foreach ($tandaTangan as $id) {
@@ -46,34 +47,51 @@ class PengajuanSuratController extends Controller
         return compact('data', 'pengesahanInfo', 'tujuan_after');
     }
 
-    //Fungsi Melihat Surat
+    //FUNGSI MENENTUKAN VIEW
+    private function getView($tipe)
+    {
+        $mapView = [
+            'Und' => 'surat_undangan',
+            'SIk' => 'surat_izin_kegiatan',
+            'SPm' => 'surat_peminjaman',
+        ];
+
+        return $mapView[$tipe] ?? abort(404, 'Tipe surat tidak dikenali.');
+    }
+
+    //FUNGSI MELIHAT SURAT
     public function show($slug)
     {
         $data = $this->getDataPengesahan($slug);
-        $nama_file = $data['data']->slug;
-        $pdf = Pdf::loadView('surat_a', $data);
-        return $pdf->stream($nama_file . ".pdf");
+        $tipe = $data['data']->tipe_surat;
+        $namaView = $this->getView($tipe);
+
+        $pdf = Pdf::loadView($namaView, $data);
+        return $pdf->stream($data['data']->slug . '.pdf');
     }
 
+    //FUNGSI MENDOWNLOAD SURAT
     public function unduh($slug)
     {
         $data = $this->getDataPengesahan($slug);
-        $nama_file = $data['data']->slug;
-        $pdf = Pdf::loadView('surat_a', $data);
-        return $pdf->download($nama_file . ".pdf");
+        $tipe = $data['data']->tipe_surat;
+        $namaView = $this->getView($tipe);
+
+        $pdf = Pdf::loadView($namaView, $data);
+        return $pdf->loadView($data['data']->slug . '.pdf');
     }
 
-    // public function testing($slug)
+    // public function test($slug)
     // {
     //     $data = $this->getDataPengesahan($slug);
     //     $nama_file = $data['data']->slug;
-    //     $pdf = Pdf::loadView('surat_b', $data);
+    //     $pdf = Pdf::loadView('surat_undangan', $data);
     //     return $pdf->stream($nama_file . ".pdf");
     // }
 
     
 
-    //Fungsi Mengunduh Surat dengan SpatieBrowserShoot
+    //// Fungsi Mengunduh Surat dengan SpatieBrowserShoot
     // public function unduh($slug)
     // {
     //     $data = $this->getDataSurat($slug);

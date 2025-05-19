@@ -50,7 +50,7 @@ class PengajuanSuratResource extends Resource
                     ->columnSpanFull()
                     ->relationship('user', 'name')
                     ->required(),
-                Forms\Components\Select::make('type')
+                Forms\Components\Select::make('tipe_surat')
                     ->native(false)
                     ->label('Jenis Surat')
                     ->required()
@@ -68,24 +68,24 @@ class PengajuanSuratResource extends Resource
                     ->native(false)
                     ->required()
                     ->relationship('struktur', 'nama_pendek'),
-                Forms\Components\TextInput::make('perihal')
-                    ->label('Perihal Surat')
+                Forms\Components\TextInput::make('nama_kegiatan')
+                    ->label('Nama Surat')
                     ->autocomplete(false)
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Select::make('pengesahan_id')
+                Forms\Components\Textarea::make('tujuan_kegiatan')
                     ->label('Tujuan Surat')
-                    ->native(false)
-                    ->required()
-                    ->relationship('pengesahan', 'jabatan'),
-                Forms\Components\Textarea::make('isi')
-                    ->label('Isi Surat')
                     ->autocomplete(false)
                     ->required()
                     ->columnSpanFull()
                     ->rows(5)
                     ->maxLength(330)
                     ->helperText('Maksimal 380 karakter'),
+                Forms\Components\Select::make('pengesahan_id')
+                    ->label('Tujuan Surat')
+                    ->native(false)
+                    ->required()
+                    ->relationship('pengesahan', 'jabatan'),
                 Forms\Components\DatePicker::make('tanggal_pelaksana')
                     ->label('Tanggal Mulai')
                     ->native(false)
@@ -113,6 +113,7 @@ class PengajuanSuratResource extends Resource
                     ->label('Tandatangan')
                     ->placeholder('Pilih tandatangan')
                     ->multiple()
+                    ->required()
                     ->options(function () {
                         return Pengesahan::all()->pluck('nama', 'id')->toArray();
                     }),
@@ -127,6 +128,8 @@ class PengajuanSuratResource extends Resource
                     ->numeric()
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('lampiran')
+                    ->label('Lampiran'),
             ]);
     }
 
@@ -163,7 +166,7 @@ class PengajuanSuratResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('nomor_surat')
                     ->searchable()
-                    ->description(fn (PengajuanSurat $record): string => $record->perihal, position: 'above')
+                    // ->description(fn (PengajuanSurat $record): string => $record->perihal, position: 'above')
                     ->copyable()
                     ->copyMessage('Nomor surat disalin')
                     ->copyMessageDuration(1500),

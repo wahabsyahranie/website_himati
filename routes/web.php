@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SendController;
 use App\Http\Controllers\PengajuanSuratController;
+use PhpParser\Node\Stmt\Return_;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -20,7 +21,7 @@ Route::get('/surat/{slug}', [PengajuanSuratController::class, 'show'])->name('su
 
 Route::get('/surat/unduh/{slug}', [PengajuanSuratController::class, 'unduh'])->name('surat.unduh');
 
-Route::get('/test/{slug}', [PengajuanSuratController::class, 'testing']);
+Route::get('/test/{slug}', [PengajuanSuratController::class, 'test']);
 
 Route::get('/send/{id}', [SendController::class, 'send'])->name('kegiatan.send');
 

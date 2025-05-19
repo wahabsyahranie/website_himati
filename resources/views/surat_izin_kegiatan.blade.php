@@ -1,4 +1,4 @@
-<x-layout>
+<x-layoutsurat>
   <body>
     {{-- KOP SURAT --}}
     <x-kop_surat></x-kop_surat>
@@ -17,12 +17,12 @@
             <tr class="pembuka-surat">
                 <td>Lampiran</td>
                 <td>:</td>
-                <td>{{ $data->lampiran }}</td>
+                <td>-</td>
             </tr>
             <tr class="pembuka-surat">
                 <td>Perihal</td>
                 <td>:</td>
-                <td>{{ $data->perihal }}</td>
+                <td>Surat Izin Kegiatan</td>
             </tr>
             <tr class="pembuka-surat">
                 <td style="padding-top: 10px;">Kepada Yth</td>
@@ -37,8 +37,8 @@
       <p style="margin-bottom: 0px">Di - </p>
       <p class="margin-text" style="margin-left: 28px">Tempat</p>
       <p style="margin-bottom: 0px">Dengan hormat,</p>
-      <p class="margin-text">{{ $data->isi }}.</p>
-      <p style="margin-bottom: 0px">Adapun rincian kegiatan yang direncanakan adalah sebagai berikut:</p>
+      <p class="margin-text">Dalam kesempatan ini, kami dari Himpunan Mahasiswa Jurusan Teknologi Informasi bermaksud mengajukan izin pelaksanaan kegiatan <strong>{{ $data->nama_kegiatan }}</strong> yang bertujuan untuk {{ $data->tujuan_kegiatan }}.</p>
+      <p style="margin-bottom: 0px">kegiatan ini dijadwalkan akan dilaksanakan pada:</p>
     </div>
 
     {{-- KETERANGAN SURAT --}}
@@ -68,7 +68,7 @@
 
     {{-- PENUTUP SURAT --}}
     <div class="font-style margin-text" id="Isi Surat" style="margin-left: 17.4%; margin-bottom: 0px; margin-bottom: 0%">
-      <p>Kami berkomitmen dengan baik serta akan mematuhi seluruh peraturan yang berlaku. Oleh karena itu, kami sangat mengharapkan izin dan dukungan dari Bapak/Ibu agar kegiatan ini dapat berjalan dengan lancar.</p>
+      <p>Besar harapan kami agar permohonan ini dapat dipertimbangkan. Kami siap memberikan informasi tambahan jika diperlukan. Atas perhatian dan dukungan Bapak/Ibu, kami ucapkan terima kasih.</p>
     </div>
 
     {{-- PENGESAHAN SURAT --}}
@@ -125,4 +125,4 @@
       <p style="font-size: 14px; font-style: italic">CP: {{ $data->nama_cp }} ({{ $data->nomor_cp }}) </p>
     </div>
   </body>
-</x-layout>
+</x-layoutsurat>

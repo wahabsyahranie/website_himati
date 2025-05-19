@@ -10,10 +10,11 @@ class PengajuanSurat extends Model
 {
     use HasFactory;
     protected $table = 'pengajuan_surats';
-    protected $fillable = ['type', 'struktur_id', 'nomor_surat', 'lampiran', 'perihal', 'Tertuju', 'isi', 'tanggal_pelaksana', 'waktu_pelaksana', 'tanggal_selesai', 'waktu_selesai', 'tempat_pelaksana', 'nama_cp', 'nomor_cp', 'slug', 'user_id', 'pengesahan_id', 'status', 'tandatangan'];
+    protected $fillable = ['tipe_surat', 'struktur_id', 'nomor_surat', 'nama_kegiatan', 'tujuan_kegiatan', 'tanggal_pelaksana', 'waktu_pelaksana', 'tanggal_selesai', 'waktu_selesai', 'tempat_pelaksana', 'nama_cp', 'nomor_cp', 'slug', 'user_id', 'pengesahan_id', 'status', 'tandatangan', 'lampiran'];
 
     protected $casts = [
         'tandatangan' => 'array',
+        'lampiran' => 'array',
     ];
     public function user() : BelongsTo
     {

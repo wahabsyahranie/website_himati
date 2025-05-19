@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('pengajuan_surats', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['SIk', 'SPm', 'ST', 'Spe', 'Und', 'Peng', 'SM']);
+            $table->string('tipe_surat');
             $table->foreignId('struktur_id')->constrained('strukturs')->cascadeOnDelete();
             $table->string('nomor_surat');
-            $table->string('lampiran')->default('-');
-            $table->string('perihal');
             $table->foreignId('pengesahan_id')->constrained('pengesahans')->cascadeOnDelete();
-            $table->text('isi');
+            $table->text('nama_kegiatan');
+            $table->text('tujuan_kegiatan');
             $table->date('tanggal_pelaksana');
             $table->date('tanggal_selesai')->nullable();
             $table->time('waktu_pelaksana');
@@ -30,7 +29,7 @@ return new class extends Migration
             $table->string('slug');
             $table->enum('status', ['ditinjau', 'disetujui', 'ditolak'])->default('ditinjau');
             $table->json('tandatangan')->nullable();
-
+            $table->json('lampiran')->nullable();
             $table->char('user_id', 26);
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             

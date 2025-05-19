@@ -1,8 +1,12 @@
 <style>
+    .page-break {
+      page-break-after: always;
+    }
+    
     .header-table {
-    width: 100%;
-    text-align: center;
-    border-collapse: collapse;
+      width: 100%;
+      text-align: center;
+      border-collapse: collapse;
     }
     .header-table img {
         width: 80px;
@@ -35,5 +39,29 @@
 
     .pembuka-surat {
       vertical-align: top;
+    }
+
+    .textdefmarginleft {
+      margin-left: 2px;
+    }
+
+    .table-bordered {
+      border-collapse: collapse;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .table-bordered th, .table-bordered td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .text-bold {
+      font-weight: bold;
+    }
+
+    .text-right {
+      text-align: right;
     }
 </style>

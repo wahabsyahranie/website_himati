@@ -5,8 +5,8 @@
         </td>
         <td>
             <h5 class="font-style">KEMENTERIAN PENDIDIKAN TINGGI, SAINS DAN TEKNOLOGI</h5>
-            <h5 class="font-style">POLITEKNIK NEGERI SAMARINDA</h5>
             <h5 class="font-style" style="font-weight: bold;">HIMPUNAN MAHASISWA JURUSAN TEKNOLOGI INFORMASI</h5>
+            <h5 class="font-style">POLITEKNIK NEGERI SAMARINDA</h5>
             <h5 class="font-style">Jalan Cipto Mangunkusumo Kampus Gunung Panjang Samarinda 75131</h5>
             <h5 class="font-style" style="margin-bottom: 12px;">No HP : 085298381263 | E-mail : himati@polnes.ac.id</h5>
         </td>

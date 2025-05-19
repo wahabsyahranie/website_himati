@@ -82,7 +82,7 @@
   </div>
 
   {{-- STRUKTUR KEPENGURUSAN --}}
-  <div id="organisasi" class="bg-base w-full lg:h-screen px-5 pt-5 pb-7 md:px-20 md:py-5">
+  <div id="organisasi" class="bg-base w-full px-5 pt-5 pb-7 md:px-20 md:py-7">
     <div class="bg-base">
       <p class="font-bold text-4xl mb-3 capitalize">Stuktur Kepengurusan</p>
       <p class="max-w-xl inline-block capitalize">sebuah kapal yang mengangkut puluhan orang, orang-orang ini adalah para kapten kapal. melakukan yang terbaik dan terus membawa kebaikan atas dasar cinta tanah air.</p>
