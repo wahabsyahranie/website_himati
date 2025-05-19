@@ -203,7 +203,18 @@ class PengajuanSuratResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('nomor_surat')
                     ->searchable()
-                    ->description(fn (PengajuanSurat $record): string => $record->nama_kegiatan, position: 'above')
+                    ->description(fn (PengajuanSurat $record): string => match ($record->tipe_surat)
+                        {
+                            'SIk' => 'Surat Izin Kegiatan',
+                            'SPm' => 'Surat Peminjaman',
+                            'Und' => 'Surat Undangan',
+                            'SM'  => 'Surat Mandat',
+                            'Spn' => 'Surat Pernyataan Aktif',
+                            'Spm' => 'Surat Permohonan Dispen',
+                            default => 'Tipe Surat Tidak Dikenal',
+                        },
+                        position: 'above'
+                    )
                     ->copyable()
                     ->copyMessage('Nomor surat disalin')
                     ->copyMessageDuration(1500),
