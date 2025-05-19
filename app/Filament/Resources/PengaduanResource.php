@@ -48,16 +48,6 @@ class PengaduanResource extends Resource
                     ->rows(7)
                     ->autocomplete(false)
                     ->columnSpanFull(),
-                Forms\Components\FileUpload::make('gambar')
-                    ->helperText("Uploading an image is optional if none is available.")
-                    ->disk('public')
-                    ->imageEditor()
-                    ->image()
-                    ->imageCropAspectRatio('2:1')
-                    ->directory('pengaduan')
-                    ->getUploadedFileNameForStorageUsing(
-                        fn (TemporaryUploadedFile $file): string => 'pengaduan-' . $file->hashName()
-                    ),
                 Forms\Components\Select::make('tujuan')
                     ->native(false)
                     ->required()
@@ -73,6 +63,16 @@ class PengaduanResource extends Resource
                     ->label('Pelapor')
                     ->relationship('user', 'name')
                     ->required(),
+                Forms\Components\FileUpload::make('gambar')
+                    ->helperText("Uploading an image is optional if none is available.")
+                    ->disk('public')
+                    ->imageEditor()
+                    ->image()
+                    ->imageCropAspectRatio('2:1')
+                    ->directory('pengaduan')
+                    ->getUploadedFileNameForStorageUsing(
+                        fn (TemporaryUploadedFile $file): string => 'pengaduan-' . $file->hashName()
+                    ),
             ]);
     }
 

@@ -64,6 +64,7 @@ class KegiatanResource extends Resource
                     ->autocomplete(false)
                     ->rows(5)
                     ->cols(20)
+                    ->columnSpanFull()
                     ->placeholder('Membahas progres selama 1 bulan sebelumnya...'),
             ]);
     }

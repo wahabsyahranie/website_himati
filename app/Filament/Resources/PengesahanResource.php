@@ -61,6 +61,7 @@ class PengesahanResource extends Resource
                 Forms\Components\Select::make('prioritas')
                     ->label('Level Prioritas')
                     ->native(false)
+                    ->columnSpanFull()
                     ->required()
                     ->options([
                         1 => '1 (Pimpinan PTN)', 

@@ -48,6 +48,7 @@ class InventarisResource extends Resource
                     ->cols(5)
                     ->rows(5)
                     ->autocomplete(false)
+                    ->columnSpanFull()
                     ->required(),
                 Forms\Components\FileUpload::make('gambar')
                 ->disk('public')

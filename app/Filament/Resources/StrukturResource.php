@@ -35,6 +35,17 @@ class StrukturResource extends Resource
                 Forms\Components\TextInput::make('nama_lengkap')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Select::make('prioritas')
+                    ->required()
+                    ->options([
+                        1 => '1',
+                        2 => '2',
+                        3 => '3',
+                        4 => '4',
+                        5 => '5',
+                        6 => '6',
+                        7 => '7',
+                    ]),
                 Forms\Components\Textarea::make('deskripsi')
                     ->required()
                     ->rows(5)
@@ -49,17 +60,6 @@ class StrukturResource extends Resource
                     ->getUploadedFileNameForStorageUsing(
                         fn (TemporaryUploadedFile $file): string => 'struktur-' . $file->hashName()
                     ),
-                Forms\Components\Select::make('prioritas')
-                    ->required()
-                    ->options([
-                        1 => '1',
-                        2 => '2',
-                        3 => '3',
-                        4 => '4',
-                        5 => '5',
-                        6 => '6',
-                        7 => '7',
-                    ]),
             ]);
     }
 

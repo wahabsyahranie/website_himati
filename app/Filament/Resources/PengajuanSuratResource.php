@@ -123,7 +123,6 @@ class PengajuanSuratResource extends Resource
                     ->label('Tandatangan')
                     ->placeholder('Pilih tandatangan')
                     ->multiple()
-                    ->columnSpanFull(fn (Get $get) => $get('tipe_surat') === 'SM')
                     ->required()
                     ->options(function () {
                         return Pengesahan::all()->pluck('nama', 'id')->toArray();
@@ -204,7 +203,7 @@ class PengajuanSuratResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('nomor_surat')
                     ->searchable()
-                    // ->description(fn (PengajuanSurat $record): string => $record->perihal, position: 'above')
+                    ->description(fn (PengajuanSurat $record): string => $record->nama_kegiatan, position: 'above')
                     ->copyable()
                     ->copyMessage('Nomor surat disalin')
                     ->copyMessageDuration(1500),
@@ -236,7 +235,8 @@ class PengajuanSuratResource extends Resource
                             ->sort()
                             ->toArray();
                     }),
-                Tables\Filters\selectFilter::make('dosen_id')
+                Tables\Filters\selectFilter::make('pengesahan_id')
+                    ->label('Tujuan Surat')
                     ->options(function () {
                         return \App\Models\Pengesahan::query()
                             ->pluck('jabatan', 'id')
