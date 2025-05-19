@@ -15,7 +15,7 @@ class HomeController extends Controller
 {
     private function getData()
     {
-        $dataReview = Review::with('user')->where('status', 'disetujui')->limit(4)->get();
+        $dataReview = Review::with('user')->where('status', 'ditampilkan')->limit(4)->get();
         $dataPengaduan = Pengaduan::where('status', 'dipublikasikan')->orderBy('created_at', 'desc')->limit(4)->get();
         $countPengaduan = Pengaduan::count();
         $countSurat = PengajuanSurat::count();

@@ -54,13 +54,13 @@
     $classes = ['bg-yellow', 'bg-green', 'bg-primary', 'text-primary', 'text-secondary'];
     @endphp
     <div>
-      <div class="grid grid-cols-2 gap-4 px-4 pt-8 w-full">
+      <div class="grid grid-cols-2 gap-4 pt-8 w-full">
         @foreach ($datas['dataPengaduan'] as $index => $pengaduan )
           @php
             $colorCard = $datas['cards'][$index]['colorCard'] ?? 'bg-primary';
             $colorText = $datas['cards'][$index]['colorText'] ?? 'text-primary';
           @endphp
-          <div data-aos="fade-up" class="md:pr-2.5">
+          <div data-aos="fade-up">
             <div class="bg-{{ $colorCard }} rounded h-full w-full p-5">
               <div id="label">
                 <p class="bg-text-primary text-{{ $colorCard }} pl-2 pr-2 md:pl-6 md:pr-6 rounded inline-block uppercase">{{ $pengaduan->tujuan }}</p>

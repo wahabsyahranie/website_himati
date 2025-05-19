@@ -16,7 +16,7 @@ class ReviewSeeder extends Seeder
         DB::table('reviews')->insert([
             [
                 'quote' => 'Kaderisasi adalah tugas, Regenerasi adalah tanggung jawab. Di HIMA TI kalian akan merasakan sudut pandang dan pengalaman berpetualang dari segi mahasiswa',
-                'status' => 'disetujui',
+                'status' => 'ditampilkan',
                 'user_id' => '01jv7pqks6n8zz8psysam0ewk9',
                 'gambar' => 'produk/produk-BsOULTLS2JdPFXrcaGgD8IhWRQCVa7YW4CnudkS9.png',
                 'title' => json_encode([
@@ -27,7 +27,7 @@ class ReviewSeeder extends Seeder
             ],
             [
                 'quote' => 'Berorganisasi itu seni menata rasa, logika, dan aksi dalam satu harmoni.',
-                'status' => 'disetujui',
+                'status' => 'ditampilkan',
                 'user_id' => '01jv7pqks6n8zz8psysam0ewk9',
                 'gambar' => 'produk/produk-BsOULTLS2JdPFXrcaGgD8IhWRQCVa7YW4CnudkS9.png',
                 'title' => json_encode([
@@ -37,7 +37,7 @@ class ReviewSeeder extends Seeder
             ],
             [
                 'quote' => 'Kita tidak sedang sibuk, kita sedang bertumbuh bersama.',
-                'status' => 'disetujui',
+                'status' => 'disembunyikan',
                 'user_id' => '01jv7pqks6n8zz8psysam0ewk9',
                 'gambar' => 'produk/produk-BsOULTLS2JdPFXrcaGgD8IhWRQCVa7YW4CnudkS9.png',
                 'title' => json_encode([
@@ -47,7 +47,7 @@ class ReviewSeeder extends Seeder
             ],
             [
                 'quote' => 'Organisasi adalah laboratorium kepemimpinan mahasiswa.',
-                'status' => 'disetujui',
+                'status' => 'disembunyikan',
                 'user_id' => '01jv7pqks6n8zz8psysam0ewk9',
                 'gambar' => 'produk/produk-BsOULTLS2JdPFXrcaGgD8IhWRQCVa7YW4CnudkS9.png',
                 'title' => json_encode([
@@ -57,7 +57,7 @@ class ReviewSeeder extends Seeder
             ],
             [
                 'quote' => 'Informasi yang baik dimulai dari komunikasi yang sehat.',
-                'status' => 'disetujui',
+                'status' => 'disembunyikan',
                 'user_id' => '01jv7pqks6n8zz8psysam0ewk9',
                 'gambar' => 'produk/produk-BsOULTLS2JdPFXrcaGgD8IhWRQCVa7YW4CnudkS9.png',
                 'title' => json_encode([

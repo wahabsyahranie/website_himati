@@ -2,22 +2,24 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ReviewResource\Pages;
-use App\Filament\Resources\ReviewResource\RelationManagers;
-use App\Models\Review;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Review;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\ReviewResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\ReviewResource\RelationManagers;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class ReviewResource extends Resource
 {
     protected static ?string $model = Review::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Pengaturan';
+    protected static ?string $navigationLabel = 'Review';
+    protected static ?int $navigationSort = 11;
 
     public static function form(Form $form): Form
     {
@@ -27,27 +29,52 @@ class ReviewResource extends Resource
                     ->required()
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('title')
-                    ->required(),
-                Forms\Components\TextInput::make('gambar')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('status')
-                    ->required()
-                    ->maxLength(255),
+                    ->helperText("Pisahkan title dengan tanda koma ,"),
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required(),
+                Forms\Components\FileUpload::make('gambar')
+                    ->required()
+                    ->disk('public')
+                    ->imageEditor()
+                    ->image()
+                    ->imageCropAspectRatio('1:1')
+                    ->directory('review')
+                    ->getUploadedFileNameForStorageUsing(
+                        fn (TemporaryUploadedFile $file): string => 'review-' . $file->hashName()
+                    ),
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->heading('Review Pengguna')
+            ->description('Kelola data review disini.')
+            ->deferLoading()
+            ->striped()
+            ->headerActions([
+                Tables\Actions\CreateAction::make()
+                    ->label('Buat Review'),
+            ])
             ->columns([
-                Tables\Columns\TextColumn::make('gambar')
-                    ->searchable(),
+                Tables\Columns\ImageColumn::make('gambar')
+                    ->circular(),
+                Tables\Columns\TextColumn::make('quote')
+                    ->limit(25),
+                Tables\Columns\TextColumn::make('user.name')
+                    ->searchable()
+                    ->limit(25),
                 Tables\Columns\TextColumn::make('status')
-                    ->searchable(),
+                    ->badge()
+                    ->color(function ($record) {
+                        return match ($record->status) {
+                            'ditampilkan' => 'success',
+                            'disembunyikan' => 'info',
+                            default => 'warning',
+                        };
+                    }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -56,14 +83,39 @@ class ReviewResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('user.name')
-                    ->searchable(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('status')
+                    ->options(function () {
+                        return \App\Models\Review::query()
+                            ->pluck('status', 'status')
+                            ->unique()
+                            ->sort()
+                            ->toArray();
+                    })
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\Action::make('sembunyikan')
+                        ->color('info')
+                        ->icon('heroicon-o-check-circle')
+                        ->requiresConfirmation()
+                        ->visible(fn (Review $record) => $record->status !== 'disembunyikan')
+                        ->action(function (Review $record) {
+                            $record->update(['status' => 'disembunyikan']);
+                        }),
+                    Tables\Actions\Action::make('tampilkan')
+                        ->color('success')
+                        ->icon('heroicon-o-x-circle')
+                        ->requiresConfirmation()
+                        ->visible(fn (Review $record) => $record->status !== 'ditampilkan')
+                        ->action(function (Review $record) {
+                            $record->update(['status' => 'ditampilkan']);
+                        }),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

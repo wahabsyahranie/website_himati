@@ -16,7 +16,7 @@ return new class extends Migration
             $table->text('quote');
             $table->json('title');
             $table->string('gambar');
-            $table->string('status');
+            $table->string('status')->default('disembunyikan');
             $table->timestamps();
             
             $table->char('user_id', 26);
