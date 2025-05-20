@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Pengurus extends Model
 {
     use HasFactory;
     protected $table = 'penguruses';
-    protected $fillable =['nomor_induk', 'jabatan', 'user_id', 'periode', 'struktur_id', 'status'];
+    protected $fillable =['nomor_induk', 'jabatan', 'user_id', 'periode', 'struktur_id', 'status', 'gambar'];
     protected $casts = [
         'departemen' => 'array',
     ];
@@ -34,5 +35,10 @@ class Pengurus extends Model
     public function struktur()
     {
         return $this->belongsTo(Struktur::class);
+    }
+
+    public function review() : HasOne
+    {
+        return $this->hasOne(Review::class);
     }
 }

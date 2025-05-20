@@ -117,13 +117,13 @@
         <div class="flex-shrink-0 w-full flex flex-row justify-between items-center">
           <div class="max-w-[70%]">
             <p class="text-sm md:text-xl mb-6">{{ $review->quote }}</p>
-            <p class="text-xs md:text-lg font-bold">{{ $review->user->name }}</p>
+            <p class="text-xs md:text-lg font-bold">{{ $review->pengurus->user->name }}</p>
             @foreach ($review->title as $title)
             <p class="text-xs md:text-md">{{ $title['title'] }}</p>
             @endforeach
           </div>
           <div class="max-w-[30%]">
-            <img class="w-24 h-24 md:w-36 md:h-36 object-cover rounded-full shadow-lg" src="{{ asset($review->gambar) }}" alt="Foto">
+            <img class="w-24 h-24 md:w-36 md:h-36 object-cover rounded-full shadow-lg" src="{{ asset($review->pengurus->gambar) }}" alt="Foto">
           </div>
         </div>
         @endforeach

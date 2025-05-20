@@ -22,6 +22,7 @@ use App\Filament\Resources\PengurusResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\RelationManagers\RelationManager;
 use App\Filament\Resources\PengurusResource\RelationManagers;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use App\Filament\Resources\PengurusResource\RelationManagers\KegiatansRelationManager;
 
 class PengurusResource extends Resource
@@ -73,7 +74,16 @@ class PengurusResource extends Resource
                 Forms\Components\TextInput::make('status')
                     ->label('Status Keanggotaan')
                     ->default('Pengurus')
-                    ->disabled()
+                    ->disabled(),
+                Forms\Components\FileUpload::make('gambar')
+                    ->disk('public')
+                    ->imageEditor()
+                    ->image()
+                    ->imageCropAspectRatio('1:1')
+                    ->directory('pengurus')
+                    ->getUploadedFileNameForStorageUsing(
+                        fn (TemporaryUploadedFile $file): string => 'pengurus-' . $file->hashName()
+                    ),
             ]);
     }
 
@@ -98,6 +108,8 @@ class PengurusResource extends Resource
                 Tables\Columns\TextColumn::make('no')
                     ->label('No')
                     ->rowIndex(),
+                Tables\Columns\ImageColumn::make('gambar')
+                    ->circular(),
                 Tables\Columns\TextColumn::make('nomor_induk')
                     ->label('NIA')
                     ->numeric()

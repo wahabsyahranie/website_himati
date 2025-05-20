@@ -15,12 +15,9 @@ return new class extends Migration
             $table->id();
             $table->text('quote');
             $table->json('title');
-            $table->string('gambar');
             $table->string('status')->default('disembunyikan');
+            $table->foreignId('penguruses_id')->constrained('penguruses')->cascadeOnDelete();
             $table->timestamps();
-            
-            $table->char('user_id', 26);
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
         });
     }
 

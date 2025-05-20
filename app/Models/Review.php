@@ -11,15 +11,15 @@ class review extends Model
 {
     use HasFactory;
     protected $table = 'reviews';
-    protected $fillable = ['quote', 'title', 'gambar', 'status', 'user_id'];
+    protected $fillable = ['quote', 'title', 'status', 'penguruses_id'];
 
     protected $casts = [
         'title' => 'array',
     ];
 
-    public function user() : BelongsTo
+    public function pengurus() : BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Pengurus::class, 'penguruses_id');
     }
     
 }

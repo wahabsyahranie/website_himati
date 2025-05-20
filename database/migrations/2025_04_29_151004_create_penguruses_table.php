@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreignId('struktur_id')->references('id')->on('strukturs')->cascadeOnDelete();
             $table->enum('status', ['pengurus', 'keluar', 'alb'])->default('pengurus');
+            $table->string('gambar')->default('departemen/departemen-qbQIjK0LJCo6t0eut6z8RXHOpegfEKYegn3jbfFm.jpg');
             $table->timestamps();
         });
     }

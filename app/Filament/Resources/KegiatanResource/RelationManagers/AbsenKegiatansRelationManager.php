@@ -44,6 +44,9 @@ class AbsenKegiatansRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('detail')
             ->columns([
+                Tables\Columns\TextColumn::make('no')
+                    ->label('No')
+                    ->rowIndex(),
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Nama Pengurus')
                     ->searchable(),

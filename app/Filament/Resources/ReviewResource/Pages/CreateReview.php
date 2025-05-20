@@ -12,9 +12,15 @@ class CreateReview extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
+
         $titles = $data['title'];
-        $data['title'] = array_map('trim', explode(',', $titles));
-        
+        // Ubah jadi array (meskipun hanya satu item)
+        $titlesArray = array_map('trim', explode(',', $titles));
+        // Ubah jadi array of associative arrays
+        $data['title'] = array_map(function ($title) {
+            return ['title' => $title];
+        }, $titlesArray);
+
         return $data;
     }
 }

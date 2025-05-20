@@ -31,19 +31,11 @@ class ReviewResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->helperText("Pisahkan title dengan tanda koma ,"),
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
+                Forms\Components\Select::make('penguruses_id')
+                    ->label('Nama Pengurus')
+                    ->relationship('pengurus', 'id')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->user->name)
                     ->required(),
-                Forms\Components\FileUpload::make('gambar')
-                    ->required()
-                    ->disk('public')
-                    ->imageEditor()
-                    ->image()
-                    ->imageCropAspectRatio('1:1')
-                    ->directory('review')
-                    ->getUploadedFileNameForStorageUsing(
-                        fn (TemporaryUploadedFile $file): string => 'review-' . $file->hashName()
-                    ),
             ]);
     }
 
@@ -59,11 +51,11 @@ class ReviewResource extends Resource
                     ->label('Buat Review'),
             ])
             ->columns([
-                Tables\Columns\ImageColumn::make('gambar')
+                Tables\Columns\ImageColumn::make('pengurus.gambar')
                     ->circular(),
                 Tables\Columns\TextColumn::make('quote')
                     ->limit(25),
-                Tables\Columns\TextColumn::make('user.name')
+                Tables\Columns\TextColumn::make('pengurus.user.name')
                     ->searchable()
                     ->limit(25),
                 Tables\Columns\TextColumn::make('status')

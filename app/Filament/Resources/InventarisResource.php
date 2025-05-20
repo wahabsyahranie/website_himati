@@ -51,14 +51,14 @@ class InventarisResource extends Resource
                     ->columnSpanFull()
                     ->required(),
                 Forms\Components\FileUpload::make('gambar')
-                ->disk('public')
-                ->imageEditor()
-                ->image()
-                ->imageCropAspectRatio('1:1')
-                ->directory('produk')
-                ->getUploadedFileNameForStorageUsing(
-                    fn (TemporaryUploadedFile $file): string => 'produk-' . $file->hashName()
-                ),
+                    ->disk('public')
+                    ->imageEditor()
+                    ->image()
+                    ->imageCropAspectRatio('1:1')
+                    ->directory('produk')
+                    ->getUploadedFileNameForStorageUsing(
+                        fn (TemporaryUploadedFile $file): string => 'produk-' . $file->hashName()
+                    ),
             ]);
     }
 
