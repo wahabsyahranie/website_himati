@@ -40,7 +40,7 @@ class PenyewaanResource extends Resource
                     ->native(false)
                     ->required(),
                 Forms\Components\DatePicker::make('tanggal_kembali')
-                    ->after('tanggal_pinjam')
+                    ->afterOrEqual('tanggal_pinjam')
                     ->native(false)
                     ->required(),
                 Forms\Components\Repeater::make('detail_penyewaans')
@@ -89,7 +89,7 @@ class PenyewaanResource extends Resource
                     })
                     ->prefix('Rp')
                     ->disabled()
-                    ->label('Total Harga Pesanan')
+                    ->label('Total Harga / hari')
                     ->columnSpanFull(),
             ]);
     }
@@ -145,8 +145,12 @@ class PenyewaanResource extends Resource
                 ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                    // Tables\Actions\EditAction::make(),
-                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\Action::make('Lihat Invoice')
+                        ->icon('heroicon-o-eye')
+                        ->url(fn ($record) => route('invoice.cetak', $record->nomor_pesanan))
+                        ->openUrlInNewTab()
+                        ->color(fn (Penyewaan $record) => $record->status === 'disetujui' ? 'info' : 'gray')
+                        ->disabled(fn (Penyewaan $record) => $record->status !== 'disetujui'),
                     Tables\Actions\Action::make('Tolak Penyewaan')
                         ->color('warning')
                         ->icon('heroicon-o-x-circle')

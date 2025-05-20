@@ -87,5 +87,69 @@
       border-top: 12px solid transparent;
     }
 
+    .invoice-produk {
+      width: 60px;
+      height: 60px;
+    }
+
+    .invoice-container {
+      margin: 0;
+      padding: 0;
+    }
+
+    .invoice-font {
+      font-family: 'Helvetica', sans-serif;
+      font-size: 12pt;
+    }
+
+    .invoice-center {
+      text-align: center;
+    }
+
+    .invoice-table {
+      margin-left: 10px;
+      margin-right: 10px;
+      width: 90%;
+    }
+
+    .invoice-hr-padding {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    .invoice-color-base {
+      color: #7C7C7C;
+    }
+
+    .invoice-font-small {
+      font-size: 10pt;
+    }
+
+    .invoice-td-image {
+      width: 70px;
+    }
+
+    .invoice-text-right {
+      text-align: right;
+    }
+    .invoice-align-top {
+      vertical-align: top;
+    }
+    .watermark {
+      position: fixed;
+      top: 25%;
+      left: 20%;
+      width: 400px;
+      opacity: 0.05;
+      z-index: -1;
+    }
+
+    .watermark img {
+      width: 100%;
+    }
+
+    .invoice-text-xs {
+      font-size: 8pt;
+    }
 
 </style>

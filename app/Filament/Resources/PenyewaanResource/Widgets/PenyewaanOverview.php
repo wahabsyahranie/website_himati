@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\PenyewaanResource\Widgets;
 
 use App\Models\Penyewaan;
+use Illuminate\Support\Carbon;
 use App\Models\DetailPenyewaan;
 use Filament\Support\Enums\IconPosition;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -17,20 +18,26 @@ class PenyewaanOverview extends BaseWidget
         //Ambil jumlah penyewaan per status
         $totalPenyewaan = Penyewaan::selectRaw('SUM(CASE WHEN status = "disetujui" THEN 1 ELSE 0 END) AS disetujui')->first();
 
-        // // Total barang disewa
-        // $totalBarangDisewa = DetailPenyewaan::whereHas('penyewaan', function ($query) { 
-        //     $query->where('status', 'disetujui'); 
-        // })->count();
 
         // Total pendapatan: jumlahkan harga dari relasi ke model Inventaris
         $totalPendapatan = DetailPenyewaan::whereHas('penyewaan', function ($query) {
             $query->where('status', 'disetujui');
-        })
-            ->with('inventaris') // relasi ke Inventaris
+            })
+            ->with('inventaris', 'penyewaan') // perlu relasi penyewaan untuk tanggal
             ->get()
             ->sum(function ($detail) {
-                return optional($detail->inventaris)->harga ?? 0;
-        });
+                $hargaPerHari = optional($detail->inventaris)->harga ?? 0;
+                $tanggalPinjam = optional($detail->penyewaan)->tanggal_pinjam;
+                $tanggalKembali = optional($detail->penyewaan)->tanggal_kembali;
+
+                if ($tanggalPinjam && $tanggalKembali) {
+                    $jumlahHari = Carbon::parse($tanggalPinjam)->diffInDays(Carbon::parse($tanggalKembali)) + 1;
+                } else {
+                    $jumlahHari = 0;
+                }
+
+                return $hargaPerHari * $jumlahHari;
+            });
 
         return [
             Stat::make('', $totalPenyewaan->disetujui)

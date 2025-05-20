@@ -11,7 +11,7 @@ class Penyewaan extends Model
 {
     use HasFactory;
     protected $table = 'penyewaans';
-    protected $fillable = ['tanggal_pinjam', 'tanggal_kembali', 'user_id', 'status'];
+    protected $fillable = ['tanggal_pinjam', 'tanggal_kembali', 'user_id', 'status', 'nomor_pesanan'];
 
     public function detail_penyewaans() : HasMany
     {
