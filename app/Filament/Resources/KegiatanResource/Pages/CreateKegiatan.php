@@ -9,4 +9,12 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateKegiatan extends CreateRecord
 {
     protected static string $resource = KegiatanResource::class;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $user = auth()->id();
+        $data['user_id'] = $user;
+        
+        return $data;
+    }
 }

@@ -26,16 +26,15 @@ class ReviewResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Textarea::make('quote')
-                    ->required()
-                    ->columnSpanFull(),
+                    ->required(),
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->helperText("Pisahkan title dengan tanda koma ,"),
-                Forms\Components\Select::make('penguruses_id')
-                    ->label('Nama Pengurus')
-                    ->relationship('pengurus', 'id')
-                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->user->name)
-                    ->required(),
+                // Forms\Components\Select::make('penguruses_id')
+                //     ->label('Nama Pengurus')
+                //     ->relationship('pengurus', 'id')
+                //     ->getOptionLabelFromRecordUsing(fn ($record) => $record->user->name)
+                //     ->required(),
             ]);
     }
 

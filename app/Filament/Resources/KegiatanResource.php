@@ -11,6 +11,7 @@ use Illuminate\Support\Carbon;
 use Filament\Resources\Resource;
 use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\Select;
+use Filament\Notifications\Notification;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\KegiatanResource\Pages;
@@ -136,6 +137,42 @@ class KegiatanResource extends Resource
                         ->icon('heroicon-m-chat-bubble-left-ellipsis')
                         ->openUrlInNewTab()
                         ->url(fn ($record) => route('kegiatan.send', $record->id)),
+                    Tables\Actions\Action::make('absen')
+                        ->visible(fn (Kegiatan $record) => $record->status === 1)
+                        ->color('info')
+                        ->tooltip('Absen Sekarang?')
+                        ->icon('heroicon-m-arrow-right-end-on-rectangle')
+                        ->disabled(function (Kegiatan $record){
+                            $pengurusId = auth()->user()?->pengurus?->id;
+                            if (!$pengurusId) {
+                                return true;
+                            }
+                            return $record->absen_kegiatans()
+                            ->where('penguruses_id', $pengurusId)
+                            ->exists();
+                        })
+                        ->action(function (Kegiatan $record) {
+                            $pengurusId = auth()->user()?->pengurus?->id;
+                            if (!$pengurusId) {
+                                Notification::make()
+                                    ->title('Gagal Absen')
+                                    ->body('User tidak terdaftar sebagai pengurus.')
+                                    ->danger()
+                                    ->send();
+                                return;
+                            }
+
+                            $record->absen_kegiatans()->create([
+                                'penguruses_id' => $pengurusId,
+                                'kegiatan_id' => $record->id,
+                                'keterangan' => 'hadir',
+                            ]);
+
+                            Notification::make()
+                                ->title('Absen Berhasil')
+                                ->success()
+                                ->send();
+                        }),
                 ])
             ])
             ->bulkActions([

@@ -25,6 +25,12 @@ class Register extends BaseRegister
                         $this->getTahunFormComponent()->live(),
                         $this->getPasswordFormComponent(),
                         $this->getPasswordConfirmationFormComponent(),
+                        // $this->getNomorIndukFormComponent(),
+                        // $this->getStrukturFormComponent(),
+                        // $this->getJabatanFormComponent(),
+                        // $this->getPeriodeFormComponent(),
+                        // $this->getGambarFormComponent(),
+                        // $this->getStatusFormComponent(),
                     ])
                     ->statePath('data'),
             ),

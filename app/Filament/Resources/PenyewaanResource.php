@@ -31,11 +31,11 @@ class PenyewaanResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->native(false)
-                    ->required()
-                    ->columnSpanFull(),
+                // Forms\Components\Select::make('user_id')
+                //     ->relationship('user', 'name')
+                //     ->native(false)
+                //     ->required()
+                //     ->columnSpanFull(),
                 Forms\Components\DatePicker::make('tanggal_pinjam')
                     ->native(false)
                     ->required(),

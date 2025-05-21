@@ -14,6 +14,10 @@ class CreatePenyewaan extends CreateRecord
     {
         $nomorPesanan = 'PE-' . date('Ymd') . '-' . rand(1000000, 9999000);
         $data['nomor_pesanan'] = $nomorPesanan;
+
+        $user = auth()->id();
+        $data['user_id'] = $user;
+        
         return $data;
     }
 

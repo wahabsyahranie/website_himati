@@ -20,6 +20,9 @@ return new class extends Migration
             $table->text('tujuan_rapat');
             $table->string('tempat_pelaksanaan');
             $table->timestamps();
+            
+            $table->char('user_id', 26);
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
         });
     }
 

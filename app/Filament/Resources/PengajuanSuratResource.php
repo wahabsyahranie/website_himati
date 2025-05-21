@@ -47,11 +47,11 @@ class PengajuanSuratResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('user_id')
-                    ->native(false)
-                    ->label('Pilih Mahasiswa')
-                    ->relationship('user', 'name')
-                    ->required(),
+                // Forms\Components\Select::make('user_id')
+                //     ->native(false)
+                //     ->label('Pilih Mahasiswa')
+                //     ->relationship('user', 'name')
+                //     ->required(),
                 Forms\Components\Select::make('tipe_surat')
                     ->native(false)
                     ->label('Jenis Surat')
@@ -80,7 +80,6 @@ class PengajuanSuratResource extends Resource
                     ->autocomplete(false)
                     ->required()
                     ->maxLength(255)
-                    ->columnSpanFull()
                     ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
                 Forms\Components\Textarea::make('tujuan_kegiatan')
                     ->label('Tujuan Kegiatan')

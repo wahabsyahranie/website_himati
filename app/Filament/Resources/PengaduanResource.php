@@ -41,13 +41,7 @@ class PengaduanResource extends Resource
                 Forms\Components\TextInput::make('judul')
                     ->required()
                     ->maxLength(255)
-                    ->autocomplete(false)
-                    ->columnSpanFull(),
-                Forms\Components\Textarea::make('deskripsi')
-                    ->required()
-                    ->rows(7)
-                    ->autocomplete(false)
-                    ->columnSpanFull(),
+                    ->autocomplete(false),
                 Forms\Components\Select::make('tujuan')
                     ->native(false)
                     ->required()
@@ -56,13 +50,11 @@ class PengaduanResource extends Resource
                         'dosen' => 'Dosen',
                         'hmj ti' => 'HMJ TI',
                     ]),
-                Forms\Components\Select::make('user_id')
-                    ->searchable()
-                    ->preload()
-                    ->native(false)
-                    ->label('Pelapor')
-                    ->relationship('user', 'name')
-                    ->required(),
+                Forms\Components\Textarea::make('deskripsi')
+                    ->required()
+                    ->rows(7)
+                    ->autocomplete(false)
+                    ->columnSpanFull(),
                 Forms\Components\FileUpload::make('gambar')
                     ->helperText("Uploading an image is optional if none is available.")
                     ->disk('public')

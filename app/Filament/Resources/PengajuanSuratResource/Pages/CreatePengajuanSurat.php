@@ -54,6 +54,9 @@ class CreatePengajuanSurat extends CreateRecord
         $slug_baru = str_replace('/', '-', $slug);
         $data['slug'] = $slug_baru;
 
+        $user = auth()->id();
+        $data['user_id'] = $user;
+        
         return $data;
     }
 }
