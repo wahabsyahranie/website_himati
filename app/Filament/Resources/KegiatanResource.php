@@ -7,6 +7,7 @@ use Filament\Tables;
 use App\Models\Kegiatan;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Enums\KegiatanEnum;
 use Illuminate\Support\Carbon;
 use Filament\Resources\Resource;
 use Filament\Tables\Filters\Filter;
@@ -50,12 +51,10 @@ class KegiatanResource extends Resource
                 Forms\Components\Select::make('jenis_kegiatan')
                     ->native(false)
                     ->required()
-                    ->options([
-                        'rapat umum' => 'Rapat Umum',
-                        'rapat panitia' => 'Rapat Panitia',
-                        'proker primer' => 'Proker Primer',
-                        'proker sekunder' => 'Proker Sekunder',
-                    ]),
+                    ->options(collect(KegiatanEnum::cases())
+                        ->mapWithKeys(fn ($enum) => [$enum->value => $enum->label()])
+                        ->toArray()
+                    ),
                 Forms\Components\TextInput::make('tempat_pelaksanaan')
                     ->required()
                     ->autocomplete(false)

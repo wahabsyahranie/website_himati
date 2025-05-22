@@ -7,6 +7,7 @@ use Filament\Tables;
 use App\Models\Pengurus;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Enums\PengurusEnum;
 use DeepCopy\Filter\Filter;
 use Filament\Resources\Resource;
 use Filament\Forms\FormsComponent;
@@ -53,15 +54,10 @@ class PengurusResource extends Resource
                     ->searchable()
                     ->required()
                     ->native(false)
-                    ->options([
-                        'ketua umum' => 'Ketua Umum',
-                        'wakil Ketua Umum' => 'Wakil Ketua Umum',
-                        'sekretaris umum' => 'Sekretaris Umum',
-                        'bendahara umum' => 'Bendahara Umum',
-                        'kepala departemen' => 'Kepala Departemen',
-                        'sekretaris departemen' => 'Sekretaris Departemen',
-                        'anggota departemen' => 'Anggota Departemen',
-                    ]),
+                    ->options(collect(PengurusEnum::cases())
+                        ->mapWithKeys(fn ($enum) => [$enum->value => $enum->label()])
+                        ->toArray()
+                    ),
                 Forms\Components\TextInput::make('periode')
                     ->required()
                     ->autocomplete(false)
@@ -120,7 +116,8 @@ class PengurusResource extends Resource
                     ->limit(20)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('jabatan')
-                    ->searchable(),
+                    ->searchable()
+                    ->formatStateUsing(fn ($state) => PengurusEnum::from($state)->label()),
                 Tables\Columns\TextColumn::make('periode')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('struktur.nama_pendek')

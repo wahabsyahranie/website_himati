@@ -13,6 +13,10 @@ class Kegiatan extends Model
     protected $table = 'kegiatans';
     protected $fillable = ['nama', 'tanggal_pelaksana', 'status', 'jenis_kegiatan', 'tujuan_rapat', 'tempat_pelaksanaan', 'user_id'];
 
+    // protected $casts = [
+    //     'jenis_kegiatan' => \App\Enums\KegiatanEnum::class,
+    // ];
+
     public function absen_kegiatans() : HasMany {
         return $this->hasMany(AbsenKegiatan::class);
     }
