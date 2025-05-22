@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
+use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Forms\Form;
 use App\Models\Pengaduan;
@@ -12,160 +13,176 @@ use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use App\Models\PengajuanSurat;
 use Filament\Resources\Resource;
+use Illuminate\Support\HtmlString;
+use Illuminate\Foundation\Inspiring;
+use Filament\Forms\Components\Wizard;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\TextInput;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Actions\ImportAction;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\Placeholder;
 use Filament\Tables\Actions\ExportBulkAction;
 use App\Filament\Exports\PengajuanSuratExporter;
 use App\Filament\Imports\PengajuanSuratImporter;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PengajuanSuratResource\Pages;
 use App\Filament\Resources\PengajuanSuratResource\RelationManagers;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Get;
 
 class PengajuanSuratResource extends Resource
 {
     protected static ?string $model = PengajuanSurat::class;
 
-    // protected static ?string $navigationIcon = 'heroicon-o-document-plus';
     protected static ?string $navigationGroup = 'Layanan Pengurus';
     protected static ?string $navigationLabel = 'Pembuatan Surat';
     protected static ?int $navigationSort = 8;
-    // public static function getNavigationBadge(): ?string
-    // {
-    //     return static::getModel()::where('status', 'ditinjau')->count();
-    // }
-    // public static function getNavigationBadgeTooltip(): ?string
-    // {
-    //     return 'Surat yang masih ditinjau';
-    // }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                // Forms\Components\Select::make('user_id')
-                //     ->native(false)
-                //     ->label('Pilih Mahasiswa')
-                //     ->relationship('user', 'name')
-                //     ->required(),
-                Forms\Components\Select::make('tipe_surat')
-                    ->native(false)
-                    ->label('Jenis Surat')
-                    ->required()
-                    ->live()
-                    ->options([
-                        'SIk' => 'Surat Izin Kegiatan',
-                        'SPm' => 'Surat Peminjaman',
-                        'Und' => 'Surat Undangan',
-                        'SM' => 'Surat Mandat',
-                        'Spn' => 'Surat Pernyataan Aktif',
-                        'Spm' => 'Surat Permohonan Dispen',
-                    ]),
-                Forms\Components\Select::make('pengesahan_id')
-                    ->label('Tujuan Surat')
-                    ->native(false)
-                    ->required()
-                    ->relationship('pengesahan', 'jabatan'),
-                Forms\Components\Select::make('struktur_id')
-                    ->label('Pembuat')
-                    ->native(false)
-                    ->required()
-                    ->relationship('struktur', 'nama_pendek'),
-                Forms\Components\TextInput::make('nama_kegiatan')
-                    ->label('Nama Kegiatan')
-                    ->autocomplete(false)
-                    ->required()
-                    ->maxLength(255)
-                    ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
-                Forms\Components\Textarea::make('tujuan_kegiatan')
-                    ->label('Tujuan Kegiatan')
-                    ->autocomplete(false)
-                    ->required()
-                    ->columnSpanFull()
-                    ->rows(5)
-                    ->maxLength(330)
-                    ->helperText('Maksimal 380 karakter')
-                    ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['Spn', 'Spm'])),
-                Forms\Components\DatePicker::make('tanggal_pelaksana')
-                    ->label('Tanggal Mulai')
-                    ->native(false)
-                    ->required()
-                    ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
-                Forms\Components\DatePicker::make('tanggal_selesai')
-                    ->afterOrEqual('tanggal_pelaksana')
-                    ->label('Tanggal Selesai')
-                    ->native(false)
-                    ->helperText('Jika dihari yang sama. maka, pilih tanggal yang sama dengan tanggal mulai.')
-                    ->required()
-                    ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
-                Forms\Components\TimePicker::make('waktu_pelaksana')
-                    ->label('Waktu Mulai')
-                    ->native(false)
-                    ->required()
-                    ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
-                Forms\Components\TimePicker::make('waktu_selesai')
-                    ->label('Waktu Selesai')
-                    ->native(false)
-                    ->required()
-                    ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
-                Forms\Components\TextInput::make('tempat_pelaksana')
-                    ->label('Tempat Pelaksanaan')
-                    ->autocomplete(false)
-                    ->required()
-                    ->maxLength(255)
-                    ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
-                Forms\Components\Select::make('tandatangan')
-                    ->label('Tandatangan')
-                    ->placeholder('Pilih tandatangan')
-                    ->multiple()
-                    ->required()
-                    ->options(function () {
-                        return Pengesahan::all()->pluck('nama', 'id')->toArray();
-                    }),
-                Forms\Components\TextInput::make('nama_cp')
-                    ->label('Nama Kontak Person')
-                    ->autocomplete(false)
-                    ->required()
-                    ->maxLength(255)
-                    ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
-                Forms\Components\TextInput::make('nomor_cp')
-                    ->label('Nomor Kontak Person')
-                    ->autocomplete(false)
-                    ->numeric()
-                    ->required()
-                    ->maxLength(255)
-                    ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
-                Repeater::make('lampiran')
-                    ->label('Detail Lampiran')
-                    ->visible(fn (Get $get) => in_array($get('tipe_surat'), ['SPm', 'Und', 'SM', 'Spn', 'Spm']))
+                Placeholder::make('')
+                    ->content(new HtmlString(Inspiring::quote())),
+                Wizard::make([
+                    Wizard\Step::make('Informasi Surat')
+                    ->icon('heroicon-m-document-text')
+                    ->completedIcon('heroicon-o-document-text')
+                    ->columns(2)
                     ->schema([
-                        TextInput::make('nama')
-                            ->required(),
-                        TextInput::make('jumlah')
-                            ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SPm']))
-                            ->required(),
-                        TextInput::make('nim')
-                            ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SM', 'Spn', 'Spm']))
-                            ->required(),
-                        TextInput::make('kelas')
-                            ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['Spm']))
-                            ->required(),
-                        TextInput::make('prodi')
-                            ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SM', 'Spn']))
-                            ->required(),
-                        TextInput::make('no_hp')
-                            ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SM']))
-                            ->required(),
-                        TextInput::make('jabatan')
-                            ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SM', 'Spn']))
-                            ->required(),
-                    ])
-                    ->grid(2)
-                    ->columnSpanFull(),
+                        Forms\Components\Select::make('tipe_surat')
+                            ->columnSpanFull()
+                            ->native(false)
+                            ->label('Jenis Surat')
+                            ->required()
+                            ->live()
+                            ->options([
+                                'SIk' => 'Surat Izin Kegiatan',
+                                'SPm' => 'Surat Peminjaman',
+                                'Und' => 'Surat Undangan',
+                                'SM' => 'Surat Mandat',
+                                'Spn' => 'Surat Pernyataan Aktif',
+                                'Spm' => 'Surat Permohonan Dispen',
+                            ]),
+                        Forms\Components\Select::make('tandatangan')
+                            ->label('Tandatangan')
+                            ->placeholder('Pilih tandatangan')
+                            ->multiple()
+                            ->required()
+                            ->options(function () {
+                                return Pengesahan::all()->pluck('nama', 'id')->toArray();
+                            }),
+                        Forms\Components\Select::make('struktur_id')
+                            ->label('Penerbit')
+                            ->native(false)
+                            ->required()
+                            ->relationship('struktur', 'nama_pendek'),
+                    ]),
+                    Wizard\Step::make('Detail Kegiatan')
+                    ->icon('heroicon-m-calendar-days')
+                    ->completedIcon('heroicon-o-calendar-days')
+                    ->columns(2)
+                    ->schema([
+                        Forms\Components\TextInput::make('nama_kegiatan')
+                            ->label('Nama Kegiatan')
+                            ->autocomplete(false)
+                            ->required()
+                            ->maxLength(255)
+                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
+                        Forms\Components\Select::make('pengesahan_id')
+                            ->label('Tujuan Surat')
+                            ->native(false)
+                            ->required()
+                            ->relationship('pengesahan', 'jabatan'),
+                        Forms\Components\Textarea::make('tujuan_kegiatan')
+                            ->label('Tujuan Kegiatan')
+                            ->autocomplete(false)
+                            ->required()
+                            ->columnSpanFull()
+                            ->rows(3)
+                            ->maxLength(150)
+                            ->helperText('Maksimal 380 karakter')
+                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['Spn', 'Spm', 'SPm'])),
+                        Forms\Components\DatePicker::make('tanggal_pelaksana')
+                            ->label('Tanggal Mulai')
+                            ->native(false)
+                            ->required()
+                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
+                        Forms\Components\DatePicker::make('tanggal_selesai')
+                            ->afterOrEqual('tanggal_pelaksana')
+                            ->label('Tanggal Selesai')
+                            ->native(false)
+                            ->helperText('Jika dihari yang sama. maka, pilih tanggal yang sama dengan tanggal mulai.')
+                            ->required()
+                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
+                        Forms\Components\TimePicker::make('waktu_pelaksana')
+                            ->label('Waktu Mulai')
+                            ->native(false)
+                            ->required()
+                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
+                        Forms\Components\TimePicker::make('waktu_selesai')
+                            ->label('Waktu Selesai')
+                            ->native(false)
+                            ->required()
+                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
+                        Forms\Components\TextInput::make('tempat_pelaksana')
+                            ->columnSpanFull()
+                            ->label('Tempat Pelaksanaan')
+                            ->autocomplete(false)
+                            ->required()
+                            ->maxLength(255)
+                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
+                    ]),
+                    Wizard\Step::make('Lampiran')
+                    ->icon('heroicon-m-paper-clip')
+                    ->completedIcon('heroicon-o-paper-clip')
+                    ->columns(2)
+                    ->schema([
+                        Forms\Components\TextInput::make('nama_cp')
+                            ->label('Nama Kontak Person')
+                            ->autocomplete(false)
+                            ->required()
+                            ->maxLength(255)
+                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
+                        Forms\Components\TextInput::make('nomor_cp')
+                            ->label('Nomor Kontak Person')
+                            ->autocomplete(false)
+                            ->numeric()
+                            ->required()
+                            ->maxLength(255)
+                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
+                        Repeater::make('lampiran')
+                            ->label('Detail Lampiran')
+                            ->visible(fn (Get $get) => in_array($get('tipe_surat'), ['SPm', 'Und', 'SM', 'Spn', 'Spm']))
+                            ->schema([
+                                TextInput::make('nama')
+                                    ->required(),
+                                TextInput::make('jumlah')
+                                    ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SPm']))
+                                    ->required(),
+                                TextInput::make('nim')
+                                    ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SM', 'Spn', 'Spm']))
+                                    ->required(),
+                                TextInput::make('kelas')
+                                    ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['Spm']))
+                                    ->required(),
+                                TextInput::make('prodi')
+                                    ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SM', 'Spn']))
+                                    ->required(),
+                                TextInput::make('no_hp')
+                                    ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SM']))
+                                    ->required(),
+                                TextInput::make('jabatan')
+                                    ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SM', 'Spn']))
+                                    ->required(),
+                            ])
+                            ->grid(2)
+                            ->columnSpanFull(),
+                    ]),
+                ])
+                // ->submitAction(new HtmlString('<button type="submit">Submit</button>'))
+                // ->startOnStep(3)
+                ->columnSpanFull(),
             ]);
     }
 
