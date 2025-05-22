@@ -23,6 +23,7 @@ use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Actions\ImportAction;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\Placeholder;
+use Wahab\InspiringQuotes\InspiringCustom;
 use Filament\Tables\Actions\ExportBulkAction;
 use App\Filament\Exports\PengajuanSuratExporter;
 use App\Filament\Imports\PengajuanSuratImporter;
@@ -43,7 +44,8 @@ class PengajuanSuratResource extends Resource
         return $form
             ->schema([
                 Placeholder::make('')
-                    ->content(new HtmlString(Inspiring::quote())),
+                    // ->content(new HtmlString(Inspiring::quote())),
+                    ->content(new HtmlString(InspiringCustom::quote())),
                 Wizard::make([
                     Wizard\Step::make('Informasi Surat')
                     ->icon('heroicon-m-document-text')

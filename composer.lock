@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c3c2fe7cc59b9571a95056158394d28b",
+    "content-hash": "251753f122e7fdf2b03d4beaf1abc243",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -7769,6 +7769,37 @@
                 }
             ],
             "time": "2024-11-21T01:49:47+00:00"
+        },
+        {
+            "name": "wahab/inspiring-quotes",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wahabsyahranie/my-vendor.git",
+                "reference": "4ce0a448baffbdeddfc80fbcc3eb86371d267e79"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wahabsyahranie/my-vendor/zipball/4ce0a448baffbdeddfc80fbcc3eb86371d267e79",
+                "reference": "4ce0a448baffbdeddfc80fbcc3eb86371d267e79",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^10.0 || ^11.0 || ^12.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Wahab\\InspiringQuotes\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Custom inspirational quotes for Laravel",
+            "support": {
+                "issues": "https://github.com/wahabsyahranie/my-vendor/issues",
+                "source": "https://github.com/wahabsyahranie/my-vendor/tree/v1.0.0"
+            },
+            "time": "2025-05-22T14:35:40+00:00"
         },
         {
             "name": "webmozart/assert",
