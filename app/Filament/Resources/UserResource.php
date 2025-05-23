@@ -64,6 +64,11 @@ class UserResource extends Resource
                         'mahasiswa' => 'mahasiswa',
                         'ormawa' => 'ormawa',
                     ]),
+                Forms\Components\Select::make('roles')
+                    ->relationship('roles', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->searchable(),
                 Forms\Components\Fieldset::make('userDetail')
                     ->visible(fn (Get $get) => $get('tipe_akun') === 'mahasiswa')
                     ->label('Detail Mahasiswa')
