@@ -80,7 +80,7 @@ class PengajuanSuratController extends Controller
         $namaView = $this->getView($tipe);
 
         $pdf = Pdf::loadView($namaView, $data);
-        return $pdf->loadView($data['data']->slug . '.pdf');
+        return $pdf->download($data['data']->slug . '.pdf');
     }
 
     // public function test($slug)
