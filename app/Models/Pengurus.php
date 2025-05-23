@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Enums\PengurusEnum;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Pengurus extends Model
 {
@@ -15,6 +16,7 @@ class Pengurus extends Model
     protected $fillable =['nomor_induk', 'jabatan', 'user_id', 'periode', 'struktur_id', 'status', 'gambar'];
     protected $casts = [
         'departemen' => 'array',
+        'jabatan' => PengurusEnum::class,
     ];
 
     public function user() : BelongsTo

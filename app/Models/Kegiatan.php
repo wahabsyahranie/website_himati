@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\KegiatanEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,9 +14,9 @@ class Kegiatan extends Model
     protected $table = 'kegiatans';
     protected $fillable = ['nama', 'tanggal_pelaksana', 'status', 'jenis_kegiatan', 'tujuan_rapat', 'tempat_pelaksanaan', 'user_id'];
 
-    // protected $casts = [
-    //     'jenis_kegiatan' => \App\Enums\KegiatanEnum::class,
-    // ];
+    protected $casts = [
+        'jenis_kegiatan' => KegiatanEnum::class,
+    ];
 
     public function absen_kegiatans() : HasMany {
         return $this->hasMany(AbsenKegiatan::class);

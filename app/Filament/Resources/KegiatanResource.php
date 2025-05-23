@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\KegiatanResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\KegiatanResource\RelationManagers;
+use Filament\Forms\Components\Placeholder;
 
 class KegiatanResource extends Resource
 {
@@ -87,7 +88,7 @@ class KegiatanResource extends Resource
                     ->rowIndex(),
                 Tables\Columns\TextColumn::make('nama')
                     ->label('Nama Kegiatan')
-                    ->description(fn (Kegiatan $record): string => $record->jenis_kegiatan, position: 'above')
+                    ->description(fn (Kegiatan $record): string => $record->jenis_kegiatan->label(), position: 'above')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('tanggal_pelaksana')
                     ->label('Tanggal & Waktu Pelaksanaan')
@@ -119,13 +120,10 @@ class KegiatanResource extends Resource
                     ]),
                 SelectFilter::make('jenis_kegiatan')
                     ->label('Jenis Kegiatan')
-                    ->options(function () {
-                        return \App\Models\Kegiatan::query()
-                            ->pluck('jenis_kegiatan', 'jenis_kegiatan')
-                            ->unique()
-                            ->sort()
-                            ->toArray();
-                    })
+                    ->options(collect(KegiatanEnum::cases())->mapWithKeys(fn ($case) => [
+                        $case->value => $case->label()
+                    ])->toArray()
+                    )
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([

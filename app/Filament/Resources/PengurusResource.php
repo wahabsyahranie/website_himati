@@ -52,7 +52,6 @@ class PengurusResource extends Resource
                     ->required()
                     ->numeric(),
                 Forms\Components\Select::make('jabatan')
-                    ->searchable()
                     ->required()
                     ->native(false)
                     ->options(collect(PengurusEnum::cases())
@@ -120,7 +119,7 @@ class PengurusResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('jabatan')
                     ->searchable()
-                    ->formatStateUsing(fn ($state) => PengurusEnum::from($state)->label()),
+                    ->formatStateUsing(fn ($state) => $state->label()),
                 Tables\Columns\TextColumn::make('periode')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('struktur.nama_pendek')
@@ -161,13 +160,10 @@ class PengurusResource extends Resource
                             ->toArray();
                     }),
                 SelectFilter::make('jabatan')
-                    ->options(function () {
-                        return \App\Models\Pengurus::query()
-                            ->pluck('jabatan', 'jabatan')
-                            ->unique()
-                            ->sort()
-                            ->toArray();
-                    }),
+                    ->options(collect(PengurusEnum::cases())->mapWithKeys(fn ($case) => [
+                        $case->value => $case->label()
+                    ])->toArray()
+                    ),
                 SelectFilter::make('status')
                     ->options(function () {
                         return \App\Models\Pengurus::query()
