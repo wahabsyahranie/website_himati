@@ -114,4 +114,15 @@ class ZCalendarWidget extends FullCalendarWidget
                 })
         ];
     }
+
+    protected function getConfig(): array
+    {
+        return [
+            'headerToolbar' => [
+                'left' => 'prev,next',
+                'center' => 'title',
+                'right' => 'dayGridMonth,timeGridWeek,timeGridDay',
+            ],
+        ];
+    }
 }

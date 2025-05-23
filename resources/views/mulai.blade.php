@@ -62,15 +62,15 @@
           @endphp
           <div data-aos="fade-up">
             <div class="bg-{{ $colorCard }} rounded h-full w-full p-5">
-              <div id="label">
-                <p class="bg-text-primary text-{{ $colorCard }} pl-2 pr-2 md:pl-6 md:pr-6 rounded inline-block uppercase">{{ $pengaduan->tujuan }}</p>
-                <p class="bg-secondary text-base mt-1 md:mt-0 pl-2 pr-2 md:pl-6 md:pr-6 rounded inline-block">Advokasi</p>
+              <div id="label" class="text-xs md:text-md">
+                <p class="bg-text-primary text-{{ $colorCard }} pl-2 pr-2 md:pl-3 md:pr-3 rounded inline-block capitalize">{{ $pengaduan->tujuan }}</p>
+                <p class="bg-secondary text-base mt-1 md:mt-0 pl-2 pr-2 md:pl-3 md:pr-3 rounded inline-block">Advokasi</p>
               </div>
               <div id="deskripsi" class="md:pl-7.5 md:pr-8 pt-3 md:pt-5 pb-5">
-                <p class="font-bold text-{{ $colorText }} text-xl pb-2">{{ $pengaduan->judul }}</p>
-                <p class="text-{{ $colorText }}">{{ Str::limit($pengaduan->deskripsi, 85, '...') }}</p>
+                <p class="font-bold text-{{ $colorText }} text-sm md:text-xl pb-2">{{ $pengaduan->judul }}</p>
+                <p class="text-xs md:text-lg text-{{ $colorText }}">{{ Str::limit($pengaduan->deskripsi, 85, '...') }}</p>
               </div>
-              <div id="link detail" class="md:pl-7.5 hover:underline text-{{ $colorText }}">
+              <div id="link detail" class="text-xs md:text-lg md:pl-7.5 hover:underline text-{{ $colorText }}">
                 <p><a href="/advokasi/{{ $pengaduan->slug }}"> Read More &raquo;</a></p>
               </div>
             </div>
