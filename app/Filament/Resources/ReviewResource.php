@@ -8,6 +8,7 @@ use App\Models\Review;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\ReviewResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -92,7 +93,7 @@ class ReviewResource extends Resource
                         ->color('info')
                         ->icon('heroicon-o-check-circle')
                         ->requiresConfirmation()
-                        ->visible(fn (Review $record) => $record->status !== 'disembunyikan')
+                        ->visible(fn (Review $record) => Auth::user()->hasAnyRole(['super_admin', 'admin']) && $record->status !== 'disembunyikan')
                         ->action(function (Review $record) {
                             $record->update(['status' => 'disembunyikan']);
                         }),
@@ -100,7 +101,7 @@ class ReviewResource extends Resource
                         ->color('success')
                         ->icon('heroicon-o-x-circle')
                         ->requiresConfirmation()
-                        ->visible(fn (Review $record) => $record->status !== 'ditampilkan')
+                        ->visible(fn (Review $record) => Auth::user()->hasAnyRole(['super_admin', 'admin']) && $record->status !== 'ditampilkan')
                         ->action(function (Review $record) {
                             $record->update(['status' => 'ditampilkan']);
                         }),

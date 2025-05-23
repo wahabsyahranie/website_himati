@@ -9,6 +9,7 @@ use Filament\Forms\Get;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Illuminate\Support\Facades\Auth;
 use App\Filament\Exports\UserExporter;
 use App\Filament\Imports\UserImporter;
 use Filament\Forms\Components\Repeater;
@@ -99,9 +100,11 @@ class UserResource extends Resource
                 Tables\Actions\CreateAction::make()
                     ->label('Tambah Pengguna'),
                 ExportAction::make()
+                    ->visible(fn() => Auth::user()->hasAnyRole(['super_admin', 'admin']))
                     ->exporter(UserExporter::class)
                     ->label('Ekspor Data'),
                 ImportAction::make()
+                    ->visible(fn() => Auth::user()->hasAnyRole(['super_admin', 'admin']))
                     ->importer(UserImporter::class)
                     ->label('Impor Data'),
             ])

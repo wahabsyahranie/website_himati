@@ -15,6 +15,7 @@ use App\Models\PengajuanSurat;
 use Filament\Resources\Resource;
 use Illuminate\Support\HtmlString;
 use Illuminate\Foundation\Inspiring;
+use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
@@ -199,9 +200,11 @@ class PengajuanSuratResource extends Resource
                 Tables\Actions\CreateAction::make()
                     ->label('Buat Surat'),
                 ExportAction::make()
+                    ->disabled(fn () => !Auth::user()->hasAnyRole(['super_admin', 'admin']))
                     ->exporter(PengajuanSuratExporter::class)
                     ->label('Ekspor Data'),
                 ImportAction::make()
+                    ->disabled(fn () => !Auth::user()->hasAnyRole(['super_admin', 'admin']))
                     ->importer(PengajuanSuratImporter::class)
                     ->label('Impor Data'),
             ])
@@ -287,7 +290,7 @@ class PengajuanSuratResource extends Resource
                         ->color('warning')
                         ->icon('heroicon-o-x-circle')
                         ->requiresConfirmation()
-                        ->visible(fn (PengajuanSurat $record) => $record->status !== 'ditolak')
+                        ->visible(fn (PengajuanSurat $record) => Auth::user()->hasAnyRole(['super_admin', 'admin']) && $record->status !== 'ditolak')
                         ->action(function (PengajuanSurat $record) {
                             $record->update(['status' => 'ditolak']);
                         }),
@@ -295,7 +298,7 @@ class PengajuanSuratResource extends Resource
                         ->color('success')
                         ->icon('heroicon-o-check-circle')
                         ->requiresConfirmation()
-                        ->visible(fn (PengajuanSurat $record) => $record->status !== 'disetujui')
+                        ->visible(fn (PengajuanSurat $record) => Auth::user()->hasAnyRole(['super_admin', 'admin']) && $record->status !== 'disetujui')
                         ->action(function (PengajuanSurat $record) {
                             $record->update(['status' => 'disetujui']);
                         }),

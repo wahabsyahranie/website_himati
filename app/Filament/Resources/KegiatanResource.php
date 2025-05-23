@@ -11,6 +11,7 @@ use App\Enums\KegiatanEnum;
 use Illuminate\Support\Carbon;
 use Filament\Resources\Resource;
 use Filament\Tables\Filters\Filter;
+use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Select;
 use Filament\Notifications\Notification;
 use Filament\Tables\Filters\SelectFilter;
@@ -100,7 +101,8 @@ class KegiatanResource extends Resource
                         return ($tanggal) . ' | ' . ($waktu);
                     }),
                 Tables\Columns\ToggleColumn::make('status')
-                    ->label('Rapat dibuka'),
+                    ->label('Rapat dibuka')
+                    ->visible(fn () => Auth::user()->hasAnyRole(['super_admin','admin'])),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Tanggal Dibuat')
                     ->dateTime()
@@ -135,12 +137,13 @@ class KegiatanResource extends Resource
                         ->tooltip('Kirim ke Whatsapp')
                         ->icon('heroicon-m-chat-bubble-left-ellipsis')
                         ->openUrlInNewTab()
-                        ->url(fn ($record) => route('kegiatan.send', $record->id)),
+                        ->url(fn ($record) => route('kegiatan.send', $record->id))
+                        ->visible(fn() => Auth::user()->hasAnyRole(['super_admin', 'admin'])),
                     Tables\Actions\Action::make('absen')
-                        ->visible(fn (Kegiatan $record) => $record->status === 1)
                         ->color('info')
                         ->tooltip('Absen Sekarang?')
                         ->icon('heroicon-m-arrow-right-end-on-rectangle')
+                        ->visible(fn (Kegiatan $record) => Auth::user()->hasAnyRole(['super_admin', 'admin', 'pengurus']) && $record->status === 1)
                         ->disabled(function (Kegiatan $record){
                             $pengurusId = auth()->user()?->pengurus?->id;
                             if (!$pengurusId) {

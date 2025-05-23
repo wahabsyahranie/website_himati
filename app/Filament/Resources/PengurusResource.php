@@ -11,6 +11,7 @@ use App\Enums\PengurusEnum;
 use DeepCopy\Filter\Filter;
 use Filament\Resources\Resource;
 use Filament\Forms\FormsComponent;
+use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Repeater;
 use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Actions\ImportAction;
@@ -94,9 +95,11 @@ class PengurusResource extends Resource
                 Tables\Actions\CreateAction::make()
                     ->label('Tambah Pengurus'),
                 ExportAction::make()
+                    ->disabled(fn() => !Auth::user()->hasAnyRole(['super_admin', 'admin']))
                     ->exporter(PengurusExporter::class)
                     ->label('Ekspor Data'),
                 ImportAction::make()
+                    ->disabled(fn() => !Auth::user()->hasAnyRole(['super_admin', 'admin']))
                     ->importer(PengurusImporter::class)
                     ->label('Impor Data'),
             ])
@@ -181,11 +184,14 @@ class PengurusResource extends Resource
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\DeleteAction::make(),
                     Tables\Actions\Action::make('alb')
+                        ->visible(fn (Pengurus $record) =>
+                            Auth::user()->hasAnyRole(['super_admin', 'admin']) &&
+                            $record->status === 'pengurus'
+                        )
                         ->label('ALB')
                         ->icon('heroicon-m-user')
                         ->color('info')
                         ->tooltip('Tandai sebagai Anggota Luar Biasa')
-                        ->visible(fn (Pengurus $record) => $record->status === 'pengurus')
                         ->requiresConfirmation()
                         ->action(fn (Pengurus $record) => $record->update(['status' => 'alb'])),
 
@@ -194,7 +200,10 @@ class PengurusResource extends Resource
                         ->icon('heroicon-o-user-minus')
                         ->color('danger')
                         ->tooltip('Tandai sebagai bukan pengurus')
-                        ->visible(fn (Pengurus $record) => $record->status !== 'keluar')
+                        ->visible(fn (Pengurus $record) =>
+                            Auth::user()->hasAnyRole(['super_admin', 'admin']) &&
+                            $record->status === 'pengurus'
+                        )
                         ->requiresConfirmation()
                         ->action(fn (Pengurus $record) => $record->update(['status' => 'keluar'])),
 
@@ -203,7 +212,10 @@ class PengurusResource extends Resource
                         ->icon('heroicon-m-user-plus')
                         ->color('success')
                         ->tooltip('Tandai sebagai pengurus aktif')
-                        ->visible(fn (Pengurus $record) => $record->status !== 'pengurus')
+                        ->visible(fn (Pengurus $record) =>
+                            Auth::user()->hasAnyRole(['super_admin', 'admin']) &&
+                            $record->status === 'pengurus'
+                        )
                         ->requiresConfirmation()
                         ->action(fn (Pengurus $record) => $record->update(['status' => 'pengurus'])),
                 ])

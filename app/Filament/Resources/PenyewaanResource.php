@@ -17,6 +17,7 @@ use App\Filament\Resources\PenyewaanResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PenyewaanResource\RelationManagers;
 use App\Filament\Resources\PenyewaanResource\Widgets\PenyewaanOverview;
+use Illuminate\Support\Facades\Auth;
 
 class PenyewaanResource extends Resource
 {
@@ -155,7 +156,7 @@ class PenyewaanResource extends Resource
                         ->color('warning')
                         ->icon('heroicon-o-x-circle')
                         ->requiresConfirmation()
-                        ->visible(fn (Penyewaan $record) => $record->status !== 'ditolak')
+                        ->visible(fn (Penyewaan $record) => Auth::user()->hasAnyRole(['super_admin', 'admin']) && $record->status !== 'ditolak')
                         ->action(function (Penyewaan $record) {
                             $record->update(['status' => 'ditolak']);
                         }),
@@ -163,7 +164,7 @@ class PenyewaanResource extends Resource
                         ->color('success')
                         ->icon('heroicon-o-check-circle')
                         ->requiresConfirmation()
-                        ->visible(fn (Penyewaan $record) => $record->status !== 'disetujui')
+                        ->visible(fn (Penyewaan $record) => Auth::user()->hasAnyRole(['super_admin', 'admin']) && $record->status !== 'disetujui')
                         ->action(function (Penyewaan $record) {
                             $record->update(['status' => 'disetujui']);
                         }),

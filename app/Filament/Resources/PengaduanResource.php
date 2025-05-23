@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PengaduanResource\RelationManagers;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use App\Filament\Resources\PengaduanResource\Widgets\PengaduanOverview;
+use Illuminate\Support\Facades\Auth;
 
 class PengaduanResource extends Resource
 {
@@ -123,7 +124,7 @@ class PengaduanResource extends Resource
                         ->color('warning')
                         ->icon('heroicon-o-x-circle')
                         ->requiresConfirmation()
-                        ->visible(fn (Pengaduan $record) => $record->status !== 'ditolak')
+                        ->visible(fn (Pengaduan $record) => Auth::user()->hasAnyRole(['super_admin', 'admin']) && $record->status !== 'ditolak')
                         ->action(function (Pengaduan $record) {
                             $record->update(['status' => 'ditolak']);
                         }),
@@ -132,7 +133,7 @@ class PengaduanResource extends Resource
                         ->color('success')
                         ->icon('heroicon-o-check-circle')
                         ->requiresConfirmation()
-                        ->visible(fn (Pengaduan $record) => $record->status !== 'dipublikasikan')
+                        ->visible(fn (Pengaduan $record) => Auth::user()->hasAnyRole(['super_admin', 'admin']) && $record->status !== 'dipublikasikan')
                         ->action(function (Pengaduan $record) {
                             $record->update(['status' => 'dipublikasikan']);
                         }),

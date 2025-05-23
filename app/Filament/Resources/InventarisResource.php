@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\InventarisResource\Pages;
 use App\Filament\Resources\InventarisResource\RelationManagers;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class InventarisResource extends Resource
@@ -116,14 +117,14 @@ class InventarisResource extends Resource
                     Tables\Actions\Action::make('Tandai Tersedia')
                         ->color('success')
                         ->icon('heroicon-o-check-circle') 
-                        ->visible(fn (Inventaris $record) => $record->status !== 'tersedia')
+                        ->visible(fn (Inventaris $record) => Auth::user()->hasAnyRole(['super_admin', 'admin']) && $record->status !== 'tersedia')
                         ->action(function (Inventaris $record) {
                             $record->update(['status' => 'tersedia']);
                         }),
                     Tables\Actions\Action::make('Tandai Rusak')
                         ->color('danger')
                         ->icon('heroicon-o-x-circle')
-                        ->visible(fn (Inventaris $record) => $record->status !== 'rusak')
+                        ->visible(fn (Inventaris $record) => Auth::user()->hasAnyRole(['super_admin', 'admin']) && $record->status !== 'rusak')
                         ->action(function (Inventaris $record) {
                             $record->update(['status' => 'rusak']);
                         }),
