@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             ReviewSeeder::class,
             PengajuanSuratSeeder::class,
             PenyewaanSeeder::class,
+            ShieldSeeder::class,
         ]);
     }
 }
