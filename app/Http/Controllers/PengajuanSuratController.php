@@ -55,7 +55,9 @@ class PengajuanSuratController extends Controller
             'SIk' => 'surat_izin_kegiatan',
             'SPm' => 'surat_peminjaman',
             'SM' => 'surat_mandat',
-            'Spm' => 'surat_dispen'
+            'Spm' => 'surat_dispen',
+            'Spn' => 'surat_pernyataan',
+            'Und' => 'surat_undangan',
         ];
 
         return $mapView[$tipe] ?? abort(404, 'Tipe surat tidak dikenali.');

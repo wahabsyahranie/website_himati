@@ -35,7 +35,7 @@ class CreatePengajuanSurat extends CreateRecord
             $nomor_terakhir = (int) $pisahkan[0];
             $nomor_baru = $nomor_terakhir + 1;
         } else {
-            $nomor_baru = 1;
+            $nomor_baru = 131;
         }
 
         //set nomor surat

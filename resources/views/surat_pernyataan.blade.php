@@ -11,42 +11,42 @@
     </div>
 
     {{-- RINCIAN MANDAT --}}
-    <div style="margin-top: 15px ">
-      <table class="table-margin">
-        @foreach ($data->lampiran as $lampiran )
-          <tr>
-            <td style="width: 120px">Nama</td>
-            <td>: {{ $lampiran['nama'] }}</td>
-          </tr>
-          <tr>
-            <td>NIM</td>
-            <td>: {{ $lampiran['nim'] }}</td>
-          </tr>
-          <tr>
-            <td>Prodi</td>
-            <td>: {{ $lampiran['prodi'] }}</td>
-          </tr>
-          <tr>
-            <td>Jurusan</td>
-            <td>: Teknologi Informasi</td>
-          </tr>
-          <tr>
-            <td>Jabatan</td>
-            <td>: {{ $lampiran['jabatan'] }}</td>
-          </tr>
-          {{-- PERNYATAAN --}}
-          @if ($loop->first)
-            </table>
+   <div style="margin-top: 15px">
+      @foreach ($data->lampiran as $index => $lampiran)
+        <div style="@if(!$loop->first) margin-top: 15px; @endif">
+          <table class="table-margin">
+            <tr>
+              <td style="width: 120px;">Nama</td>
+              <td>: {{ $lampiran['nama'] }}</td>
+            </tr>
+            <tr>
+              <td>NIM</td>
+              <td>: {{ $lampiran['nim'] }}</td>
+            </tr>
+            <tr>
+              <td>Prodi</td>
+              <td>: {{ $lampiran['prodi'] }}</td>
+            </tr>
+            <tr>
+              <td>Jurusan</td>
+              <td>: Teknologi Informasi</td>
+            </tr>
+            <tr>
+              <td>Jabatan</td>
+              <td>: {{ $lampiran['jabatan'] }}</td>
+            </tr>
+          </table>
+        </div>
 
-            <div style="margin-top: 15px; margin-bottom: 15px;">
-              <p class="margin-text">Dengan ini menyatakan bahwa:</p>
-            </div>
-
-            <table class="table-margin">
-          @endif
-        @endforeach
-      </table>
+        {{-- PERNYATAAN --}}
+        @if ($loop->first)
+          <div style="margin-top: 15px; margin-bottom: 15px;">
+            <p class="margin-text">Dengan ini menyatakan bahwa:</p>
+          </div>
+        @endif
+      @endforeach
     </div>
+
 
     {{-- PENUTUP --}}
     <div style="margin-top: 15px " class="font-style">
