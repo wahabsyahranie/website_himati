@@ -56,6 +56,39 @@ class CreatePengajuanSurat extends CreateRecord
 
         $user = auth()->id();
         $data['user_id'] = $user;
+
+        ////SET DETAIL SURAT
+        $fields = [
+            'nama_kegiatan',
+            'tujuan_kegiatan',
+            'tanggal_pelaksana',
+            'tanggal_selesai',
+            'waktu_pelaksana',
+            'waktu_selesai',
+            'tempat_pelaksana',
+            'nama_cp',
+            'nomor_cp',
+            'lampiran',
+        ];
+
+        $detailSurat = [];
+
+        foreach ($fields as $field) {
+            if (!empty($data[$field])) {
+                $detailSurat[$field] = $data[$field];
+                unset($data[$field]);
+            }
+        }
+        
+        $data['detail_surat'] = $detailSurat;
+        
+        //HAPUS LAMPIRAN YANG BERNILAI NULL
+        $detail = $data['detail_surat'];
+        if(!empty($detail['lampiran'])){
+            foreach ($detail['lampiran'] as &$anggota) {
+                $anggota = array_filter($anggota, fn($value) => !is_null($value));
+            }
+        }
         
         return $data;
     }

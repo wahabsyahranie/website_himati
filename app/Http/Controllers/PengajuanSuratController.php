@@ -12,6 +12,32 @@ class PengajuanSuratController extends Controller
     private function getDataPengesahan($slug)
     {
         $data = PengajuanSurat::where('slug', $slug)->firstOrFail(); //
+
+
+        ////MODIFIKASI ARRAY DETAIL_SURAT
+        $fields = [
+            'nama_kegiatan',
+            'tujuan_kegiatan',
+            'tanggal_pelaksana',
+            'tanggal_selesai',
+            'waktu_pelaksana',
+            'waktu_selesai',
+            'tempat_pelaksana',
+            'nama_cp',
+            'nomor_cp',
+            'lampiran',
+        ];
+
+        $detail_surat = [];
+        foreach ($fields as $field) {
+            if (!empty($data->detail_surat[$field])) {
+                $detail_surat[$field] = $data->detail_surat[$field];
+                unset($data[$field]);
+            }
+        }
+        // dd($detail_surat);
+
+
         $pengesahanInfo = []; //
 
         //MENGAMBIL DATA UNTUK TUJUAN SURAT (KEPADA YTH.)
@@ -44,7 +70,7 @@ class PengajuanSuratController extends Controller
         });
 
         //MENGEMBALIKAN DATA
-        return compact('data', 'pengesahanInfo', 'tujuan_after');
+        return compact('data', 'pengesahanInfo', 'tujuan_after', 'detail_surat');
     }
 
     //FUNGSI MENENTUKAN VIEW
@@ -86,32 +112,14 @@ class PengajuanSuratController extends Controller
         return $pdf->download($data['data']->slug . '.pdf');
     }
 
-    // public function test($slug)
-    // {
-    //     $data = $this->getDataPengesahan($slug);
-    //     $nama_file = $data['data']->slug;
-    //     $pdf = Pdf::loadView('surat_dispen', $data);
-    //     return $pdf->stream($nama_file . ".pdf");
-    // }
+    public function test($slug)
+    {
+        $data = $this->getDataPengesahan($slug);
+        $tipe = $data['data']->tipe_surat;
+        $namaView = $this->getView($tipe);
 
-    
-
-    //// Fungsi Mengunduh Surat dengan SpatieBrowserShoot
-    // public function unduh($slug)
-    // {
-    //     $data = $this->getDataSurat($slug);
-    //     $template = view('surat', $data)->render();
-
-    //     // Path node & npm sesuai hasil `which node` & `which npm`
-    //     Browsershot::html($template)
-    //         ->setNodeBinary('/Users/sitikoyimatun/Library/Application\ Support/Herd/config/nvm/versions/node/v22.14.0/bin/node')
-    //         ->setNpmBinary('/Users/sitikoyimatun/Library/Application\ Support/Herd/config/nvm/versions/node/v22.14.0/bin/npm')
-    //         ->setOption('args', ['--no-sandbox'])
-    //         ->format('A4')
-    //         ->savePdf(storage_path('app/public/surat-' . $slug . '.pdf'));
-
-    //     return response()->download(storage_path('app/public/surat-' . $slug . '.pdf'));
-    // }
-
+        $pdf = Pdf::loadView($namaView, $data);
+        return $pdf->stream($data['data']->slug . '.pdf');
+    }
 
 }

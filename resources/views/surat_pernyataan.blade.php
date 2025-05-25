@@ -12,7 +12,7 @@
 
     {{-- RINCIAN PERNYATAAN--}}
     <div style="margin-top: 15px">
-      @foreach ($data->lampiran as $index => $lampiran)
+      @foreach ($detail_surat['lampiran'] as $index => $lampiran)
         <div style="@if(!$loop->first) margin-top: 15px; @endif">
           <table class="table-margin">
             <tr>

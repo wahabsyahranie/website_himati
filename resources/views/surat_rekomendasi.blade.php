@@ -12,7 +12,7 @@
 
     {{-- RINCIAN REKOMENDASI --}}
     <div style="margin-top: 15px">
-      @foreach ($data->lampiran as $index => $lampiran)
+      @foreach ($detail_surat['lampiran'] as $index => $lampiran)
         <div style="@if(!$loop->first) margin-top: 15px; @endif">
           <table class="table-margin">
             <tr>
@@ -50,7 +50,7 @@
 
     {{-- PENUTUP --}}
     <div style="margin-top: 15px " class="font-style">
-      <p class="margin-text">{{ $data->tujuan_kegiatan }}</p>
+      <p class="margin-text">{{ $detail_surat['tujuan_kegiatan'] }}</p>
     </div>
 
     {{-- PENGESHAAN --}}

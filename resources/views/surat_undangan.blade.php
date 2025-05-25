@@ -36,7 +36,7 @@
     <p style="margin-bottom: 0px">Di - </p>
     <p class="margin-text" style="margin-left: 28px">Tempat</p>
     <p style="margin-bottom: 0px">Dengan hormat,</p>
-    <p class="margin-text">Dalam kesempatan ini, kami dari Himpunan Mahasiswa Jurusan Teknologi Informasi bermaksud mengundang Bapak/Ibu/Saudara/Saudari untuk hadir dan berpartisipasi dalam kegiatan <strong>{{ $data->nama_kegiatan }}</strong>. Kegiatan ini bertujuan untuk {{ $data->tujuan_kegiatan }}.</p>
+    <p class="margin-text">Dalam kesempatan ini, kami dari Himpunan Mahasiswa Jurusan Teknologi Informasi bermaksud mengundang Bapak/Ibu/Saudara/Saudari untuk hadir dan berpartisipasi dalam kegiatan <strong>{{ $detail_surat['nama_kegiatan'] }}</strong>. Kegiatan ini bertujuan untuk {{ $detail_surat['tujuan_kegiatan'] }}.</p>
     <p style="margin-bottom: 0px">Kegiatan ini dijadwalkan akan dilaksanakan pada:</p>
   </div>
 
@@ -46,21 +46,21 @@
       <tr class="pembuka-surat">
           <td style="width: 15%;">Hari/Tanggal</td>
           <td style="width: 2%;">:</td>
-          @if ($data->tanggal_pelaksana === $data->tanggal_selesai)
-            <td style="width: 83%;">{{ \Carbon\Carbon::parse($data->tanggal_pelaksana)->translatedFormat('l') }}, {{ \Carbon\Carbon::parse($data->tanggal_pelaksana)->translatedFormat('d F Y') }}</td>
+          @if ($detail_surat['tanggal_pelaksana'] === $detail_surat['tanggal_selesai'])
+            <td style="width: 83%;">{{ \Carbon\Carbon::parse($detail_surat['tanggal_pelaksana'])->translatedFormat('l') }}, {{ \Carbon\Carbon::parse($detail_surat['tanggal_pelaksana'])->translatedFormat('d F Y') }}</td>
           @else
-            <td style="width: 83%;">{{ \Carbon\Carbon::parse($data->tanggal_pelaksana)->translatedFormat('l') }} S.D. {{ \Carbon\Carbon::parse($data->tanggal_selesai)->translatedFormat('l') }}, {{ \Carbon\Carbon::parse($data->tanggal_pelaksana)->translatedFormat('d') }} - {{ \Carbon\Carbon::parse($data->tanggal_selesai)->translatedFormat('d F Y') }}</td>
+            <td style="width: 83%;">{{ \Carbon\Carbon::parse($detail_surat['tanggal_pelaksana'])->translatedFormat('l') }} S.D. {{ \Carbon\Carbon::parse($detail_surat['tanggal_selesai'])->translatedFormat('l') }}, {{ \Carbon\Carbon::parse($detail_surat['tanggal_pelaksana'])->translatedFormat('d') }} - {{ \Carbon\Carbon::parse($detail_surat['tanggal_selesai'])->translatedFormat('d F Y') }}</td>
           @endif
       </tr>
       <tr class="pembuka-surat">
           <td>Waktu</td>
           <td>:</td>
-          <td>{{ \Carbon\Carbon::parse($data->waktu_pelaksana)->format('H:i') }} - {{ \Carbon\Carbon::parse($data->waktu_selesai)->format('H:i') }} WITA</td>
+          <td>{{ \Carbon\Carbon::parse($detail_surat['waktu_pelaksana'])->format('H:i') }} - {{ \Carbon\Carbon::parse($detail_surat['waktu_selesai'])->format('H:i') }} WITA</td>
       </tr>
       <tr class="pembuka-surat">
           <td>Tempat</td>
           <td>:</td>
-          <td>{{ $data->tempat_pelaksana }}</td>
+          <td>{{ $detail_surat['tempat_pelaksana'] }}</td>
       </tr>
     </table>
   </div>
@@ -121,7 +121,7 @@
 
   {{-- KONTAK PERSON --}}
   <div class="font-style margin-text" id="Isi Surat" style="margin-left: 17.4%">
-    <p style="font-size: 14px; font-style: italic">CP: {{ $data->nama_cp }} ({{ $data->nomor_cp }}) </p>
+    <p style="font-size: 14px; font-style: italic">CP: {{ $detail_surat['nama_cp'] }} ({{ $detail_surat['nomor_cp'] }}) </p>
   </div>
 
   {{-- PAGE 2 DUA --}}
@@ -131,7 +131,7 @@
   <x-kop_surat></x-kop_surat>
   <p class="textdefmarginleft">Lampiran: daftar pihak yang diundang.</p>
   <table style="margin-left: 3px;">
-    @foreach ($data->lampiran as $lampiran )
+    @foreach ($detail_surat['lampiran'] as $lampiran )
       <tr>
         <td class="text-right">{{ $loop->iteration }}.</td>
         <td>{{ $lampiran['nama'] }}</td>

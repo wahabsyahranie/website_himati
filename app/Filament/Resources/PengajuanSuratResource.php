@@ -233,6 +233,7 @@ class PengajuanSuratResource extends Resource
                             'SM'  => 'Surat Mandat',
                             'Spn' => 'Surat Pernyataan Aktif',
                             'Spm' => 'Surat Permohonan Dispen',
+                            'SRe' => 'Surat Rekomendasi',
                             default => 'Tipe Surat Tidak Dikenal',
                         },
                         position: 'above'
@@ -334,7 +335,7 @@ class PengajuanSuratResource extends Resource
         return [
             'index' => Pages\ListPengajuanSurats::route('/'),
             'create' => Pages\CreatePengajuanSurat::route('/create'),
-            // 'edit' => Pages\EditPengajuanSurat::route('/{record}/edit'),
+            'edit' => Pages\EditPengajuanSurat::route('/{record}/edit'),
         ];
     }
 }

@@ -7,13 +7,13 @@
 
     {{-- PEMBUKA SURAT --}}
     <div class="font-style">
-      <p class="margin-text">{{$data->tujuan_kegiatan}}</p>
+      <p class="margin-text">{{$detail_surat['tujuan_kegiatan']}}</p>
     </div>
 
     {{-- RINCIAN MANDAT --}}
     <div style="margin-top: 15px ">
       <table class="table-margin">
-        @foreach ($data->lampiran as $lampiran )
+        @foreach ($detail_surat['lampiran'] as $lampiran )
           <tr>
             <td>{{ $loop->iteration }}</td>
             <td>Nama</td>
