@@ -110,6 +110,10 @@ class PenyewaanResource extends Resource
                 Tables\Columns\TextColumn::make('no')
                     ->label('No')
                     ->rowIndex(),
+                Tables\Columns\TextColumn::make('nomor_pesanan')
+                    ->label('Nomor Pesanan')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Nama')
                     ->sortable()
