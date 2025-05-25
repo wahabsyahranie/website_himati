@@ -2,7 +2,7 @@
   <x-kop_surat></x-kop_surat>
   <div class="container">
     {{-- KETERANGAN SURAT --}}
-    <p class="text-bold text-underline text-center" style="margin-bottom: 0px;">SURAT PERNYATAAN</p>
+    <p class="text-bold text-underline text-center" style="margin-bottom: 0px;">SURAT REKOMENDASI</p>
     <p style="margin-top: 0px;" class="text-center">Nomor: {{ $data->nomor_surat }}</p>
 
     {{-- PEMBUKA SURAT --}}
@@ -10,7 +10,7 @@
       <p class="margin-text">Saya yang bertanda tangan dibawah ini:</p>
     </div>
 
-    {{-- RINCIAN PERNYATAAN--}}
+    {{-- RINCIAN REKOMENDASI --}}
     <div style="margin-top: 15px">
       @foreach ($data->lampiran as $index => $lampiran)
         <div style="@if(!$loop->first) margin-top: 15px; @endif">
@@ -50,7 +50,7 @@
 
     {{-- PENUTUP --}}
     <div style="margin-top: 15px " class="font-style">
-      <p class="margin-text">Merupakan anggota aktif organisasi Himpunan Mahasiswa Jurusan Teknologi Informasi Politeknik Negeri Samarinda. dalam kepengurusan tahun {{ \Carbon\Carbon::parse($data->created_at)->translatedFormat('Y') }}.</p>
+      <p class="margin-text">{{ $data->tujuan_kegiatan }}</p>
     </div>
 
     {{-- PENGESHAAN --}}

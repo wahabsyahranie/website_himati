@@ -66,6 +66,7 @@ class PengajuanSuratResource extends Resource
                                 'SM' => 'Surat Mandat',
                                 'Spn' => 'Surat Pernyataan Aktif',
                                 'Spm' => 'Surat Permohonan Dispen',
+                                'SRe' => 'Surat Rekomendasi',
                             ]),
                         Forms\Components\Select::make('tandatangan')
                             ->label('Tandatangan')
@@ -91,7 +92,7 @@ class PengajuanSuratResource extends Resource
                             ->autocomplete(false)
                             ->required()
                             ->maxLength(255)
-                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
+                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn', 'SRe'])),
                         Forms\Components\Select::make('pengesahan_id')
                             ->label('Tujuan Surat')
                             ->native(false)
@@ -110,31 +111,31 @@ class PengajuanSuratResource extends Resource
                             ->label('Tanggal Mulai')
                             ->native(false)
                             ->required()
-                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
+                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn', 'SRe'])),
                         Forms\Components\DatePicker::make('tanggal_selesai')
                             ->afterOrEqual('tanggal_pelaksana')
                             ->label('Tanggal Selesai')
                             ->native(false)
                             ->helperText('Jika dihari yang sama. maka, pilih tanggal yang sama dengan tanggal mulai.')
                             ->required()
-                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
+                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn', 'SRe'])),
                         Forms\Components\TimePicker::make('waktu_pelaksana')
                             ->label('Waktu Mulai')
                             ->native(false)
                             ->required()
-                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
+                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn', 'SRe'])),
                         Forms\Components\TimePicker::make('waktu_selesai')
                             ->label('Waktu Selesai')
                             ->native(false)
                             ->required()
-                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
+                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn', 'SRe'])),
                         Forms\Components\TextInput::make('tempat_pelaksana')
                             ->columnSpanFull()
                             ->label('Tempat Pelaksanaan')
                             ->autocomplete(false)
                             ->required()
                             ->maxLength(255)
-                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
+                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn', 'SRe'])),
                     ]),
                     Wizard\Step::make('Lampiran')
                     ->icon('heroicon-m-paper-clip')
@@ -146,17 +147,17 @@ class PengajuanSuratResource extends Resource
                             ->autocomplete(false)
                             ->required()
                             ->maxLength(255)
-                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
+                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn', 'SRe'])),
                         Forms\Components\TextInput::make('nomor_cp')
                             ->label('Nomor Kontak Person')
                             ->autocomplete(false)
                             ->numeric()
                             ->required()
                             ->maxLength(255)
-                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn'])),
+                            ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn', 'SRe'])),
                         Repeater::make('lampiran')
                             ->label('Detail Lampiran')
-                            ->visible(fn (Get $get) => in_array($get('tipe_surat'), ['SPm', 'Und', 'SM', 'Spn', 'Spm']))
+                            ->visible(fn (Get $get) => in_array($get('tipe_surat'), ['SPm', 'Und', 'SM', 'Spn', 'Spm', 'SRe']))
                             ->schema([
                                 TextInput::make('nama')
                                     ->required(),
@@ -164,19 +165,19 @@ class PengajuanSuratResource extends Resource
                                     ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SPm']))
                                     ->required(),
                                 TextInput::make('nim')
-                                    ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SM', 'Spn', 'Spm']))
+                                    ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SM', 'Spn', 'Spm', 'SRe']))
                                     ->required(),
                                 TextInput::make('kelas')
                                     ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['Spm']))
                                     ->required(),
                                 TextInput::make('prodi')
-                                    ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SM', 'Spn']))
+                                    ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SM', 'Spn', 'SRe']))
                                     ->required(),
                                 TextInput::make('no_hp')
                                     ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SM']))
                                     ->required(),
                                 TextInput::make('jabatan')
-                                    ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SM', 'Spn']))
+                                    ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SM', 'Spn', 'SRe']))
                                     ->required(),
                             ])
                             ->grid(2)

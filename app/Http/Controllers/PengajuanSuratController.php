@@ -57,6 +57,7 @@ class PengajuanSuratController extends Controller
             'SM' => 'surat_mandat',
             'Spm' => 'surat_dispen',
             'Spn' => 'surat_pernyataan',
+            'SRe' => 'surat_rekomendasi',
             'Und' => 'surat_undangan',
         ];
 
