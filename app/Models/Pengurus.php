@@ -13,15 +13,15 @@ class Pengurus extends Model
 {
     use HasFactory;
     protected $table = 'penguruses';
-    protected $fillable =['nomor_induk', 'jabatan', 'user_id', 'periode', 'struktur_id', 'status', 'gambar'];
+    protected $fillable =['nomor_induk', 'jabatan', 'mahasiswa_id', 'periode', 'struktur_id', 'status', 'gambar'];
     protected $casts = [
         'departemen' => 'array',
         'jabatan' => PengurusEnum::class,
     ];
 
-    public function user() : BelongsTo
+    public function mahasiswa() : BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Mahasiswa::class);
     }
 
     public function absenKegiatans() : HasMany

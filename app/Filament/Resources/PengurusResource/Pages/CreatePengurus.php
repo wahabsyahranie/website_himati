@@ -19,7 +19,7 @@ class CreatePengurus extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $exists = Pengurus::where('user_id', $data['user_id'])
+        $exists = Pengurus::where('mahasiswa_id', $data['mahasiswa_id'])
             ->exists();
 
         if ($exists) {

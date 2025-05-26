@@ -23,7 +23,7 @@ class AbsenKegiatansRelationManager extends RelationManager
         $kegiatanId = $this->ownerRecord->id;
 
         return Pengurus::with([
-            'user',
+            'mahasiswa',
             'absenKegiatans' => function ($query) use ($kegiatanId) {
                 $query->where('kegiatan_id', $kegiatanId);
             }
@@ -47,7 +47,7 @@ class AbsenKegiatansRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('no')
                     ->label('No')
                     ->rowIndex(),
-                Tables\Columns\TextColumn::make('user.name')
+                Tables\Columns\TextColumn::make('mahasiswa.user.name')
                     ->label('Nama Pengurus')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('absenKegiatans.keterangan')

@@ -16,8 +16,7 @@ return new class extends Migration
             $table->integer('nomor_induk');
             $table->string('jabatan');
             $table->year('periode');
-            $table->char('user_id', 26);
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignId('mahasiswa_id')->references('id')->on('mahasiswas')->cascadeOnDelete();
             $table->foreignId('struktur_id')->references('id')->on('strukturs')->cascadeOnDelete();
             $table->enum('status', ['pengurus', 'keluar', 'alb'])->default('pengurus');
             $table->string('gambar')->default('departemen/departemen-qbQIjK0LJCo6t0eut6z8RXHOpegfEKYegn3jbfFm.jpg');

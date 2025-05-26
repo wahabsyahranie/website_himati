@@ -21,7 +21,7 @@ class CreateReview extends CreateRecord
             return ['title' => $title];
         }, $titlesArray);
 
-        $user = auth()->user()->pengurus->id;
+        $user = auth()->user()->mahasiswa->pengurus->id;
         $data['penguruses_id'] = $user;
 
         return $data;

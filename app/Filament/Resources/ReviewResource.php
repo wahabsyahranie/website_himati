@@ -55,7 +55,7 @@ class ReviewResource extends Resource
                     ->circular(),
                 Tables\Columns\TextColumn::make('quote')
                     ->limit(25),
-                Tables\Columns\TextColumn::make('pengurus.user.name')
+                Tables\Columns\TextColumn::make('pengurus.mahasiswa.user.name')
                     ->searchable()
                     ->limit(25),
                 Tables\Columns\TextColumn::make('status')

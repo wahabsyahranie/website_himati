@@ -40,9 +40,10 @@ class PengurusResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('user_id')
+                Forms\Components\Select::make('mahasiswa_id')
                     ->label('Nama Mahasiswa')
-                    ->relationship('user', 'name')
+                    ->relationship('mahasiswa', 'nim')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->user->name)
                     ->searchable()
                     ->preload()
                     ->required(),
@@ -113,7 +114,7 @@ class PengurusResource extends Resource
                     ->numeric()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('user.name')
+                Tables\Columns\TextColumn::make('mahasiswa.user.name')
                     ->label('Nama')
                     ->limit(20)
                     ->searchable(),

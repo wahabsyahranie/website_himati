@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             PengaduanSeeder::class,
             StrukturSeeder::class,
+            MahasiswaSeeder::class,
             PengurusSeeder::class,
             InventarisSeeder::class,
             KegiatanSeeder::class,
