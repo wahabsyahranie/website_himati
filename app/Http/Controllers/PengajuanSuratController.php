@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PengajuanSurat;
 use Barryvdh\DomPDF\Facade\Pdf;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 // use Spatie\Browsershot\Browsershot;
 
 class PengajuanSuratController extends Controller
@@ -68,6 +69,8 @@ class PengajuanSuratController extends Controller
         usort($pengesahanInfo, function ($a, $b) {
             return $b['prioritas'] <=> $a['prioritas'];
         });
+
+        // $qr = base64_encode(QrCode::format('png')->size(200)->generate('Data QR Code'));
 
         //MENGEMBALIKAN DATA
         return compact('data', 'pengesahanInfo', 'tujuan_after', 'detail_surat');
