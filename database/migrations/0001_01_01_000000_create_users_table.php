@@ -13,11 +13,8 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            // $table->string('nim');
             $table->string('name');
-            // $table->year('tahun_masuk');
             $table->string('nomor_telepon');
-            // $table->enum('prodi', ['TI', 'TK', 'TIM', 'TRK']);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

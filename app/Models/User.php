@@ -70,13 +70,37 @@ class User extends Authenticatable
         return $this->hasOne(Pengurus::class);
     }
 
-    public function userDetail()
-    {
-        return $this->hasOne(UserDetail::class);
-    }
+    // public function userDetail()
+    // {
+    //     return $this->hasOne(UserDetail::class);
+    // }
 
     public function penyewaans() : HasMany
     {
         return $this->hasMany(Penyewaan::class);
+    }
+
+    public function mahasiswa()
+    {
+        return $this->hasOne(Mahasiswa::class);
+    }
+
+    public function dosen()
+    {
+        return $this->hasOne(Dosen::class);
+    }
+
+    public function ormawa()
+    {
+        return $this->hasOne(Ormawa::class);
+    }
+
+    public function detail()
+    {
+        return match ($this->tipe_akun) {
+            'mahasiswa' => $this->mahasiswa,
+            'dosen' => $this->dosen,
+            'ormawa' => $this->ormawa,
+        };
     }
 }

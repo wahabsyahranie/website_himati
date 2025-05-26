@@ -63,6 +63,7 @@ class UserResource extends Resource
                     ->label('Tipe Akun')
                     ->options([
                         'mahasiswa' => 'mahasiswa',
+                        'dosen' => 'dosen',
                         'ormawa' => 'ormawa',
                     ]),
                 Forms\Components\Select::make('roles')
@@ -70,10 +71,10 @@ class UserResource extends Resource
                     ->multiple()
                     ->preload()
                     ->searchable(),
-                Forms\Components\Fieldset::make('userDetail')
+                Forms\Components\Fieldset::make('mahasiswa')
                     ->visible(fn (Get $get) => $get('tipe_akun') === 'mahasiswa')
                     ->label('Detail Mahasiswa')
-                    ->relationship('userDetail')
+                    ->relationship('mahasiswa')
                     ->schema([
                         Forms\Components\TextInput::make('nim'),
                         Forms\Components\TextInput::make('tahun_masuk'),
@@ -85,6 +86,22 @@ class UserResource extends Resource
                                 'TRK' => 'Teknologi Rekayasa Komputer',
                             ])
                             ->columnSpanFull(),
+                    ]),
+                Forms\Components\Fieldset::make('dosen')
+                    ->visible(fn (Get $get) => $get('tipe_akun') === 'dosen')
+                    ->label('Detail Dosen')
+                    ->relationship('dosen')
+                    ->schema([
+                        Forms\Components\TextInput::make('nip'),
+                        Forms\Components\TextInput::make('jabatan'),
+                    ]),
+                Forms\Components\Fieldset::make('ormawa')
+                    ->visible(fn (Get $get) => $get('tipe_akun') === 'ormawa')
+                    ->label('Detail Ormawa')
+                    ->relationship('ormawa')
+                    ->schema([
+                        Forms\Components\TextInput::make('nama_pendek'),
+                        Forms\Components\TextInput::make('lambang'),
                     ]),
             ]);
     }
@@ -151,9 +168,9 @@ class UserResource extends Resource
             ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\SelectFilter::make('prodi')
-                    ->relationship('userDetail', 'prodi'),
+                    ->relationship('mahasiswa', 'prodi'),
                     Tables\Filters\SelectFilter::make('tahun_masuk')
-                    ->relationship('userDetail', 'tahun_masuk'),
+                    ->relationship('mahasiswa', 'tahun_masuk'),
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([

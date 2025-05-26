@@ -18,7 +18,12 @@ class PenggunaWidget extends BaseWidget
         $name = $this->filters['name'];
 
         return [
-            Stat::make('Mahasiswa', \App\Models\User::where('tipe_akun', 'mahasiswa')
+            Stat::make('Mahasiswa', \App\Models\User::has('mahasiswa')
+                ->when($start, fn ($query) => $query->whereDate('created_at', '>=', $start))
+                ->when($end, fn ($query) => $query->whereDate('created_at', '<=', $end))
+                ->when($name, fn ($query) => $query->where('name', 'like', "%{$name}%"))
+                ->count()),
+            Stat::make('Dosen', \App\Models\User::has('dosen')
                 ->when($start, fn ($query) => $query->whereDate('created_at', '>=', $start))
                 ->when($end, fn ($query) => $query->whereDate('created_at', '<=', $end))
                 ->when($name, fn ($query) => $query->where('name', 'like', "%{$name}%"))
@@ -28,11 +33,16 @@ class PenggunaWidget extends BaseWidget
                 ->when($end, fn ($query) => $query->whereDate('created_at', '<=', $end))
                 ->when($name, fn ($query) => $query->whereHas('user', fn ($q) => $q->where('name', 'like', "%{$name}%")))
                 ->count()),
-            Stat::make('Pengurus Terdaftar', \App\Models\Pengurus::whereIn('status', ['pengurus', 'alb'])
+            Stat::make('Ormawa', \App\Models\User::has('ormawa')
                 ->when($start, fn ($query) => $query->whereDate('created_at', '>=', $start))
                 ->when($end, fn ($query) => $query->whereDate('created_at', '<=', $end))
-                ->when($name, fn ($query) => $query->whereHas('user', fn ($q) => $q->where('name', 'like', "%{$name}%")))
+                ->when($name, fn ($query) => $query->where('name', 'like', "%{$name}%"))
                 ->count()),
+            // Stat::make('Pengurus Terdaftar', \App\Models\Pengurus::whereIn('status', ['pengurus', 'alb'])
+            //     ->when($start, fn ($query) => $query->whereDate('created_at', '>=', $start))
+            //     ->when($end, fn ($query) => $query->whereDate('created_at', '<=', $end))
+            //     ->when($name, fn ($query) => $query->whereHas('user', fn ($q) => $q->where('name', 'like', "%{$name}%")))
+            //     ->count()),
         ];
     }
 }
