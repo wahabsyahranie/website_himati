@@ -21,6 +21,7 @@ use App\Filament\Resources\UserResource\Pages;
 use Filament\Actions\Exports\Enums\ExportFormat;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\RelationManagers;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class UserResource extends Resource
 {
@@ -76,8 +77,11 @@ class UserResource extends Resource
                     ->label('Detail Mahasiswa')
                     ->relationship('mahasiswa')
                     ->schema([
-                        Forms\Components\TextInput::make('nim'),
-                        Forms\Components\TextInput::make('tahun_masuk'),
+                        Forms\Components\TextInput::make('nim')
+                            ->label('NIM')
+                            ->required(),
+                        Forms\Components\TextInput::make('tahun_masuk')
+                            ->required(),
                         Forms\Components\Select::make('prodi')
                             ->options(fn() => [
                                 'TI' => 'Teknik Informatika',
@@ -85,23 +89,38 @@ class UserResource extends Resource
                                 'TIM' => 'Teknik Informatika Multimedia',
                                 'TRK' => 'Teknologi Rekayasa Komputer',
                             ])
-                            ->columnSpanFull(),
+                            ->columnSpanFull()
+                            ->required(),
                     ]),
                 Forms\Components\Fieldset::make('dosen')
                     ->visible(fn (Get $get) => $get('tipe_akun') === 'dosen')
                     ->label('Detail Dosen')
                     ->relationship('dosen')
                     ->schema([
-                        Forms\Components\TextInput::make('nip'),
-                        Forms\Components\TextInput::make('jabatan'),
+                        Forms\Components\TextInput::make('nip')
+                            ->label('NIP')
+                            ->required(),
+                        Forms\Components\TextInput::make('jabatan')
+                            ->required(),
                     ]),
                 Forms\Components\Fieldset::make('ormawa')
                     ->visible(fn (Get $get) => $get('tipe_akun') === 'ormawa')
                     ->label('Detail Ormawa')
                     ->relationship('ormawa')
                     ->schema([
-                        Forms\Components\TextInput::make('nama_pendek'),
-                        Forms\Components\TextInput::make('lambang'),
+                        Forms\Components\TextInput::make('nama_pendek')
+                            ->label('Nama Singkat')
+                            ->required(),
+                        Forms\Components\FileUpload::make('lambang')
+                            ->required()
+                            ->disk('public')
+                            ->imageEditor()
+                            ->image()
+                            ->imageCropAspectRatio('1:1')
+                            ->directory('ormawa')
+                            ->getUploadedFileNameForStorageUsing(
+                                fn (TemporaryUploadedFile $file): string => 'ormawa-' . $file->hashName()
+                            ),
                     ]),
             ]);
     }

@@ -41,11 +41,11 @@ class PengurusResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('mahasiswa_id')
-                    ->label('Nama Mahasiswa')
+                    ->label('NIM Mahasiswa')
                     ->relationship('mahasiswa', 'nim')
                     ->getOptionLabelFromRecordUsing(fn ($record) => $record->user->name)
                     ->searchable()
-                    ->preload()
+                    // ->preload()
                     ->required(),
                 Forms\Components\TextInput::make('nomor_induk')
                     ->label('Nomor Induk Anggota')
