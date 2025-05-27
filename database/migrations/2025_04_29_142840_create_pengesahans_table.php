@@ -13,13 +13,10 @@ return new class extends Migration
     {
         Schema::create('pengesahans', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('bidang');
             $table->string('jabatan');
-            $table->string('nomor_induk')->unique();
-            $table->string('nomor_telepon');
             $table->integer('prioritas');
-            $table->string('type_nomor_induk');
+            $table->string('sumberable_type');
+            $table->integer('sumberable_id');
             $table->timestamps();
         });
     }

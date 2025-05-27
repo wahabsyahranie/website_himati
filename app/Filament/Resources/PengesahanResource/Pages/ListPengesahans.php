@@ -11,10 +11,10 @@ class ListPengesahans extends ListRecords
     protected static string $resource = PengesahanResource::class;
     protected static ?string $title = 'Data Pengesahan';
 
-    // protected function getHeaderActions(): array
-    // {
-    //     return [
-    //         Actions\CreateAction::make(),
-    //     ];
-    // }
+    protected function getHeaderActions(): array
+    {
+        return [
+            // Actions\CreateAction::make(),
+        ];
+    }
 }

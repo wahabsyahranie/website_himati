@@ -2,16 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PengesahanResource\Pages;
-use App\Filament\Resources\PengesahanResource\RelationManagers;
-use App\Models\Pengesahan;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Dosen;
+use App\Models\Pengurus;
+use Filament\Forms\Form;
+use App\Models\Pengesahan;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\PengesahanResource\Pages;
+use App\Filament\Resources\PengesahanResource\RelationManagers;
+use Filament\Forms\Get;
 
 class PengesahanResource extends Resource
 {
@@ -26,42 +29,55 @@ class PengesahanResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nama')
+                Forms\Components\Select::make('sumberable_type')
+                    ->label('Tipe Sumber')
+                    ->options([
+                        'App\Models\Dosen' => 'Dosen',
+                        'App\Models\Pengurus' => 'Pengurus',
+                    ])
+                    ->reactive()
+                    ->required(),
+                Forms\Components\Select::make('sumberable_id')
+                    ->label('Nama Pengesah')
+                    ->options(function (callable $get) {
+                        $tipe = $get('sumberable_type');
+
+                        if ($tipe === 'App\Models\Dosen') {
+                            return Dosen::with('user')
+                                ->get()
+                                ->mapWithKeys(function ($dosen) {
+                                    $name = optional($dosen->user)->name;
+                                    $nip  = $dosen->nip;
+
+                                    return [$dosen->id => "{$name} ({$nip})"];
+                                })
+                                ->toArray();
+                        }
+
+                        if ($tipe === 'App\Models\Pengurus') {
+                            return Pengurus::with(['mahasiswa.user'])
+                                ->get()
+                                ->mapWithKeys(function ($pengurus) {
+                                    $name = optional($pengurus->mahasiswa->user)->name;
+                                    $nim  = optional($pengurus->mahasiswa)->nim;
+
+                                    return [$pengurus->id => "{$name} ({$nim})"];
+                                })
+                                ->toArray();
+                        }
+
+                        return [];
+                    })
+                    ->searchable()
                     ->required()
-                    ->autocomplete(false)
-                    ->maxLength(255),
+                    ->preload(),
                 Forms\Components\TextInput::make('jabatan')
                     ->required()
                     ->autocomplete(false)
                     ->maxLength(255),
-                Forms\Components\TextInput::make('bidang')
-                    ->label('Bidang/Jurusan/Detail Jabatan')
-                    ->required()
-                    ->autocomplete(false)
-                    ->maxLength(255),
-                Forms\Components\Select::make('type_nomor_induk')
-                    ->label('Tipe Nomor Induk')
-                    ->required()
-                    ->native(false)
-                    ->options([
-                        'NIM' => 'NIM',
-                        'NIP' => 'NIP'
-                    ]),
-                Forms\Components\TextInput::make('nomor_induk')
-                    ->label('Nomor Induk')
-                    ->numeric()
-                    ->autocomplete(false)
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('nomor_telepon')
-                    ->tel()
-                    ->autocomplete(false)
-                    ->required()
-                    ->maxLength(255),
                 Forms\Components\Select::make('prioritas')
                     ->label('Level Prioritas')
                     ->native(false)
-                    ->columnSpanFull()
                     ->required()
                     ->options([
                         1 => '1 (Pimpinan PTN)', 
@@ -75,7 +91,10 @@ class PengesahanResource extends Resource
 
     public static function table(Table $table): Table
     {
+        // $query = Pengesahan::withSumberableRelations();
+    // dd($query->get()); // Dump isi data
         return $table
+            ->query(Pengesahan::withSumberableRelations() ?? '-')
             ->heading('Data pengesahan')
             ->description('Kelola pengesahan untuk pembuatan surat disini.')
             ->deferLoading()
@@ -88,26 +107,29 @@ class PengesahanResource extends Resource
                 Tables\Columns\TextColumn::make('no')
                     ->label('No')
                     ->rowIndex(),
-                Tables\Columns\TextColumn::make('nama')
-                    ->sortable()
-                    ->limit(20)
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('sumberable_type')
+                    ->label('Nama')
+                    ->getStateUsing(function ($record) {
+                        if ($record->sumberable_type === 'App\Models\Dosen') {
+                            return optional($record->sumberable)->user?->name ?? 'Error: User dihapus';
+                        }
+
+                        if ($record->sumberable_type === 'App\Models\Pengurus') {
+                            return optional($record->sumberable)->mahasiswa->user?->name?? 'Error: User dihapus';
+                        }
+
+                        return '-';
+                    })
+                    ->color(fn ($state) => $state === 'Error: User dihapus' ? 'danger' : null)
+                    ->searchable()
+                    ->limit(20),
+
                 Tables\Columns\TextColumn::make('jabatan')
+                    // ->searchable(isIndividual: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('prioritas')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('nomor_induk')
-                    ->label('Nomor Induk')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('nomor_telepon')
-                    ->iconColor('primary')
-                    ->limit(13)
-                    ->copyable()
-                    ->copyMessage('Nomor telepon disalin')
-                    ->copyMessageDuration(1500)
-                    ->icon('heroicon-m-phone')
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
