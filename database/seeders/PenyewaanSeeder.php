@@ -35,20 +35,6 @@ class PenyewaanSeeder extends Seeder
                 'user_id' => '01jv7pqks6n8zz8psysam0ewkb',
                 'nomor_pesanan' => 'PE-275755705',
             ],
-            [
-                'tanggal_pinjam' => '2025-06-15',
-                'tanggal_kembali' => null,
-                'status' => 'ditolak',
-                'user_id' => '01jv7pqks6n8zz8psysam0ewkb',
-                'nomor_pesanan' => 'PE-275755705',
-            ],
-            [
-                'tanggal_pinjam' => '2025-06-20',
-                'tanggal_kembali' => '2025-06-22',
-                'status' => 'disetujui',
-                'user_id' => '01jv7pqks6n8zz8psysam0ewkb',
-                'nomor_pesanan' => 'PE-275755705',
-            ],
         ]);
     }
 }

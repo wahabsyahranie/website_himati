@@ -25,39 +25,46 @@ class TandatanganDigitalResource extends Resource
     {
         return $form
             ->schema([
-                // Forms\Components\TextInput::make('pengesahan_id')
-                //     ->required()
-                //     ->numeric(),
-                // Forms\Components\TextInput::make('surat_id')
-                //     ->required()
-                //     ->numeric(),
-                // Forms\Components\TextInput::make('nomor_registrasi')
-                //     ->required()
-                //     ->numeric(),
-                // Forms\Components\TextInput::make('link')
-                //     ->required()
-                //     ->maxLength(255),
-                // Forms\Components\TextInput::make('status')
-                //     ->required()
-                //     ->maxLength(255)
-                //     ->default('diproses'),
+                Forms\Components\TextInput::make('pengesahan_id')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\Select::make('pengajuan_surat_id')
+                    ->relationship('pengajuan_surats', 'nomor_surat')
+                    ->required(),
+                Forms\Components\TextInput::make('nomor_registrasi')
+                    ->required(),
+                Forms\Components\TextInput::make('status')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextArea::make('catatan')
+                    ->required()
+                    ->columnSpanFull()
+                    ->rows(3)
+                    ->maxLength(255),
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->heading('Permintaan Tandatangan')
+            ->description("Harap memeriksa isi surat terlebih dahulu sebelum menyetujui, dan tinggalkan catatan bila perlu perbaikan.")
+            ->deferLoading()
+            ->striped()
             ->columns([
                 Tables\Columns\TextColumn::make('pengesahans.sumberable.user.name')
                     ->label('Pemilik Tandatangan')
                     ->numeric()
-                    ->sortable(),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('pengajuan_surats.nomor_surat')
                     ->label('Nomor Surat')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('nomor_registrasi')
                     ->numeric()
-                    ->sortable(),
+                    ->searchable(),
+                Tables\Columns\TextInputColumn::make('catatan')
+                    // ->rules(['required'])
+                    ,
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->color(function ($record) {
@@ -67,8 +74,7 @@ class TandatanganDigitalResource extends Resource
                             'diproses' => 'info',
                             default => 'warning',
                         };
-                    })
-                    ->searchable(),
+                    }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -84,19 +90,25 @@ class TandatanganDigitalResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                    Tables\Actions\Action::make('Lihat Surat')
-                        ->color('gray')
-                        ->icon('heroicon-o-eye')
+                    Tables\Actions\Action::make('Periksa Surat')
+                        ->color('info')
+                        ->icon('heroicon-o-information-circle')
                         ->url(fn ($record) => route('surat.show', $record->pengajuan_surats->slug))
                         ->openUrlInNewTab(),
                     Tables\Actions\Action::make('Setujui')
+                        ->color('success')
+                        ->icon('heroicon-o-check-badge')
                         ->action(function (TandatanganDigital $record) {
                             $record->update(['status' => 'disetujui']);
                         }),
                     Tables\Actions\Action::make('Tolak')
+                        ->color('danger')
+                        ->icon('heroicon-o-x-circle')
                         ->action(function (TandatanganDigital $record) {
                             $record->update(['status' => 'ditolak']);
                         }),
+                    Tables\Actions\ViewAction::make()
+                        ->icon('heroicon-o-eye'),
                     // Tables\Actions\EditAction::make(),
                 ])
             ])

@@ -36,20 +36,6 @@ class PengurusSeeder extends Seeder
                 'user_id' => '01jv7pqks6n8zz8psysam0ewkb',
                 'struktur_id' => 5,
             ],
-            [
-                'nomor_induk' => '10000004',
-                'jabatan' => 'bendahara_umum',
-                'periode' => '2024',
-                'user_id' => '01jv7pqks6n8zz8psysam0ewkc',
-                'struktur_id' => 1,
-            ],
-            [
-                'nomor_induk' => '10000005',
-                'jabatan' => 'wakil_ketua_umum',
-                'periode' => '2024',
-                'user_id' => '01jv7pqks6n8zz8psysam0ewkd',
-                'struktur_id' => 1,
-            ],
         ]);
     }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('pengesahan_id')->constrained('pengesahans')->cascadeOnDelete();
             $table->foreignId('pengajuan_surat_id')->constrained('pengajuan_surats')->cascadeOnDelete();
             $table->string('nomor_registrasi');
+            $table->text('catatan')->nullable();
             $table->string('status')->default('diproses');
             $table->timestamps();
         });

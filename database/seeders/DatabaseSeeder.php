@@ -24,9 +24,13 @@ class DatabaseSeeder extends Seeder
             KegiatanSeeder::class,
             PengesahanSeeder::class,
             ReviewSeeder::class,
-            // PengajuanSuratSeeder::class,
+            DosenSeeder::class,
+            OrmawaSeeder::class,
+            PengajuanSuratSeeder::class,
             PenyewaanSeeder::class,
             ShieldSeeder::class,
+            DetailPenyewaanSeeder::class,
+            TandatanganDigitalSeeder::class,
         ]);
     }
 }

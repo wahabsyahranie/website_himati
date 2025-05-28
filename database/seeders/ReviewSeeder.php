@@ -42,25 +42,6 @@ class ReviewSeeder extends Seeder
                     ['title' => 'Ketua Aksi Sosial Ramadhan 2025'],
                 ]),
             ],
-            [
-                'quote' => 'Organisasi adalah laboratorium kepemimpinan mahasiswa.',
-                'status' => 'disembunyikan',
-                'penguruses_id' => 4,
-                'title' => json_encode([
-                    ['title' => 'Kepala Departemen Minat dan Bakat'],
-                    ['title' => 'PJ TI CUP 2025'],
-                ]),
-            ],
-            [
-                'quote' => 'Informasi yang baik dimulai dari komunikasi yang sehat.',
-                'status' => 'disembunyikan',
-                'penguruses_id' => 5,
-                'title' => json_encode([
-                    ['title' => 'Kepala Departemen Kominfo'],
-                    ['title' => 'PJ Konten Sosial Media HMJ TI'],
-                ]),
-            ],
-
         ]);
     }
 }
