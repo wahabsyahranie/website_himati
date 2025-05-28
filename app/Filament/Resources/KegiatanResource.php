@@ -26,7 +26,7 @@ class KegiatanResource extends Resource
     protected static ?string $model = Kegiatan::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-bookmark';
-    protected static ?string $navigationGroup = 'Layanan Pengurus';
+    protected static ?string $navigationGroup = 'Layanan';
     protected static ?string $navigationLabel = 'Jadwal Kegiatan';
     protected static ?int $navigationSort = 9;
     // public static function getNavigationBadge(): ?string

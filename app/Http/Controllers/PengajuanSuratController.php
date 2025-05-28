@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PengajuanSurat;
+use App\Models\TandatanganDigital;
 use Barryvdh\DomPDF\Facade\Pdf;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 // use Spatie\Browsershot\Browsershot;
@@ -12,7 +13,7 @@ class PengajuanSuratController extends Controller
     //FUNGSI MENGAMBIL DATA
     private function getDataPengesahan($slug)
     {
-        $data = PengajuanSurat::where('slug', $slug)->firstOrFail(); //
+        $data = PengajuanSurat::where('slug', $slug)->firstOrFail();
 
 
         ////MODIFIKASI ARRAY DETAIL_SURAT
@@ -36,33 +37,36 @@ class PengajuanSuratController extends Controller
                 unset($data[$field]);
             }
         }
-        // dd($detail_surat);
 
 
         $pengesahanInfo = []; //
 
         //MENGAMBIL DATA UNTUK TUJUAN SURAT (KEPADA YTH.)
-
-        $tandaTangan = $data->tandatangan;
         $tujuan = $data->pengesahan_id;
         $search_jabatan = \App\Models\Pengesahan::where('id', $tujuan)->first();
         $tujuan_after = $search_jabatan->jabatan;
 
         //MENGAMBIL DATA DARI MODEL PENGESAHAN
-        foreach ($tandaTangan as $id) {
-            $pengesahan = \App\Models\Pengesahan::where('id', $id)->orderBy('prioritas')->first();
+        $ttd = $data->tandatangan_digitals;
+        foreach ($ttd as $id) {
+            $pengesahan = \App\Models\Pengesahan::where('id', $id->pengesahan_id)->orderBy('prioritas')->first();
             if ($pengesahan) {
-                $pengesahanInfo[$id] = [
+                $pengesahanInfo[$id->id] = [
                     'jabatan' => $pengesahan->jabatan,
                     'nama' => $pengesahan->sumberable->user->name,
                     'prioritas' => $pengesahan->prioritas,
                 ];
                 if ($pengesahan->sumberable_type === 'App\Models\Pengurus') {
-                    $pengesahanInfo[$id]['nomor_induk'] = $pengesahan->sumberable?->user?->mahasiswa?->nim ?? '-';
-                    $pengesahanInfo[$id]['type_nomor_induk'] = 'NIM';
+                    $pengesahanInfo[$id->id]['nomor_induk'] = $pengesahan->sumberable?->user?->mahasiswa?->nim ?? '-';
+                    $pengesahanInfo[$id->id]['type_nomor_induk'] = 'NIM';
                 } elseif ($pengesahan->sumberable_type === 'App\Models\Dosen') {
-                    $pengesahanInfo[$id]['nomor_induk'] = $pengesahan->nip ?? '-';
-                    $pengesahanInfo[$id]['type_nomor_induk'] = 'NIP';
+                    $pengesahanInfo[$id->id]['nomor_induk'] = $pengesahan->sumberable?->nip ?? '-';
+                    $pengesahanInfo[$id->id]['type_nomor_induk'] = 'NIP';
+                }
+                if ($id->status === 'disetujui') {
+                    $pengesahanInfo[$id->id]['ttdDigital'] = base64_encode(QrCode::format('png')->size(70)->generate('http://himati.test/' . $id->nomor_registrasi));
+                } elseif ($id->status != 'disetujui'){
+                     $pengesahanInfo[$id->id]['ttdDigital'] = null;
                 }
             }
         };
@@ -71,8 +75,6 @@ class PengajuanSuratController extends Controller
         usort($pengesahanInfo, function ($a, $b) {
             return $b['prioritas'] <=> $a['prioritas'];
         });
-
-        // $qr = base64_encode(QrCode::format('png')->size(200)->generate('Data QR Code'));
 
         //MENGEMBALIKAN DATA
         return compact('data', 'pengesahanInfo', 'tujuan_after', 'detail_surat');

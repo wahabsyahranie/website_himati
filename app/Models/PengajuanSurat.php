@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PengajuanSurat extends Model
 {
@@ -30,5 +31,10 @@ class PengajuanSurat extends Model
     public function struktur() : BelongsTo
     {
         return $this->belongsTo(Struktur::class);
+    }
+
+    public function tandatangan_digitals() : HasMany
+    {
+        return $this->hasMany(TandatanganDigital::class);
     }
 }

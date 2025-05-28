@@ -53,9 +53,6 @@
       <p class="margin-text">Demikian surat mandat ini dibuat untuk dipergunakan sebagaimana mestinya. Kami berharap yang bersangkutan dapat menjalankan amanah, tugas, dan tanggung jawab yang diberikan dengan penuh tanggung jawab serta menjunjung tinggi nama baik Himpunan Mahasiswa Jurusan Teknologi Informasi.</p>
     </div>
 
-    {{-- QR CODE --}}
-    {{-- <img src="data:image/png;base64,{{ $qr }}" alt="QR Code"> --}}
-
     {{-- PENGESHAAN --}}
     <div style=" margin-top: 15px">
       <div class="font-style">
@@ -93,7 +90,14 @@
                   <p class="margin-text" style="margin-top: 1%">Ditetapkan di Samarinda</p>
                   <p class="margin-text">Pada tanggal {{ \Carbon\Carbon::parse($data->created_at)->translatedFormat('d F Y') }}</p>
                   <p class="margin-text">{{ $pengesahan['jabatan'] ?? '-' }}</p>
-                  <p style="padding-top: 40px; font-weight: bold; text-decoration: underline;" class="margin-text">
+                  {{-- QR CODE --}}
+                  @if(!empty($pengesahan['ttdDigital']))
+                      <img style="margin-top: 5px; width: 70px; height: 70px;" src="data:image/png;base64,{{ $pengesahan['ttdDigital'] }}" alt="">
+                  @else
+                      <div style="margin-top: 5px; width: 70px; height: 70px;"></div>
+                  @endif
+
+                  <p style="padding-top: 5px; font-weight: bold; text-decoration: underline;" class="margin-text">
                     {{ $pengesahan['nama'] ?? '-' }}
                   </p>
                   <p class="margin-text">{{ $pengesahan['type_nomor_induk'] }}. {{ $pengesahan['nomor_induk'] ?? '-' }}</p>

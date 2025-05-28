@@ -24,7 +24,7 @@ class PenyewaanResource extends Resource
     protected static ?string $model = Penyewaan::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-cube';
-    protected static ?string $navigationGroup = 'Layanan Umum';
+    protected static ?string $navigationGroup = 'Layanan';
     protected static ?string $navigationLabel = 'Penyewaan Inventaris';
     protected static ?int $navigationSort = 7;
     

@@ -73,14 +73,14 @@ class AdminPanelProvider extends PanelProvider
                     ->collapsed(false),
 
                 NavigationGroup::make()
-                    ->label('Layanan Umum')
-                    ->icon('heroicon-o-globe-alt')
+                    ->label('Layanan')
+                    ->icon('heroicon-m-globe-alt')
                     ->collapsed(false),
 
-                NavigationGroup::make()
-                    ->label('Layanan Pengurus')
-                    ->icon('heroicon-o-user-group')
-                    ->collapsed(false),
+                // NavigationGroup::make()
+                //     ->label('Layanan Pengurus')
+                //     ->icon('heroicon-o-user-group')
+                //     ->collapsed(false),
 
                 NavigationGroup::make()
                     ->label('Pengaturan')

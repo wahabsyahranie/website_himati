@@ -108,7 +108,13 @@
                 <td style="width: 50%; vertical-align: top; padding-right: 20px;">
                   <p class="margin-text" style="margin-top: 1%">{{ $keterangan }},</p>
                   <p class="margin-text">{{ $pengesahan['jabatan'] ?? '-' }}</p>
-                  <p style="padding-top: 40px; font-weight: bold; text-decoration: underline;" class="margin-text">
+                  {{-- QR CODE --}}
+                  @if(!empty($pengesahan['ttdDigital']))
+                      <img style="margin-top: 5px; width: 70px; height: 70px;" src="data:image/png;base64,{{ $pengesahan['ttdDigital'] }}" alt="">
+                  @else
+                      <div style="margin-top: 5px; width: 70px; height: 70px;"></div>
+                  @endif
+                  <p style="padding-top: 5px; font-weight: bold; text-decoration: underline;" class="margin-text">
                     {{ $pengesahan['nama'] ?? '-' }}
                   </p>
                   <p class="margin-text">{{ $pengesahan['type_nomor_induk'] }}. {{ $pengesahan['nomor_induk'] ?? '-' }}</p>

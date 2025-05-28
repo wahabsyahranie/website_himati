@@ -32,4 +32,9 @@ class Pengesahan extends Model
             }
         ]);
     }
+    
+    public function tandatangan_digitals() : HasMany
+    {
+        return $this->hasMany(TandatanganDigital::class);
+    }
 }

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('tipe_surat');
             $table->foreignId('struktur_id')->constrained('strukturs')->cascadeOnDelete();
             $table->foreignId('pengesahan_id')->constrained('pengesahans')->cascadeOnDelete();
-            $table->json('tandatangan')->nullable();
+            // $table->json('tandatangan')->nullable();
             $table->enum('status', ['ditinjau', 'disetujui', 'ditolak'])->default('ditinjau');
             $table->char('user_id', 26);
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();

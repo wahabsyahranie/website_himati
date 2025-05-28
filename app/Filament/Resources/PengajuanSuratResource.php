@@ -36,7 +36,7 @@ class PengajuanSuratResource extends Resource
 {
     protected static ?string $model = PengajuanSurat::class;
 
-    protected static ?string $navigationGroup = 'Layanan Pengurus';
+    protected static ?string $navigationGroup = 'Layanan';
     protected static ?string $navigationLabel = 'Pembuatan Surat';
     protected static ?int $navigationSort = 8;
 
@@ -53,7 +53,6 @@ class PengajuanSuratResource extends Resource
                     ->columns(2)
                     ->schema([
                         Forms\Components\Select::make('tipe_surat')
-                            ->columnSpanFull()
                             ->native(false)
                             ->label('Jenis Surat')
                             ->required()
@@ -67,21 +66,30 @@ class PengajuanSuratResource extends Resource
                                 'Spm' => 'Surat Permohonan Dispen',
                                 'SRe' => 'Surat Rekomendasi',
                             ]),
-                        Forms\Components\Select::make('tandatangan')
-                            ->label('Tandatangan')
-                            ->placeholder('Pilih tandatangan')
-                            ->multiple()
-                            ->required()
-                            ->options(function () {
-                                return Pengesahan::with('sumberable')->get()->mapWithKeys(function ($pengesahan) {
-                                    return [$pengesahan->id => $pengesahan->sumberable?->user?->name ?? 'TANPA_NAMA'];
-                                })->toArray();
-                            }),
                         Forms\Components\Select::make('struktur_id')
                             ->label('Penerbit')
                             ->native(false)
                             ->required()
                             ->relationship('struktur', 'nama_pendek'),
+                        Forms\Components\Repeater::make('tandatangan_digitals')
+                            ->grid(2)
+                            ->relationship()
+                            ->columnSpanFull()
+                            ->schema([
+                                Forms\Components\Select::make('pengesahan_id')
+                                    ->relationship('pengesahans', 'jabatan')
+                            ])
+                            ->mutateRelationshipDataBeforeCreateUsing(function (array $data): array {
+                                $pengesahan = \App\Models\Pengesahan::with('sumberable.user')->find($data['pengesahan_id']);
+
+                                $fullName = $pengesahan?->sumberable?->user?->name ?? 'TANPA_NAMA';
+                                $firstName = explode(' ', trim($fullName))[0] ?? 'TANPA_NAMA';
+                                
+                                $nomorRegistrasi = 'REG-' . rand(10000, 99999) . '-' . date('Ymd');
+                                $data['nomor_registrasi'] = $nomorRegistrasi;
+
+                                return $data;
+                            }),
                     ]),
                     Wizard\Step::make('Detail Kegiatan')
                     ->icon('heroicon-m-calendar-days')
