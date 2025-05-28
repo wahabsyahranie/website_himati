@@ -3,8 +3,10 @@
 namespace App\Filament\Resources\PengajuanSuratResource\Pages;
 
 use App\Filament\Resources\PengajuanSuratResource;
+use App\Models\PengajuanSurat;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Database\Eloquent\Builder;
 
 class ListPengajuanSurats extends ListRecords
 {
@@ -17,4 +19,11 @@ class ListPengajuanSurats extends ListRecords
     //         Actions\CreateAction::make(),
     //     ];
     // }
+    public function getTableQuery(): Builder
+    {
+        return PengajuanSurat::query()
+            ->with([
+                'user'
+            ]);
+    }
 }

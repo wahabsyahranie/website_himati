@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TandatanganDigitalResource\Pages;
-use App\Filament\Resources\TandatanganDigitalResource\RelationManagers;
-use App\Models\TandatanganDigital;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use App\Models\TandatanganDigital;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\TandatanganDigitalResource\Pages;
+use App\Filament\Resources\TandatanganDigitalResource\RelationManagers;
 
 class TandatanganDigitalResource extends Resource
 {
@@ -93,17 +94,22 @@ class TandatanganDigitalResource extends Resource
                     Tables\Actions\Action::make('Periksa Surat')
                         ->color('info')
                         ->icon('heroicon-o-information-circle')
+                        // ->visible(fn (TandatanganDigital $record) => Auth::id() === optional($record->pengesahans?->sumberable)->user->id)
                         ->url(fn ($record) => route('surat.show', $record->pengajuan_surats->slug))
                         ->openUrlInNewTab(),
                     Tables\Actions\Action::make('Setujui')
                         ->color('success')
                         ->icon('heroicon-o-check-badge')
+                        ->requiresConfirmation()
+                        ->visible(fn (TandatanganDigital $record) => Auth::id() === optional($record->pengesahans?->sumberable)->user->id && $record->status != 'disetujui')
                         ->action(function (TandatanganDigital $record) {
                             $record->update(['status' => 'disetujui']);
                         }),
                     Tables\Actions\Action::make('Tolak')
                         ->color('danger')
                         ->icon('heroicon-o-x-circle')
+                        ->requiresConfirmation()
+                        ->visible(fn (TandatanganDigital $record) => Auth::id() === optional($record->pengesahans?->sumberable)->user->id && $record->status != 'disetujui')
                         ->action(function (TandatanganDigital $record) {
                             $record->update(['status' => 'ditolak']);
                         }),

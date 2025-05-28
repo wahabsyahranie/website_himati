@@ -105,8 +105,10 @@ class ReviewResource extends Resource
                         ->action(function (Review $record) {
                             $record->update(['status' => 'ditampilkan']);
                         }),
-                    Tables\Actions\EditAction::make(),
+                    // Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\ViewAction::make(),
+
                 ])
             ])
             ->bulkActions([

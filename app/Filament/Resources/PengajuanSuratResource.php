@@ -297,7 +297,7 @@ class PengajuanSuratResource extends Resource
                         ->url(fn ($record) => route('surat.show', $record->slug))
                         ->openUrlInNewTab()
                         ->color('gray')
-                        ->visible(fn (PengajuanSurat $record) => $record->status === 'disetujui'),
+                        ->visible(fn (PengajuanSurat $record) => Auth::user()->hasAnyRole(['super_admin', 'admin']) || Auth::id() === optional($record->user)->id  && $record->status === 'disetujui'),
                     Tables\Actions\Action::make('Tolak Surat')
                         ->color('warning')
                         ->icon('heroicon-o-x-circle')
@@ -317,7 +317,7 @@ class PengajuanSuratResource extends Resource
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
                     Tables\Actions\Action::make('Unduh Surat')
-                        ->visible(fn (PengajuanSurat $record) => $record->status === 'disetujui')
+                        ->visible(fn (PengajuanSurat $record) => Auth::user()->hasAnyRole(['super_admin', 'admin']) || Auth::id() === optional($record->user)->id  && $record->status === 'disetujui')
                         ->icon('heroicon-o-arrow-down-tray')
                         ->openUrlInNewTab()
                         ->url(fn ($record) => route('surat.unduh', $record->slug)),

@@ -141,7 +141,7 @@ class KegiatanResource extends Resource
                         ->color('info')
                         ->tooltip('Absen Sekarang?')
                         ->icon('heroicon-m-arrow-right-end-on-rectangle')
-                        ->visible(fn (Kegiatan $record) => Auth::user()->hasAnyRole(['super_admin', 'admin', 'pengurus']) && $record->status === 1)
+                        ->visible(fn (Kegiatan $record) => Auth::user()->pengurus->status === 'pengurus' && Auth::user()->hasAnyRole(['super_admin', 'admin', 'pengurus']) && $record->status === 1)
                         ->disabled(function (Kegiatan $record){
                             $pengurusId = auth()->user()?->pengurus?->id;
                             if (!$pengurusId) {

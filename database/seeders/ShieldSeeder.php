@@ -25,7 +25,7 @@ class ShieldSeeder extends Seeder
             ],
             [
                 'name' => 'mahasiswa',
-                'guard_name' => 'ormawa',
+                'guard_name' => 'web',
             ],
             [
                 'name' => 'admin',
