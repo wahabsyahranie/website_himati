@@ -13,6 +13,7 @@ use Filament\Forms\FormsComponent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\RelationManagers\RelationManager;
+use Illuminate\Database\Eloquent\Collection;
 
 class AbsenKegiatansRelationManager extends RelationManager
 {
@@ -23,7 +24,7 @@ class AbsenKegiatansRelationManager extends RelationManager
         $kegiatanId = $this->ownerRecord->id;
 
         return Pengurus::with([
-            'mahasiswa',
+            'user',
             'absenKegiatans' => function ($query) use ($kegiatanId) {
                 $query->where('kegiatan_id', $kegiatanId);
             }
@@ -47,7 +48,7 @@ class AbsenKegiatansRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('no')
                     ->label('No')
                     ->rowIndex(),
-                Tables\Columns\TextColumn::make('mahasiswa.user.name')
+                Tables\Columns\TextColumn::make('user.name')
                     ->label('Nama Pengurus')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('absenKegiatans.keterangan')
@@ -79,7 +80,11 @@ class AbsenKegiatansRelationManager extends RelationManager
                     }),
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('belum_absen')
+                    ->label('Belum Absen')
+                    ->query(fn (Builder $query): Builder =>
+                        $query->whereDoesntHave('absenKegiatans')
+                    ),
             ])
             ->headerActions([
                 //
@@ -134,7 +139,24 @@ class AbsenKegiatansRelationManager extends RelationManager
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    //
+                    Tables\Actions\BulkAction::make('Hadir')
+                    ->label('Hadir Semua')
+                    ->outlined()
+                    ->icon('heroicon-o-check-circle')
+                    ->color('success')
+                     ->action(function (Collection $records) use ($kegiatanId) {
+                        foreach ($records as $record) {
+                            AbsenKegiatan::updateOrCreate(
+                                [
+                                    'kegiatan_id' => $kegiatanId,
+                                    'penguruses_id' => $record->id,
+                                ],
+                                [
+                                    'keterangan' => 'hadir',
+                                ]
+                            );
+                        }
+                    }),
                 ]),
             ]);
     }

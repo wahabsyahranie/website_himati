@@ -30,7 +30,7 @@ class PengesahanResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('sumberable_type')
-                    ->label('Tipe Sumber')
+                    ->label('Tipe Pengesahan')
                     ->options([
                         'App\Models\Dosen' => 'Dosen',
                         'App\Models\Pengurus' => 'Pengurus',
@@ -55,11 +55,11 @@ class PengesahanResource extends Resource
                         }
 
                         if ($tipe === 'App\Models\Pengurus') {
-                            return Pengurus::with(['mahasiswa.user'])
+                            return Pengurus::with(['user.mahasiswa'])
                                 ->get()
                                 ->mapWithKeys(function ($pengurus) {
-                                    $name = optional($pengurus->mahasiswa->user)->name;
-                                    $nim  = optional($pengurus->mahasiswa)->nim;
+                                    $name = optional($pengurus->user)->name;
+                                    $nim  = optional($pengurus->user->mahasiswa)->nim;
 
                                     return [$pengurus->id => "{$name} ({$nim})"];
                                 })
@@ -115,7 +115,7 @@ class PengesahanResource extends Resource
                         }
 
                         if ($record->sumberable_type === 'App\Models\Pengurus') {
-                            return optional($record->sumberable)->mahasiswa->user?->name?? 'Error: User dihapus';
+                            return optional($record->sumberable)->user?->name?? 'Error: User dihapus';
                         }
 
                         return '-';

@@ -22,15 +22,18 @@ class ListUsers extends ListRecords
                 ->label('Mahasiswa')
                 ->modifyQueryUsing(fn (Builder $query) => $query->has('mahasiswa')),
                 // ->modifyQueryUsing(fn (Builder $query) => $query->where('tipe_akun', 'mahasiswa')),
-            'ormawa' => Tab::make()
-                ->label('Ormawa')
-                ->modifyQueryUsing(fn (Builder $query) => $query->has('ormawa')),
                 // ->modifyQueryUsing(fn (Builder $query) => $query->doesntHave('ormawa')),
                 // ->modifyQueryUsing(fn (Builder $query) => $query->where('tipe_akun', 'ormawa')),
             'dosen' => Tab::make()
                 ->label('Dosen')
                 ->modifyQueryUsing(fn (Builder $query) => $query->has('dosen')),
                 // ->modifyQueryUsing(fn (Builder $query) => $query->where('tipe_akun', 'dosen')),
+            // 'pengurus' => Tab::make()
+            //     ->label('Pengurus')
+            //     ->modifyQueryUsing(fn (Builder $query) => $query->has('pengurus')),
+            'ormawa' => Tab::make()
+                ->label('Ormawa')
+                ->modifyQueryUsing(fn (Builder $query) => $query->has('ormawa')),
         ];
     }
 

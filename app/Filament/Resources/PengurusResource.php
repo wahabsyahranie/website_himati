@@ -40,10 +40,9 @@ class PengurusResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('mahasiswa_id')
+                Forms\Components\Select::make('user_id')
                     ->label('NIM Mahasiswa')
-                    ->relationship('mahasiswa', 'nim')
-                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->user->name)
+                    ->relationship('user.mahasiswa', 'nim')
                     ->searchable()
                     // ->preload()
                     ->required(),
@@ -114,7 +113,7 @@ class PengurusResource extends Resource
                     ->numeric()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('mahasiswa.user.name')
+                Tables\Columns\TextColumn::make('user.name')
                     ->label('Nama')
                     ->limit(20)
                     ->searchable(),
@@ -211,7 +210,7 @@ class PengurusResource extends Resource
                         ->tooltip('Tandai sebagai pengurus aktif')
                         ->visible(fn (Pengurus $record) =>
                             Auth::user()->hasAnyRole(['super_admin', 'admin']) &&
-                            $record->status === 'pengurus'
+                            $record->status != 'pengurus'
                         )
                         ->requiresConfirmation()
                         ->action(fn (Pengurus $record) => $record->update(['status' => 'pengurus'])),

@@ -45,7 +45,6 @@ class PengajuanSuratResource extends Resource
         return $form
             ->schema([
                 Placeholder::make('')
-                    // ->content(new HtmlString(Inspiring::quote())),
                     ->content(new HtmlString(InspiringCustom::quote())),
                 Wizard::make([
                     Wizard\Step::make('Informasi Surat')
@@ -74,7 +73,9 @@ class PengajuanSuratResource extends Resource
                             ->multiple()
                             ->required()
                             ->options(function () {
-                                return Pengesahan::all()->pluck('nama', 'id')->toArray();
+                                return Pengesahan::with('sumberable')->get()->mapWithKeys(function ($pengesahan) {
+                                    return [$pengesahan->id => $pengesahan->sumberable?->user?->name ?? 'TANPA_NAMA'];
+                                })->toArray();
                             }),
                         Forms\Components\Select::make('struktur_id')
                             ->label('Penerbit')
@@ -165,6 +166,7 @@ class PengajuanSuratResource extends Resource
                                     ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SPm']))
                                     ->required(),
                                 TextInput::make('nim')
+                                    ->label('NIM')
                                     ->visible(fn (Get $get) => in_array($get('../../tipe_surat'), ['SM', 'Spn', 'Spm', 'SRe']))
                                     ->required(),
                                 TextInput::make('kelas')

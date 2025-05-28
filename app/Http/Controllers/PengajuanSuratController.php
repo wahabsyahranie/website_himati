@@ -46,9 +46,7 @@ class PengajuanSuratController extends Controller
         $tandaTangan = $data->tandatangan;
         $tujuan = $data->pengesahan_id;
         $search_jabatan = \App\Models\Pengesahan::where('id', $tujuan)->first();
-        $found_jabatan = $search_jabatan->jabatan;
-        $found_bidang = $search_jabatan->bidang;
-        $tujuan_after = $found_jabatan . ' ' . $found_bidang; //
+        $tujuan_after = $search_jabatan->jabatan;
 
         //MENGAMBIL DATA DARI MODEL PENGESAHAN
         foreach ($tandaTangan as $id) {
@@ -56,14 +54,18 @@ class PengajuanSuratController extends Controller
             if ($pengesahan) {
                 $pengesahanInfo[$id] = [
                     'jabatan' => $pengesahan->jabatan,
-                    'nomor_induk' => $pengesahan->nomor_induk,
-                    'bidang' => $pengesahan->bidang,
-                    'nama' => $pengesahan->nama,
+                    'nama' => $pengesahan->sumberable->user->name,
                     'prioritas' => $pengesahan->prioritas,
-                    'type_nomor_induk' => $pengesahan->type_nomor_induk
                 ];
+                if ($pengesahan->sumberable_type === 'App\Models\Pengurus') {
+                    $pengesahanInfo[$id]['nomor_induk'] = $pengesahan->sumberable?->user?->mahasiswa?->nim ?? '-';
+                    $pengesahanInfo[$id]['type_nomor_induk'] = 'NIM';
+                } elseif ($pengesahan->sumberable_type === 'App\Models\Dosen') {
+                    $pengesahanInfo[$id]['nomor_induk'] = $pengesahan->nip ?? '-';
+                    $pengesahanInfo[$id]['type_nomor_induk'] = 'NIP';
+                }
             }
-        }
+        };
 
         //MENGURUTKAN DATA BERDASARKAN PRIORITAS DARI BESAR KE KECIL
         usort($pengesahanInfo, function ($a, $b) {

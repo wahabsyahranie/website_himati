@@ -108,7 +108,6 @@
                 <td style="width: 50%; vertical-align: top; padding-right: 20px;">
                   <p class="margin-text" style="margin-top: 1%">{{ $keterangan }},</p>
                   <p class="margin-text">{{ $pengesahan['jabatan'] ?? '-' }}</p>
-                  <p class="margin-text">{{ $pengesahan['bidang'] ?? '-' }}</p>
                   <p style="padding-top: 40px; font-weight: bold; text-decoration: underline;" class="margin-text">
                     {{ $pengesahan['nama'] ?? '-' }}
                   </p>

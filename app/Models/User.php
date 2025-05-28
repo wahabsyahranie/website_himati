@@ -86,6 +86,11 @@ class User extends Authenticatable
         return $this->hasOne(Ormawa::class);
     }
 
+    public function pengurus()
+    {
+        return $this->hasOne(Pengurus::class);
+    }
+
     public function detail()
     {
         return match ($this->tipe_akun) {

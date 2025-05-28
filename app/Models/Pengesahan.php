@@ -27,7 +27,7 @@ class Pengesahan extends Model
             'sumberable' => function (MorphTo $morphTo) {
                 $morphTo->morphWith([
                     \App\Models\Dosen::class => ['user'],
-                    \App\Models\Pengurus::class => ['mahasiswa.user'],
+                    \App\Models\Pengurus::class => ['user'],
                 ]);
             }
         ]);
