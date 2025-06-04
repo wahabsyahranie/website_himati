@@ -68,7 +68,9 @@ class UserResource extends Resource
                         'ormawa' => 'ormawa',
                     ]),
                 Forms\Components\CheckboxList::make('roles')
-                    ->relationship('roles', 'name'),
+                    ->relationship('roles', 'name')
+                    ->columns(4)
+                    ->gridDirection('row'),
                 Forms\Components\Fieldset::make('mahasiswa')
                     ->visible(fn (Get $get) => $get('tipe_akun') === 'mahasiswa')
                     ->label('Detail Mahasiswa')
