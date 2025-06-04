@@ -49,6 +49,10 @@ class TandatanganDigitalResource extends Resource
     {
         return $table
             ->modifyQueryUsing(function ($query) {
+                $query->whereHas('pengajuan_surats', function ($q) {
+                    $q->where('status', 'disetujui');
+                });
+
                 if (auth()->user()?->tipe_akun === 'dosen') {
                     return $query
                         ->whereHas('pengesahans.sumberable', function ($q) { 
