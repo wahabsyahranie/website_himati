@@ -13,10 +13,10 @@ class PenggunaWidget extends BaseWidget
 {
     use InteractsWithPageFilters, HasWidgetShield;
 
-    public static function canView(): bool
-    {
-        return Auth::user()?->can('widget_PenggunaWidget') ?? false;
-    }
+    // public static function canView(): bool
+    // {
+    //     return Auth::user()?->can('widget_PenggunaWidget') ?? false;
+    // }
 
     protected function getStats(): array
     {
