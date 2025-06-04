@@ -81,6 +81,7 @@ class Register extends BaseRegister
                     'jabatan' => $data['jabatan'],
                 ]);
             }
+            $user->assignRole('dosen');
             break;
 
         case 'ormawa':
@@ -90,6 +91,7 @@ class Register extends BaseRegister
                     'lambang' => $data['lambang'],
                 ]);
             }
+            $user->assignRole('ormawa');
             break;
 
         case 'mahasiswa':
@@ -100,6 +102,7 @@ class Register extends BaseRegister
                     'prodi' => $data['prodi'],
                 ]);
             }
+            $user->assignRole('mahasiswa');
             break;
 
         default:

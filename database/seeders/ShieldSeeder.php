@@ -32,7 +32,11 @@ class ShieldSeeder extends Seeder
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'testing',
+                'name' => 'ormawa',
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'dosen',
                 'guard_name' => 'web',
             ],
         ]);
