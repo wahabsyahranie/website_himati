@@ -138,10 +138,10 @@ class UserResource extends Resource
                     ->visible(fn() => Auth::user()->hasAnyRole(['super_admin', 'admin']))
                     ->exporter(UserExporter::class)
                     ->label('Ekspor Data'),
-                ImportAction::make()
-                    ->visible(fn() => Auth::user()->hasAnyRole(['super_admin', 'admin']))
-                    ->importer(UserImporter::class)
-                    ->label('Impor Data'),
+                // ImportAction::make()
+                //     ->visible(fn() => Auth::user()->hasAnyRole(['super_admin', 'admin']))
+                //     ->importer(UserImporter::class)
+                //     ->label('Impor Data'),
             ])
             ->columns([
                 Tables\Columns\TextColumn::make('no')

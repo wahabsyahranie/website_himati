@@ -70,6 +70,8 @@ class PengajuanSuratController extends Controller
                     $pengesahanInfo[$id->id]['nomor_induk'] = $pengesahan->sumberable?->nip ?? '-';
                     $pengesahanInfo[$id->id]['type_nomor_induk'] = 'NIP';
                 }
+
+                //TANDATANGAN DIGITAL
                 if ($id->status === 'disetujui') {
                     $writer = new PngWriter();
 
