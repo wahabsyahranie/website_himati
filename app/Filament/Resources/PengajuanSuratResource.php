@@ -220,10 +220,10 @@ class PengajuanSuratResource extends Resource
                     ->disabled(fn () => !Auth::user()->hasAnyRole(['super_admin', 'admin']))
                     ->exporter(PengajuanSuratExporter::class)
                     ->label('Ekspor Data'),
-                ImportAction::make()
-                    ->disabled(fn () => !Auth::user()->hasAnyRole(['super_admin', 'admin']))
-                    ->importer(PengajuanSuratImporter::class)
-                    ->label('Impor Data'),
+                // ImportAction::make()
+                //     ->disabled(fn () => !Auth::user()->hasAnyRole(['super_admin', 'admin']))
+                //     ->importer(PengajuanSuratImporter::class)
+                //     ->label('Impor Data'),
             ])
             ->columns([
                 Tables\Columns\TextColumn::make('no')

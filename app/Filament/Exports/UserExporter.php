@@ -10,6 +10,9 @@ use Filament\Actions\Exports\Exporter;
 use Filament\Actions\Exports\ExportColumn;
 use Filament\Actions\Exports\Models\Export;
 use Filament\Actions\Exports\Enums\ExportFormat;
+use OpenSpout\Common\Entity\Style\CellVerticalAlignment;
+use OpenSpout\Common\Entity\Style\Color;
+use OpenSpout\Common\Entity\Style\Style;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -61,6 +64,27 @@ class UserExporter extends Exporter
                 ->state(fn (User $user) => $user->detail()->nama_pendek ?? '-')
 
         ];
+    }
+
+    ////Mengganti Nama File
+    public function getFileName(Export $export): string
+    {
+        $date = date('d-m-Y');
+        return "Laporan-Masyarakat-TI-$date-{$export->getKey()}.xlsx";
+    }
+
+    ////Styling Xlsx
+    public function getXlsxHeaderCellStyle(): ?Style
+    {
+        return (new Style())
+            ->setFontName('Tahoma')
+            ->setFontSize(12)
+            // ->setFontBold(true)
+            ->setFontColor(Color::rgb(255, 255, 255))
+            ->setBackgroundColor(Color::rgb(0, 119, 182))
+            // ->setCellAlignment(CellAlignment::CENTER)
+            ->setCellVerticalAlignment(CellVerticalAlignment::CENTER);
+            // ->setBorder(color: Color::rgb(200, 200, 200));
     }
     
 
