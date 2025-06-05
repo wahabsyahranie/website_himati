@@ -74,4 +74,10 @@ class HomeController extends Controller
         $datas = Inventaris::where('status', 'tersedia')->get();
         return view('produk', compact('datas'));
     }
+
+    public function tentang()
+    {
+        $dataStruktur = Struktur::orderBy('prioritas', 'asc')->get();
+        return view('tentang', compact('dataStruktur'));
+    }
 }

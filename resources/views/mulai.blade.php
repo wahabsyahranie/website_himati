@@ -42,7 +42,7 @@
 
   {{-- CARD PENGADUAN AKADEMIK--}}
   <div id="advokasi" class="bg-text-primary w-full flex flex-col items-center justify-center p-5 md:px-20 md:py-10">
-    {{-- FIREE --}}
+    {{-- Header --}}
     <div class="text-center text-text-light">
       <p class="font-bold text-xl md:text-4xl mb-3">Karena Waktu Anda Terlalu Berharga untuk Dibuang</p>
       <p class="max-w-2xl mx-auto text-sm md:text-md">Dengan sistem digital HIMA TI, membuat surat jadi urusan hitungan detik. Fokus pada hal besar, biarkan sistem kami yang urus surat Anda.</p>
@@ -50,33 +50,49 @@
 
     {{-- CARD --}}
     @if (count($datas['dataPengaduan']) > 0)
-    @php
-    $classes = ['bg-yellow', 'bg-green', 'bg-primary', 'text-primary', 'text-secondary'];
-    @endphp
-    <div>
-      <div class="grid grid-cols-2 gap-4 pt-8 w-full">
-        @foreach ($datas['dataPengaduan'] as $index => $pengaduan )
-          @php
-            $colorCard = $datas['cards'][$index]['colorCard'] ?? 'bg-primary';
-            $colorText = $datas['cards'][$index]['colorText'] ?? 'text-primary';
-          @endphp
-          <div data-aos="fade-up">
-            <div class="bg-{{ $colorCard }} rounded h-full w-full p-5">
-              <div id="label" class="text-xs md:text-md">
-                <p class="bg-text-primary text-{{ $colorCard }} pl-2 pr-2 md:pl-3 md:pr-3 rounded inline-block capitalize">{{ $pengaduan->tujuan }}</p>
-                <p class="bg-secondary text-base mt-1 md:mt-0 pl-2 pr-2 md:pl-3 md:pr-3 rounded inline-block">Advokasi</p>
-              </div>
-              <div id="deskripsi" class="md:pl-7.5 md:pr-8 pt-3 md:pt-5 pb-5">
-                <p class="font-bold text-{{ $colorText }} text-sm md:text-xl pb-2">{{ $pengaduan->judul }}</p>
-                <p class="text-xs md:text-lg text-{{ $colorText }}">{{ Str::limit($pengaduan->deskripsi, 85, '...') }}</p>
-              </div>
-              <div id="link detail" class="text-xs md:text-lg md:pl-7.5 hover:underline text-{{ $colorText }}">
-                <p><a href="/advokasi/{{ $pengaduan->slug }}"> Read More &raquo;</a></p>
-              </div>
-            </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto pt-8 w-full relative z-10">
+      @foreach ($datas['dataPengaduan'] as $index => $pengaduan)
+        @php
+          $gradients = [
+            'dosen' => ['from-yellow-400 to-yellow-500', 'text-yellow-500'],
+            'hmj ti' => ['from-blue-800 to-blue-600', 'text-blue-700'],
+            'jurusan' => ['from-green-600 to-green-400', 'text-green-600']
+          ];
+          $gradient = $gradients[$pengaduan->tujuan] ?? ['from-blue-900 to-blue-700', 'text-blue-900'];
+          $bgColors = [
+            'dosen' => ['bg-[#FFEFCF]', 'text-[#5F4B00]'],
+            'hmj ti' => ['bg-[#D6E7FA]', 'text-[#003A70]'],
+            'jurusan' => ['bg-[#D6FAD7]', 'text-[#145D1B]']
+          ];
+          $labelColors = $bgColors[$pengaduan->tujuan] ?? ['bg-white', 'text-[#004A78]'];
+        @endphp
+        
+        <article class="relative bg-gradient-to-br {{ $gradient[0] }} text-white rounded-2xl p-8 text-left shadow-xl transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:shadow-2xl hover:shadow-current/20 group animate-fadeInUp cursor-pointer" data-aos="fade-up" data-aos-delay="{{ ($index + 1) * 100 }}">
+          <div class="absolute -top-6 right-6 bg-white rounded-full p-2 shadow-lg transition-transform duration-300 group-hover:rotate-12">
+            @if($pengaduan->tujuan == 'dosen')
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 {{ $gradient[1] }}" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 10c-4.41 0-8-1.79-8-4V6c0-2.21 3.59-4 8-4s8 1.79 8 4v8c0 2.21-3.59 4-8 4z" /></svg>
+            @elseif($pengaduan->tujuan == 'hmj ti')
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 {{ $gradient[1] }}" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87M16 3.13a4 4 0 010 7.75M8 3.13a4 4 0 000 7.75" /></svg>
+            @else
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 {{ $gradient[1] }}" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+            @endif
           </div>
-        @endforeach
-      </div>
+
+          <div class="flex gap-2 mb-3">
+            <span class="inline-block {{ $labelColors[0] }} {{ $labelColors[1] }} font-semibold rounded px-3 py-1 text-xs shadow capitalize transform transition-transform duration-300 group-hover:scale-105">{{ $pengaduan->tujuan }}</span>
+            <span class="inline-block bg-secondary text-white font-semibold rounded px-3 py-1 text-xs shadow transform transition-transform duration-300 group-hover:scale-105">Advokasi</span>
+          </div>
+
+          <h3 class="text-xl font-bold mb-2 transition-transform duration-300 group-hover:translate-x-2">{{ $pengaduan->judul }}</h3>
+          <p class="mb-6 text-sm opacity-90 transition-all duration-300 group-hover:opacity-100">
+            {{ Str::limit($pengaduan->deskripsi, 85, '...') }}
+          </p>
+
+          <a href="/advokasi/{{ $pengaduan->slug }}" class="inline-block px-3 py-1.5 text-xs rounded-lg bg-white {{ $gradient[1] }} font-semibold shadow transition-all duration-300 hover:bg-opacity-90 hover:scale-105 hover:-translate-x-1 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50">
+            Baca Detail →
+          </a>
+        </article>
+      @endforeach
     </div>
     @endif
   </div>

@@ -1,0 +1,55 @@
+.struktur-slider {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent, #000 10% 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 10% 90%, transparent);
+}
+
+.struktur-slider .list {
+  display: flex;
+  gap: 2rem;
+  position: relative;
+}
+
+.struktur-slider .item {
+  flex: 0 0 auto;
+  width: 300px;
+  animation: slideLeft 30s linear infinite;
+}
+
+.struktur-slider:hover .item {
+  animation-play-state: paused;
+}
+
+.struktur-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.struktur-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.struktur-card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 1rem;
+}
+
+@keyframes slideLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - 2rem));
+  }
+}

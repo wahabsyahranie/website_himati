@@ -17,6 +17,8 @@ Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/advokasi/{pengaduan:slug}', [HomeController::class, 'advokasi']);
 
+Route::get('/tentang', [HomeController::class, 'tentang']);
+
 Route::get('/produk', [HomeController::class, 'produk']);
 
 Route::get('/surat/{slug}', [PengajuanSuratController::class, 'show'])->name('surat.show');
