@@ -15,22 +15,21 @@ class PengurusExporter extends Exporter
     public static function getColumns(): array
     {
         return [
-            ExportColumn::make('id')
-                ->label('id'),
+            ExportColumn::make('user.name')
+                ->label('nama'),
+            ExportColumn::make('user.mahasiswa.nim')
+                ->label('nim'),
             ExportColumn::make('nomor_induk')
                 ->label('nomor_induk'),
             ExportColumn::make('jabatan')
-                ->label('jabatan'),
+                ->label('jabatan')
+                ->formatStateUsing(fn($state) => $state?->label() ?? '-'),
+            ExportColumn::make('struktur.nama_lengkap')
+                ->label('departemen'),
             ExportColumn::make('periode')
                 ->label('periode'),
-            ExportColumn::make('user_id')
-                ->label('user_id'),
-            ExportColumn::make('departemen')
-                ->label('departemen'),
             ExportColumn::make('status')
                 ->label('status'),
-            ExportColumn::make('created_at')
-                ->label('created_at'),
         ];
     }
 
