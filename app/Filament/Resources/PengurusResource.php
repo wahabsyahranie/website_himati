@@ -44,7 +44,9 @@ class PengurusResource extends Resource
                     ->label('NIM Mahasiswa')
                     ->relationship('user.mahasiswa', 'nim')
                     ->searchable()
-                    // ->preload()
+                    ->getOptionLabelFromRecordUsing(function ($record) {
+                            return "{$record->nim} - {$record->user->name}";
+                        })
                     ->required(),
                 Forms\Components\TextInput::make('nomor_induk')
                     ->label('Nomor Induk Anggota')
