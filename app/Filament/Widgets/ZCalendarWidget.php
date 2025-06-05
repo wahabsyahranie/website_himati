@@ -4,7 +4,9 @@ namespace App\Filament\Widgets;
 
 use App\Models\Kegiatan;
 use Filament\Forms\Form;
+use App\Enums\KegiatanEnum;
 use Filament\Forms\Components\Grid;
+use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
@@ -12,6 +14,7 @@ use Filament\Forms\Components\DateTimePicker;
 use Saade\FilamentFullCalendar\Actions\EditAction;
 use Saade\FilamentFullCalendar\Actions\CreateAction;
 use Saade\FilamentFullCalendar\Actions\DeleteAction;
+use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Saade\FilamentFullCalendar\Widgets\FullCalendarWidget;
 
 class ZCalendarWidget extends FullCalendarWidget
@@ -20,6 +23,13 @@ class ZCalendarWidget extends FullCalendarWidget
      * FullCalendar will call this function whenever it needs new event data.
      * This is triggered when the user clicks prev/next or switches views on the calendar.
      */
+
+     use HasWidgetShield;
+
+    //  public static function canView(): bool
+    // {
+    //     return Auth::user()?->can('widget_ZCalendarWidget') ?? false;
+    // }
 
     //// MENAMPILKAN KEGIATAN
     public function fetchEvents(array $fetchInfo): array
@@ -47,22 +57,15 @@ class ZCalendarWidget extends FullCalendarWidget
     public function getFormSchema(): array
     {
         return [
-            // TextInput::make('user_id')
-            //     ->label('Pembuat')
-            //     ->default(auth()->id())
-            //     ->disabled()
-            //     ->dehydrated(true),
             TextInput::make('nama')
                 ->label('Nama Kegiatan'),
             Select::make('jenis_kegiatan')
                 ->native(false)
                 ->required()
-                ->options([
-                    'rapat umum' => 'Rapat Umum',
-                    'rapat panitia' => 'Rapat Panitia',
-                    'proker primer' => 'Proker Primer',
-                    'proker sekunder' => 'Proker Sekunder',
-                ]),
+                ->options(collect(KegiatanEnum::cases())
+                    ->mapWithKeys(fn ($enum) => [$enum->value => $enum->label()])
+                    ->toArray()
+                ),
             TextInput::make('tempat_pelaksanaan')
                 ->required()
                 ->autocomplete(false)
@@ -85,20 +88,20 @@ class ZCalendarWidget extends FullCalendarWidget
     {
         return [
             EditAction::make()
+                ->disabled(fn () => !Auth::user()->hasAnyRole(['super_admin', 'admin']))
                 ->mountUsing(
                     function (Kegiatan $record, Form $form, array $arguments) {
                         $form->fill([
                             'nama' => $record->nama,
-                            // 'user_id' => $record->user_id,
-                            'nama' => $record->nama,
                             'jenis_kegiatan' => $record->jenis_kegiatan,
                             'tempat_pelaksanaan' => $record->tempat_pelaksanaan,
                             'tujuan_rapat' => $record->tujuan_rapat,
-                            'tanggal_kegiatan' => $arguments['kegiatan']['tanggal_pelaksana'] ?? $record->tanggal_pelaksana,
+                            'tanggal_pelaksana' => $arguments['event']['start'] ?? $record->tanggal_pelaksana,
                         ]);
                     }
                 ),
-            DeleteAction::make(),
+            DeleteAction::make()
+                ->disabled(fn () => !Auth::user()->hasAnyRole(['super_admin', 'admin'])),
         ];
     }
 
@@ -107,6 +110,7 @@ class ZCalendarWidget extends FullCalendarWidget
     {
         return [
             CreateAction::make()
+                ->disabled(fn () => !Auth::user()->hasAnyRole(['super_admin', 'admin']))
                 ->mutateFormDataUsing(function (array $data): array {
                     $user = auth()->id();
                     $data['user_id'] = $user;

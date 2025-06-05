@@ -48,6 +48,20 @@ class TandatanganDigitalResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(function ($query) {
+                $query->whereHas('pengajuan_surats', function ($q) {
+                    $q->where('status', 'disetujui');
+                });
+
+                if (auth()->user()?->tipe_akun === 'dosen') {
+                    return $query
+                        ->whereHas('pengesahans.sumberable', function ($q) { 
+                            $q->where('user_id', auth()->id());
+                        });
+                }
+
+                return $query;
+            })
             ->heading('Permintaan Tandatangan')
             ->description("Harap memeriksa isi surat terlebih dahulu sebelum menyetujui, dan tinggalkan catatan bila perlu perbaikan.")
             ->deferLoading()

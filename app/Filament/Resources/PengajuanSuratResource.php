@@ -72,12 +72,18 @@ class PengajuanSuratResource extends Resource
                             ->required()
                             ->relationship('struktur', 'nama_pendek'),
                         Forms\Components\Repeater::make('tandatangan_digitals')
+                            ->label('Tanda Tangan')
                             ->grid(2)
                             ->relationship()
                             ->columnSpanFull()
                             ->schema([
                                 Forms\Components\Select::make('pengesahan_id')
-                                    ->relationship('pengesahans', 'jabatan')
+                                    ->label('Nama')
+                                    ->relationship('pengesahans', 'jabatan', modifyQueryUsing: fn ($query) => $query->with('sumberable.user'))
+                                    ->native(false)
+                                    ->getOptionLabelFromRecordUsing(function ($record) {
+                                        return "{$record->jabatan} - {$record->sumberable->user->name}";
+                                    })
                             ])
                             ->mutateRelationshipDataBeforeCreateUsing(function (array $data): array {
                                 $pengesahan = \App\Models\Pengesahan::with('sumberable.user')->find($data['pengesahan_id']);

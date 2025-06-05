@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\PengajuanSurat;
-use App\Models\TandatanganDigital;
 use Barryvdh\DomPDF\Facade\Pdf;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
-// use Spatie\Browsershot\Browsershot;
+
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Label\Label;
+use Endroid\QrCode\Logo\Logo;
+use Endroid\QrCode\RoundBlockSizeMode;
+use Endroid\QrCode\Writer\PngWriter;
+use Endroid\QrCode\Writer\ValidationException;
 
 class PengajuanSuratController extends Controller
 {
@@ -63,8 +70,39 @@ class PengajuanSuratController extends Controller
                     $pengesahanInfo[$id->id]['nomor_induk'] = $pengesahan->sumberable?->nip ?? '-';
                     $pengesahanInfo[$id->id]['type_nomor_induk'] = 'NIP';
                 }
+
+                //TANDATANGAN DIGITAL
                 if ($id->status === 'disetujui') {
-                    $pengesahanInfo[$id->id]['ttdDigital'] = base64_encode(QrCode::format('png')->size(70)->generate('http://himati.test/' . $id->nomor_registrasi));
+                    $writer = new PngWriter();
+
+                    // Create QR code
+                    $qrCode = new QrCode(
+                        data: 'http://himati.test/' . $id->nomor_registrasi,
+                        encoding: new Encoding('UTF-8'),
+                        errorCorrectionLevel: ErrorCorrectionLevel::Low,
+                        size: 300,
+                        margin: 10,
+                        roundBlockSizeMode: RoundBlockSizeMode::Margin,
+                        foregroundColor: new Color(0, 0, 0),
+                        backgroundColor: new Color(255, 255, 255)
+                    );
+
+                    // Create generic logo
+                    $logo = new Logo(
+                        path: public_path('img/hmjti/logo_hmjti_white.png'),
+                        resizeToWidth: 100,
+                        punchoutBackground: false
+                    );
+
+                    // Create generic label
+                    $label = new Label(
+                        text: 'Label',
+                        textColor: new Color(255, 0, 0)
+                    );
+
+                    $result = $writer->write($qrCode, $logo);
+                    $pengesahanInfo[$id->id]['ttdDigital'] = base64_encode($result->getString());
+
                 } elseif ($id->status != 'disetujui'){
                      $pengesahanInfo[$id->id]['ttdDigital'] = null;
                 }

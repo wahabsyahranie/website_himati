@@ -2,11 +2,17 @@
 
 namespace App\Filament\Exports;
 
+use App\Models\Dosen;
+use App\Models\Mahasiswa;
+use App\Models\Ormawa;
 use App\Models\User;
 use Filament\Actions\Exports\Exporter;
 use Filament\Actions\Exports\ExportColumn;
 use Filament\Actions\Exports\Models\Export;
 use Filament\Actions\Exports\Enums\ExportFormat;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class UserExporter extends Exporter
 {
@@ -15,31 +21,53 @@ class UserExporter extends Exporter
     public static function getColumns(): array
     {
         return [
+
+            ////USER
             ExportColumn::make('id')
                 ->label('id'),
-            ExportColumn::make('nim')
-                ->label('nim'),
             ExportColumn::make('name')
                 ->label('name'),
-            ExportColumn::make('tahun_masuk')
-                ->label('tahun_masuk'),
             ExportColumn::make('nomor_telepon')
                 ->label('nomor_telepon'),
-            ExportColumn::make('prodi')
-                ->label('prodi'),
             ExportColumn::make('email')
                 ->label('email'),
             ExportColumn::make('created_at')
                 ->label('created_at'),
-            ExportColumn::make('password')
-                ->label('password'),
+            ExportColumn::make('tipe_akun')
+                ->label('tipe_akun'),
+
+            ////MAHASISWA
+            ExportColumn::make('nim')
+                ->label('nim')
+                ->state(fn (User $user) => $user->detail()?->nim ??  '-'),
+            ExportColumn::make('tahun_masuk')
+                ->label('tahun_masuk')
+                ->state(fn (User $user) => $user->detail()?->tahun_masuk ?? '-'),
+            ExportColumn::make('prodi')
+                ->label('prodi')
+                ->state(fn (User $user) => $user->detail()?->prodi ?? '-'),
+            
+            ////DOSEN
+            ExportColumn::make('nip')
+                ->label('nip')
+                ->state(fn (User $user) => $user->detail()->nip ?? '-'),
+            ExportColumn::make('jabatan')
+                ->label('jabatan')
+                ->state(fn (User $user) => $user->detail()->jabatan ?? '-'),
+            
+            ////ORMAWA
+            ExportColumn::make('nama_pendek')
+                ->label('nama_pendek')
+                ->state(fn (User $user) => $user->detail()->nama_pendek ?? '-')
+
         ];
     }
+    
 
     public function getFormats(): array
     {
         return [
-            ExportFormat::Csv,
+            ExportFormat::Xlsx,
         ];
     }
 

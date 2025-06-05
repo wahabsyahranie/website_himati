@@ -71,6 +71,11 @@ class User extends Authenticatable
         return $this->hasMany(Penyewaan::class);
     }
 
+    public function pengurus()
+    {
+        return $this->hasOne(Pengurus::class);
+    }
+
     public function mahasiswa()
     {
         return $this->hasOne(Mahasiswa::class);
@@ -84,11 +89,6 @@ class User extends Authenticatable
     public function ormawa()
     {
         return $this->hasOne(Ormawa::class);
-    }
-
-    public function pengurus()
-    {
-        return $this->hasOne(Pengurus::class);
     }
 
     public function detail()

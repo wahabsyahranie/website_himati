@@ -67,11 +67,10 @@ class UserResource extends Resource
                         'dosen' => 'dosen',
                         'ormawa' => 'ormawa',
                     ]),
-                Forms\Components\Select::make('roles')
+                Forms\Components\CheckboxList::make('roles')
                     ->relationship('roles', 'name')
-                    ->multiple()
-                    ->preload()
-                    ->searchable(),
+                    ->columns(4)
+                    ->gridDirection('row'),
                 Forms\Components\Fieldset::make('mahasiswa')
                     ->visible(fn (Get $get) => $get('tipe_akun') === 'mahasiswa')
                     ->label('Detail Mahasiswa')
@@ -139,10 +138,10 @@ class UserResource extends Resource
                     ->visible(fn() => Auth::user()->hasAnyRole(['super_admin', 'admin']))
                     ->exporter(UserExporter::class)
                     ->label('Ekspor Data'),
-                ImportAction::make()
-                    ->visible(fn() => Auth::user()->hasAnyRole(['super_admin', 'admin']))
-                    ->importer(UserImporter::class)
-                    ->label('Impor Data'),
+                // ImportAction::make()
+                //     ->visible(fn() => Auth::user()->hasAnyRole(['super_admin', 'admin']))
+                //     ->importer(UserImporter::class)
+                //     ->label('Impor Data'),
             ])
             ->columns([
                 Tables\Columns\TextColumn::make('no')
