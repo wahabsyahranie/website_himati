@@ -17,7 +17,10 @@ class TujuanSuratResource extends Resource
 {
     protected static ?string $model = TujuanSurat::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Surat';
+    protected static ?string $navigationLabel = 'Tujuan Surat';
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {
@@ -34,8 +37,18 @@ class TujuanSuratResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->heading('Tujuan surat')
+            ->description("Buat tujuan surat anda disini.")
+            ->headerActions([
+                Tables\Actions\CreateAction::make()
+                    ->label('Tambah Tujuan Baru'),
+            ])
             ->columns([
+                Tables\Columns\TextColumn::make('Nomor')
+                    ->label('No')
+                    ->rowIndex(),
                 Tables\Columns\TextColumn::make('tujuan')
+                    ->label('Nama')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -46,12 +59,15 @@ class TujuanSuratResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

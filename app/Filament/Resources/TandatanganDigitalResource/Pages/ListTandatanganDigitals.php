@@ -11,6 +11,7 @@ use App\Filament\Resources\TandatanganDigitalResource;
 class ListTandatanganDigitals extends ListRecords
 {
     protected static string $resource = TandatanganDigitalResource::class;
+    protected static ?string $title = 'Permintaan Tanda Tangan';
 
     // protected function getHeaderActions(): array
     // {

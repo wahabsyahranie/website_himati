@@ -92,6 +92,11 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-m-globe-alt')
                     ->collapsed(false),
 
+                NavigationGroup::make()
+                    ->label('Surat')
+                    ->icon('heroicon-m-document-text')
+                    ->collapsed(false),
+
                 // NavigationGroup::make()
                 //     ->label('Layanan Pengurus')
                 //     ->icon('heroicon-o-user-group')
