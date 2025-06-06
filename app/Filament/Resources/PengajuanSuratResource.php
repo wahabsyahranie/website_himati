@@ -91,7 +91,7 @@ class PengajuanSuratResource extends Resource
                                 $fullName = $pengesahan?->sumberable?->user?->name ?? 'TANPA_NAMA';
                                 $firstName = explode(' ', trim($fullName))[0] ?? 'TANPA_NAMA';
                                 
-                                $nomorRegistrasi = 'REG-' . rand(10000, 99999) . '-' . date('Ymd');
+                                $nomorRegistrasi = 'TTD-' . rand(10000, 99999) . '-' . date('Ymd');
                                 $data['nomor_registrasi'] = $nomorRegistrasi;
 
                                 return $data;

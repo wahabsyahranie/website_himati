@@ -141,7 +141,7 @@ class PengajuanSuratController extends Controller
         $tipe = $data['data']->tipe_surat;
         $namaView = $this->getView($tipe);
 
-        $pdf = Pdf::loadView($namaView, $data);
+        $pdf = Pdf::loadView('pdf.' . $namaView, $data);
         return $pdf->stream($data['data']->slug . '.pdf');
     }
 
@@ -152,18 +152,18 @@ class PengajuanSuratController extends Controller
         $tipe = $data['data']->tipe_surat;
         $namaView = $this->getView($tipe);
 
-        $pdf = Pdf::loadView($namaView, $data);
+        $pdf = Pdf::loadView('pdf.' . $namaView, $data);
         return $pdf->download($data['data']->slug . '.pdf');
     }
 
-    public function test($slug)
-    {
-        $data = $this->getDataPengesahan($slug);
-        $tipe = $data['data']->tipe_surat;
-        $namaView = $this->getView($tipe);
+    // public function test($slug)
+    // {
+    //     $data = $this->getDataPengesahan($slug);
+    //     $tipe = $data['data']->tipe_surat;
+    //     $namaView = $this->getView($tipe);
 
-        $pdf = Pdf::loadView($namaView, $data);
-        return $pdf->stream($data['data']->slug . '.pdf');
-    }
+    //     $pdf = Pdf::loadView('pdf.' . $namaView, $data);
+    //     return $pdf->stream($data['data']->slug . '.pdf');
+    // }
 
 }
