@@ -21,7 +21,7 @@ class PengajuanSuratSeeder extends Seeder
                 'slug' => '1-SIk-HIMA-TI-V-2025',
                 'tipe_surat' => 'SIk',
                 'struktur_id' => 1,
-                'pengesahan_id' => 5,
+                'tujuan_surat_id' => 1,
                 'status' => 'disetujui',
                 'user_id' => '01jv7pqks6n8zz8psysam0ewka',
                 'detail_surat' => json_encode([
@@ -41,7 +41,7 @@ class PengajuanSuratSeeder extends Seeder
                 'slug' => '2-SPm-Kpm-HIMA-TI-V-2025',
                 'tipe_surat' => 'SPm',
                 'struktur_id' => 3,
-                'pengesahan_id' => 5,
+                'tujuan_surat_id' => 2,
                 'status' => 'disetujui',
                 'user_id' => '01jv7pqks6n8zz8psysam0ewka',
                 'detail_surat' => json_encode([
@@ -81,7 +81,7 @@ class PengajuanSuratSeeder extends Seeder
                 'slug' => '3-Und-Agm-HIMA-TI-V-2025',
                 'tipe_surat' => 'Und',
                 'struktur_id' => 2,
-                'pengesahan_id' => 5,
+                'tujuan_surat_id' => 3,
                 'status' => 'disetujui',
                 'user_id' => '01jv7pqks6n8zz8psysam0ewka',
                 'detail_surat' => json_encode([
@@ -130,7 +130,7 @@ class PengajuanSuratSeeder extends Seeder
                 'slug' => '4-Spn-HIMA-TI-V-2025',
                 'tipe_surat' => 'Spn',
                 'struktur_id' => 2,
-                'pengesahan_id' => 5,
+                'tujuan_surat_id' => 4,
                 'status' => 'disetujui',
                 'user_id' => '01jv7pqks6n8zz8psysam0ewka',
                 'detail_surat' => json_encode([

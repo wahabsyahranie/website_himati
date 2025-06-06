@@ -49,9 +49,8 @@ class PengajuanSuratController extends Controller
         $pengesahanInfo = []; //
 
         //MENGAMBIL DATA UNTUK TUJUAN SURAT (KEPADA YTH.)
-        $tujuan = $data->pengesahan_id;
-        $search_jabatan = \App\Models\Pengesahan::where('id', $tujuan)->first();
-        $tujuan_after = $search_jabatan->jabatan;
+        $tujuan = $data->tujuan_surat;  
+        $tujuan_after = $tujuan->tujuan;
 
         //MENGAMBIL DATA DARI MODEL PENGESAHAN
         $ttd = $data->tandatangan_digitals;

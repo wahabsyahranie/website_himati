@@ -108,11 +108,11 @@ class PengajuanSuratResource extends Resource
                             ->required()
                             ->maxLength(255)
                             ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn', 'SRe'])),
-                        Forms\Components\Select::make('pengesahan_id')
+                        Forms\Components\Select::make('tujuan_surat_id')
                             ->label('Tujuan Surat')
                             ->native(false)
                             ->required()
-                            ->relationship('pengesahan', 'jabatan'),
+                            ->relationship('tujuan_surat', 'tujuan'),
                         Forms\Components\Textarea::make('tujuan_kegiatan')
                             ->label('Tujuan Kegiatan')
                             ->autocomplete(false)
@@ -257,7 +257,7 @@ class PengajuanSuratResource extends Resource
                     ->copyable()
                     ->copyMessage('Nomor surat disalin')
                     ->copyMessageDuration(1500),
-                Tables\Columns\TextColumn::make('pengesahan.jabatan')
+                Tables\Columns\TextColumn::make('tujuan_surat.tujuan')
                     ->label('Tujuan Surat')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')

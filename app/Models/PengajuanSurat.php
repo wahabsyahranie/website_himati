@@ -11,7 +11,7 @@ class PengajuanSurat extends Model
 {
     use HasFactory;
     protected $table = 'pengajuan_surats';
-    protected $fillable = ['tipe_surat', 'struktur_id', 'nomor_surat', 'nama_kegiatan', 'tujuan_kegiatan', 'tanggal_pelaksana', 'waktu_pelaksana', 'tanggal_selesai', 'waktu_selesai', 'tempat_pelaksana', 'nama_cp', 'nomor_cp', 'slug', 'user_id', 'pengesahan_id', 'status', 'tandatangan', 'lampiran', 'detail_surat'];
+    protected $fillable = ['tipe_surat', 'struktur_id', 'nomor_surat', 'nama_kegiatan', 'tujuan_kegiatan', 'tanggal_pelaksana', 'waktu_pelaksana', 'tanggal_selesai', 'waktu_selesai', 'tempat_pelaksana', 'nama_cp', 'nomor_cp', 'slug', 'user_id', 'tujuan_surat_id', 'status', 'tandatangan', 'lampiran', 'detail_surat'];
 
     protected $casts = [
         'tandatangan' => 'array',
@@ -36,5 +36,10 @@ class PengajuanSurat extends Model
     public function tandatangan_digitals() : HasMany
     {
         return $this->hasMany(TandatanganDigital::class);
+    }
+    
+    public function tujuan_surat() : BelongsTo 
+    {
+        return $this->belongsTo(TujuanSurat::class);
     }
 }

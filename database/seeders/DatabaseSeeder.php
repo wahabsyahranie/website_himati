@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             ReviewSeeder::class,
             DosenSeeder::class,
             OrmawaSeeder::class,
+            TujusanSuratSeeder::class,
             PengajuanSuratSeeder::class,
             PenyewaanSeeder::class,
             ShieldSeeder::class,
