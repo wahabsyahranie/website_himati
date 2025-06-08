@@ -69,6 +69,30 @@ $(document).ready(function () {
     $(".close-modal").on("click", function () {
         $("#global-modal").removeClass("show");
     });
+
+    // Modal for Check Signature Step 1
+    $(".open-check-signature-modal").on("click", function () {
+        $("#check-signature-step1-modal").addClass("show");
+        $("#check-signature-step2-success-modal").removeClass("show");
+        $("#check-signature-step2-fail-modal").removeClass("show");
+        $("#signature-code-input").val("");
+    });
+    $(".close-modal-step1").on("click", function () {
+        $("#check-signature-step1-modal").removeClass("show");
+    });
+    $(".close-modal-step2").on("click", function () {
+        $("#check-signature-step2-success-modal").removeClass("show");
+        $("#check-signature-step2-fail-modal").removeClass("show");
+    });
+    $("#check-signature-btn").on("click", function () {
+        const code = $("#signature-code-input").val();
+        $("#check-signature-step1-modal").removeClass("show");
+        if (code === "VALID123") {
+            $("#check-signature-step2-success-modal").addClass("show");
+        } else {
+            $("#check-signature-step2-fail-modal").addClass("show");
+        }
+    });
 });
 
 ////PENDAPAT SWIPE MENGGUNAKAN ALPHINE JS

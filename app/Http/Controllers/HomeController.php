@@ -52,7 +52,7 @@ class HomeController extends Controller
     public function index()
     {
         $datas = $this->getData();
-        return view('mulai', compact('datas'));
+        return view('pages.mulai', compact('datas'));
     }
 
     public function advokasi(Pengaduan $pengaduan)
@@ -66,18 +66,18 @@ class HomeController extends Controller
             }
         }
         // dd($collects);
-        return view('advokasi',  compact('pengaduan', 'collects'));
+        return view('pages.advokasi',  compact('pengaduan', 'collects'));
     }
 
     public function produk()
     {
         $datas = Inventaris::where('status', 'tersedia')->get();
-        return view('produk', compact('datas'));
+        return view('pages.produk', compact('datas'));
     }
 
     public function tentang()
     {
         $dataStruktur = Struktur::orderBy('prioritas', 'asc')->get();
-        return view('tentang', compact('dataStruktur'));
+        return view('pages.tentang', compact('dataStruktur'));
     }
 }
