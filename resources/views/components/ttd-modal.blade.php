@@ -1,3 +1,21 @@
+
+<button type="button" 
+        :class="scrolled ? 'border-secondary/50 ring-secondary/20 text-secondary/80' : 'border-white/50 ring-white/10'"
+        class="check-signature-btn px-3 md:px-5 py-2 md:py-2.5 text-sm font-medium rounded-lg relative
+                border-2 backdrop-blur-sm
+                ring-1 shadow-[0_0_15px_rgba(255,255,255,0.1)]
+                hover:border-secondary hover:ring-secondary/30 
+                hover:shadow-[0_0_15px_rgba(var(--secondary-rgb),0.15)]
+                hover:text-secondary hover:scale-105 
+                active:scale-95 hover:before:bg-secondary/5
+                transition-all duration-200 open-check-signature-modal">
+    <span class="relative inline-flex items-center gap-1">
+        <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+        </svg>
+        Check Signature
+    </span>
+</button>
 <div class="modal-container" id="check-signature-step1-modal">
     <div class="shadow-lg w-[400px] max-w-[90%] rounded px-[30px] py-[24px] text-center bg-white modal-content text-black">
         <div class="flex items-center gap-2 justify-center mb-2">
