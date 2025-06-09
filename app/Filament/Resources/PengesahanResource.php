@@ -21,9 +21,9 @@ class PengesahanResource extends Resource
     protected static ?string $model = Pengesahan::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-user';
-    protected static ?string $navigationGroup = 'Manajemen Data';
-    protected static ?string $navigationLabel = 'Pengesahan';
-    protected static ?int $navigationSort = 3;
+    protected static ?string $navigationGroup = 'Surat';
+    protected static ?string $navigationLabel = 'Data Tanda Tangan';
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
@@ -95,8 +95,8 @@ class PengesahanResource extends Resource
     // dd($query->get()); // Dump isi data
         return $table
             ->query(Pengesahan::withSumberableRelations() ?? '-')
-            ->heading('Data pengesahan')
-            ->description('Kelola pengesahan untuk pembuatan surat disini.')
+            ->heading('Tanda Tangan')
+            ->description('Kelola tanda tangan untuk pembuatan surat disini.')
             ->deferLoading()
             ->striped()
             ->headerActions([

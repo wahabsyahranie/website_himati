@@ -49,9 +49,8 @@ class PengajuanSuratController extends Controller
         $pengesahanInfo = []; //
 
         //MENGAMBIL DATA UNTUK TUJUAN SURAT (KEPADA YTH.)
-        $tujuan = $data->pengesahan_id;
-        $search_jabatan = \App\Models\Pengesahan::where('id', $tujuan)->first();
-        $tujuan_after = $search_jabatan->jabatan;
+        $tujuan = $data->tujuan_surat;  
+        $tujuan_after = $tujuan->tujuan;
 
         //MENGAMBIL DATA DARI MODEL PENGESAHAN
         $ttd = $data->tandatangan_digitals;
@@ -142,7 +141,7 @@ class PengajuanSuratController extends Controller
         $tipe = $data['data']->tipe_surat;
         $namaView = $this->getView($tipe);
 
-        $pdf = Pdf::loadView($namaView, $data);
+        $pdf = Pdf::loadView('pdf.' . $namaView, $data);
         return $pdf->stream($data['data']->slug . '.pdf');
     }
 
@@ -153,18 +152,18 @@ class PengajuanSuratController extends Controller
         $tipe = $data['data']->tipe_surat;
         $namaView = $this->getView($tipe);
 
-        $pdf = Pdf::loadView($namaView, $data);
+        $pdf = Pdf::loadView('pdf.' . $namaView, $data);
         return $pdf->download($data['data']->slug . '.pdf');
     }
 
-    public function test($slug)
-    {
-        $data = $this->getDataPengesahan($slug);
-        $tipe = $data['data']->tipe_surat;
-        $namaView = $this->getView($tipe);
+    // public function test($slug)
+    // {
+    //     $data = $this->getDataPengesahan($slug);
+    //     $tipe = $data['data']->tipe_surat;
+    //     $namaView = $this->getView($tipe);
 
-        $pdf = Pdf::loadView($namaView, $data);
-        return $pdf->stream($data['data']->slug . '.pdf');
-    }
+    //     $pdf = Pdf::loadView('pdf.' . $namaView, $data);
+    //     return $pdf->stream($data['data']->slug . '.pdf');
+    // }
 
 }

@@ -18,9 +18,9 @@ class TandatanganDigitalResource extends Resource
 {
     protected static ?string $model = TandatanganDigital::class;
 
-    protected static ?string $navigationGroup = 'Layanan';
+    protected static ?string $navigationGroup = 'Surat';
     protected static ?string $navigationLabel = 'Tandatangan Digital';
-    protected static ?int $navigationSort = 8;
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {
@@ -62,7 +62,7 @@ class TandatanganDigitalResource extends Resource
 
                 return $query;
             })
-            ->heading('Permintaan Tandatangan')
+            ->heading('Tanda tanga digital')
             ->description("Harap memeriksa isi surat terlebih dahulu sebelum menyetujui, dan tinggalkan catatan bila perlu perbaikan.")
             ->deferLoading()
             ->striped()

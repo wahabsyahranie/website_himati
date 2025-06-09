@@ -36,9 +36,9 @@ class PengajuanSuratResource extends Resource
 {
     protected static ?string $model = PengajuanSurat::class;
 
-    protected static ?string $navigationGroup = 'Layanan';
+    protected static ?string $navigationGroup = 'Surat';
     protected static ?string $navigationLabel = 'Pembuatan Surat';
-    protected static ?int $navigationSort = 8;
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -91,7 +91,7 @@ class PengajuanSuratResource extends Resource
                                 $fullName = $pengesahan?->sumberable?->user?->name ?? 'TANPA_NAMA';
                                 $firstName = explode(' ', trim($fullName))[0] ?? 'TANPA_NAMA';
                                 
-                                $nomorRegistrasi = 'REG-' . rand(10000, 99999) . '-' . date('Ymd');
+                                $nomorRegistrasi = 'TTD-' . rand(10000, 99999) . '-' . date('Ymd');
                                 $data['nomor_registrasi'] = $nomorRegistrasi;
 
                                 return $data;
@@ -108,11 +108,11 @@ class PengajuanSuratResource extends Resource
                             ->required()
                             ->maxLength(255)
                             ->hidden(fn (Get $get) => in_array($get('tipe_surat'), ['SM', 'Spn', 'SRe'])),
-                        Forms\Components\Select::make('pengesahan_id')
+                        Forms\Components\Select::make('tujuan_surat_id')
                             ->label('Tujuan Surat')
                             ->native(false)
                             ->required()
-                            ->relationship('pengesahan', 'jabatan'),
+                            ->relationship('tujuan_surat', 'tujuan'),
                         Forms\Components\Textarea::make('tujuan_kegiatan')
                             ->label('Tujuan Kegiatan')
                             ->autocomplete(false)
@@ -220,10 +220,10 @@ class PengajuanSuratResource extends Resource
                     ->disabled(fn () => !Auth::user()->hasAnyRole(['super_admin', 'admin']))
                     ->exporter(PengajuanSuratExporter::class)
                     ->label('Ekspor Data'),
-                ImportAction::make()
-                    ->disabled(fn () => !Auth::user()->hasAnyRole(['super_admin', 'admin']))
-                    ->importer(PengajuanSuratImporter::class)
-                    ->label('Impor Data'),
+                // ImportAction::make()
+                //     ->disabled(fn () => !Auth::user()->hasAnyRole(['super_admin', 'admin']))
+                //     ->importer(PengajuanSuratImporter::class)
+                //     ->label('Impor Data'),
             ])
             ->columns([
                 Tables\Columns\TextColumn::make('no')
@@ -257,7 +257,7 @@ class PengajuanSuratResource extends Resource
                     ->copyable()
                     ->copyMessage('Nomor surat disalin')
                     ->copyMessageDuration(1500),
-                Tables\Columns\TextColumn::make('pengesahan.jabatan')
+                Tables\Columns\TextColumn::make('tujuan_surat.tujuan')
                     ->label('Tujuan Surat')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')

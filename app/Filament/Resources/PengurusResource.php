@@ -99,10 +99,10 @@ class PengurusResource extends Resource
                     ->disabled(fn() => !Auth::user()->hasAnyRole(['super_admin', 'admin']))
                     ->exporter(PengurusExporter::class)
                     ->label('Ekspor Data'),
-                ImportAction::make()
-                    ->disabled(fn() => !Auth::user()->hasAnyRole(['super_admin', 'admin']))
-                    ->importer(PengurusImporter::class)
-                    ->label('Impor Data'),
+                // ImportAction::make()
+                //     ->disabled(fn() => !Auth::user()->hasAnyRole(['super_admin', 'admin']))
+                //     ->importer(PengurusImporter::class)
+                //     ->label('Impor Data'),
             ])
             ->columns([
                 Tables\Columns\TextColumn::make('no')

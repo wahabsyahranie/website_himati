@@ -46,7 +46,7 @@
       <tr class="pembuka-surat">
           <td style="width: 15%;">Hari/Tanggal</td>
           <td style="width: 2%;">:</td>
-          @if ($data['tanggal_pelaksana'] === $data['tanggal_selesai'])
+          @if ($detail_surat['tanggal_pelaksana'] === $detail_surat['tanggal_selesai'])
             <td style="width: 83%;">{{ \Carbon\Carbon::parse($detail_surat['tanggal_pelaksana'])->translatedFormat('l') }}, {{ \Carbon\Carbon::parse($detail_surat['tanggal_pelaksana'])->translatedFormat('d F Y') }}</td>
           @else
             <td style="width: 83%;">{{ \Carbon\Carbon::parse($detail_surat['tanggal_pelaksana'])->translatedFormat('l') }} S.D. {{ \Carbon\Carbon::parse($detail_surat['tanggal_selesai'])->translatedFormat('l') }}, {{ \Carbon\Carbon::parse($detail_surat['tanggal_pelaksana'])->translatedFormat('d') }} - {{ \Carbon\Carbon::parse($detail_surat['tanggal_selesai'])->translatedFormat('d F Y') }}</td>

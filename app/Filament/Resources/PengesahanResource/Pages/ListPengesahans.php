@@ -9,7 +9,7 @@ use Filament\Resources\Pages\ListRecords;
 class ListPengesahans extends ListRecords
 {
     protected static string $resource = PengesahanResource::class;
-    protected static ?string $title = 'Data Pengesahan';
+    protected static ?string $title = 'Data Tanda Tangan';
 
     protected function getHeaderActions(): array
     {
