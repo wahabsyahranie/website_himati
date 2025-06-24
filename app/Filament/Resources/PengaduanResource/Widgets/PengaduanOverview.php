@@ -15,6 +15,20 @@ class PengaduanOverview extends BaseWidget
     protected ?string $description = 'Gambaran umum statistik layanan pengaduan.';
     protected static bool $isLazy = false;
 
+    protected function getColumns(): int
+    {
+        $count = count($this->getCachedStats());
+
+        if ($count < 3) {
+            return $count;
+        }
+        if (($count % 3) !== 1) {
+            return 3;
+        }
+
+        return 4;
+    }
+
     //CARD WIDGET
     protected function getStats(): array
     {
@@ -44,11 +58,6 @@ class PengaduanOverview extends BaseWidget
                 ->color('success')
                 ->description('Pengaduan dipublikasikan')
                 ->descriptionIcon('heroicon-m-check-circle', IconPosition::Before),
- 
-            Stat::make('', $pengaduanCount->ditolak)
-                ->color('danger')
-                ->description('Pengaduan ditolak')
-                ->descriptionIcon('heroicon-m-x-circle', IconPosition::Before),
         ];
     }
 }
