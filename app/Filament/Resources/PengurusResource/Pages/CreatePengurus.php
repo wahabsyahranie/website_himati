@@ -19,7 +19,7 @@ class CreatePengurus extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $exists = Pengurus::where('mahasiswa_id', $data['mahasiswa_id'])
+        $exists = Pengurus::where('user_id', $data['user_id'])
             ->exists();
 
         if ($exists) {
@@ -31,6 +31,8 @@ class CreatePengurus extends CreateRecord
                 'user_id' => ['Data pengurus ini sudah terdaftar.'],
             ]);
         }
+
+        // dd($data);
         return $data;
     }
 }

@@ -32,18 +32,6 @@ class MahasiswaSeeder extends Seeder
                 'prodi' => 'ti',
                 'user_id' => '01jv7pqks6n8zz8psysam0ewkb',
             ],
-            [
-                'nim' => '236152006',
-                'tahun_masuk' => '2023',
-                'prodi' => 'ti',
-                'user_id' => '01jv7pqks6n8zz8psysam0ewkc',
-            ],
-            [
-                'nim' => '236152007',
-                'tahun_masuk' => '2023',
-                'prodi' => 'ti',
-                'user_id' => '01jv7pqks6n8zz8psysam0ewkd',
-            ],
         ]);
     }
 }
