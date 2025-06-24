@@ -37,7 +37,7 @@ class PengajuanSuratSeeder extends Seeder
                 ]),
             ],
             [
-                'nomor_surat' => '2/SPm/Kpm/HIMA-TI/V/2025',
+                'nomor_surat' => '2/SPm/HIMA-TI/kpm/V/2025',
                 'slug' => '2-SPm-Kpm-HIMA-TI-V-2025',
                 'tipe_surat' => 'SPm',
                 'struktur_id' => 3,
@@ -77,7 +77,7 @@ class PengajuanSuratSeeder extends Seeder
                 ])
             ],
             [
-                'nomor_surat' => '3/Und/Agm/HIMA-TI/V/2025',
+                'nomor_surat' => '3/Und/HIMA-TI/Agm/V/2025',
                 'slug' => '3-Und-Agm-HIMA-TI-V-2025',
                 'tipe_surat' => 'Und',
                 'struktur_id' => 2,
