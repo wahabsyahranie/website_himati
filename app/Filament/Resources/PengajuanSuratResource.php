@@ -217,7 +217,7 @@ class PengajuanSuratResource extends Resource
                 Tables\Actions\CreateAction::make()
                     ->label('Buat Surat'),
                 ExportAction::make()
-                    ->disabled(fn () => !Auth::user()->hasAnyRole(['super_admin', 'admin']))
+                    ->visible(fn () => Auth::user()->hasAnyRole(['super_admin', 'admin']))
                     ->exporter(PengajuanSuratExporter::class)
                     ->label('Ekspor Data'),
                 // ImportAction::make()

@@ -97,7 +97,7 @@ class PengurusResource extends Resource
                 Tables\Actions\CreateAction::make()
                     ->label('Tambah Pengurus'),
                 ExportAction::make()
-                    ->disabled(fn() => !Auth::user()->hasAnyRole(['super_admin', 'admin']))
+                    ->visible(fn() => Auth::user()->hasAnyRole(['super_admin', 'admin']))
                     ->exporter(PengurusExporter::class)
                     ->label('Ekspor Data'),
                 // ImportAction::make()
