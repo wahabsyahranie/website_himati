@@ -2,17 +2,16 @@
     <x-navbar></x-navbar>
 
     <!-- Hero Section -->
-    <div id="tentang-kami" class="w-full py-16 md:py-0 h-auto md:min-h-screen font-display flex flex-col items-center justify-center text-center text-sm md:text-text-primary space-y-8 lg:px-32.5" style="background-image: url('{{ asset('img/aset/bgnav.png') }}'); background-size: cover; background-repeat: no-repeat; background-position: center;">
+    <div id="tentang-kami" class="w-full py-16 md:py-0 h-auto md:min-h-screen font-display flex flex-col items-center justify-center text-center text-sm md:text-text-primary space-y-8 lg:px-32.5 bg-gradient-to-br from-[#030c1a] to-[#0a4d78]">
     <div class="flex flex-col justify-center items-center w-full px-4 md:px-18 space-y-6">
       <p class="bg-white/20 border border-white/30 px-4 py-1 rounded-4xl shadow-md text-text-primary">Tentang Kami</p>
       <p class="font-[700] text-md md:text-[40px] leading-snug w-[90%] md:w-full text-text-primary">
-        Mengenal Lebih Dekat HIMATI - Himpunan Mahasiswa Teknologi Informasi, Wadah Kreativitas dan Inovasi
+        Mengenal Lebih Dekat HIMATI. 
+        <span class="text-secondary">Himpunan Mahasiswa Teknologi Informasi</span>, Wadah Kreativitas dan Inovasi
       </p>
-  
       <p class="w-[70%] md:w-[80%] text-text-primary">
         Dedikasi untuk Pengembangan Potensi dan Pemberdayaan Mahasiswa Teknologi Informasi Menuju Era Digital
       </p>
-  
       <a href="#about" class="inline-flex items-center px-6 py-3 text-sm font-semibold bg-secondary rounded-full shadow-xl text-text-primary transform transition duration-300 ease-in-out hover:bg-text-primary hover:text-primary hover:scale-105 hover:-translate-y-1 hover:shadow-2xl group">
         Pelajari Selengkapnya
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -53,22 +52,6 @@
                                 Didirikan dengan semangat kebersamaan, HIMATI terus berkembang menjadi organisasi yang 
                                 <span class="font-semibold text-gray-800">profesional</span> dan <span class="font-semibold text-gray-800">modern</span>, siap menghadapi tantangan di era digital.
                             </p>
-                        </div>
-                        
-                        <!-- Enhanced stats section with modern cards -->
-                        <div class="grid grid-cols-3 gap-6 md:gap-8 pt-8 border-t border-gray-100">
-                            <div class="group bg-white p-6 rounded-2xl hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
-                                <div class="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">500+</div>
-                                <div class="text-sm text-gray-500 mt-2 font-medium">Anggota Aktif</div>
-                            </div>
-                            <div class="group bg-white p-6 rounded-2xl hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
-                                <div class="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">50+</div>
-                                <div class="text-sm text-gray-500 mt-2 font-medium">Program Kerja</div>
-                            </div>
-                            <div class="group bg-white p-6 rounded-2xl hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
-                                <div class="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">15+</div>
-                                <div class="text-sm text-gray-500 mt-2 font-medium">Tahun Berdiri</div>
-                            </div>
                         </div>
                     </div>
                     
@@ -129,70 +112,46 @@
 
         <div class="container mx-auto px-4 relative">
             <div class="max-w-7xl mx-auto w-full">
-                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
-                    <!-- Enhanced image column with overlapping photos - NOW ON LEFT -->
-                    <div class="relative w-full h-[500px] max-w-lg order-last md:order-first mx-auto">
-                        <!-- Background decorative elements -->
-                        <div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 rounded-[2.5rem]"></div>
+                <!-- Main Content Grid -->
+                <div class="grid md:grid-cols-2 gap-16 lg:gap-24 items-center">
+                    <!-- Enhanced Single Image Column -->
+                    <div class="relative group mx-auto w-full max-w-2xl order-last md:order-first">
+                        <!-- Background Effects -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 rounded-[2.5rem] -z-10"></div>
                         <div class="absolute -right-4 top-1/4 w-32 h-32 bg-gradient-to-br from-primary/20 to-transparent rounded-full blur-2xl animate-pulse"></div>
                         <div class="absolute -left-4 bottom-1/4 w-32 h-32 bg-gradient-to-tr from-secondary/20 to-transparent rounded-full blur-2xl animate-pulse delay-700"></div>
 
-                        <!-- Main large image -->
-                        <div class="absolute left-0 top-0 w-[85%] h-[400px] group/main">
-                            <div class="relative w-full h-full rounded-2xl overflow-hidden 
-                                      shadow-[0_8px_40px_-12px_rgba(0,0,0,0.15)] 
-                                      transition-all duration-500 ease-out
-                                      group-hover/main:shadow-[0_20px_80px_-12px_rgba(0,0,0,0.25)]
-                                      group-hover/main:translate-x-2 group-hover/main:-translate-y-2">
-                            <!-- Gradient border -->
-                            <div class="absolute inset-0 p-0.5 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20">
-                                <div class="absolute inset-0 bg-white rounded-2xl"></div>
+                        <!-- Main Image Container -->
+                        <div class="relative rounded-[2rem] overflow-hidden bg-white p-2">
+                            <!-- Gradient Border -->
+                            <div class="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-secondary/20 rounded-[2rem]"></div>
+                            
+                            <!-- Image Wrapper -->
+                            <div class="relative overflow-hidden rounded-[1.7rem] bg-gradient-to-br from-gray-50 to-white aspect-[4/3]">
+                                <img src="{{ asset('img/aset/HIMATI1.jpg') }}" 
+                                     alt="HIMATI Team" 
+                                     class="w-full h-full object-cover transform transition-all duration-700 
+                                            group-hover:scale-105">
+                                
+                                <!-- Hover Effects -->
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent 
+                                          opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                                
+                                <!-- Shine Effect -->
+                                <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/30 to-white/0 opacity-0 
+                                          group-hover:opacity-100 transition-all duration-700 -rotate-45 translate-x-[-100%]
+                                          group-hover:translate-x-[200%]"></div>
                             </div>
                             
-                            <!-- Image container -->
-                            <div class="relative h-full w-full overflow-hidden rounded-2xl bg-gradient-to-br from-gray-50 to-white">
-                                <img src="{{ asset('img/pengurus/humed.jpg') }}" 
-                                     alt="HIMATI Primary" 
-                                     class="w-full h-full object-cover transform transition-transform duration-700 
-                                            group-hover/main:scale-110">
-                                
-                                <!-- Hover overlay -->
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent 
-                                          opacity-0 group-hover/main:opacity-100 transition-all duration-500"></div>
-                            </div>
+                            <!-- Decorative Corners -->
+                            <div class="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-primary/30 rounded-tr-xl"></div>
+                            <div class="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-secondary/30 rounded-bl-xl"></div>
                         </div>
+                        
+                        <!-- Enhanced Shadow -->
+                        <div class="absolute -inset-1 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-[2.5rem] blur-2xl 
+                                  opacity-0 group-hover:opacity-100 transition-all duration-700 -z-20"></div>
                     </div>
-
-                    <!-- Secondary smaller image -->
-                    <div class="absolute right-0 -bottom-20 w-[65%] h-[350px] group/secondary z-10">
-                        <div class="relative w-full h-full rounded-2xl overflow-hidden 
-                                  shadow-[0_8px_40px_-12px_rgba(0,0,0,0.15)]
-                                  transition-all duration-500 ease-out
-                                  group-hover/secondary:shadow-[0_20px_80px_-12px_rgba(0,0,0,0.25)]
-                                  group-hover/secondary:-translate-x-2 group-hover/secondary:translate-y-2">
-                            <!-- Gradient border -->
-                            <div class="absolute inset-0 p-0.5 rounded-2xl bg-gradient-to-br from-secondary/20 to-primary/20">
-                                <div class="absolute inset-0 bg-white rounded-2xl"></div>
-                            </div>
-                            
-                            <!-- Image container -->
-                            <div class="relative h-full w-full overflow-hidden rounded-2xl bg-gradient-to-br from-gray-50 to-white">
-                                <img src="{{ asset('img/pengurus/kpsdm.jpg') }}" 
-                                     alt="HIMATI Secondary" 
-                                     class="w-full h-full object-cover transform transition-transform duration-700 
-                                            group-hover/secondary:scale-110">
-                                
-                                <!-- Hover overlay -->
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent 
-                                          opacity-0 group-hover/secondary:opacity-100 transition-all duration-500"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Decorative elements -->
-                    <div class="absolute top-8 left-8 w-12 h-12 border-t-2 border-l-2 border-primary/30 rounded-tl-xl"></div>
-                    <div class="absolute bottom-8 right-8 w-12 h-12 border-b-2 border-r-2 border-secondary/30 rounded-br-xl"></div>
-                </div>
                 
                 <!-- Vision Mission Content - NOW ON RIGHT -->
                 <div class="space-y-8">
@@ -203,127 +162,76 @@
                         </span>
                     </h2>
 
-                    <!-- Vision Card - Modern White Design -->
-                    <article class="group relative bg-white text-gray-800 rounded-3xl p-8 text-left shadow-xl animate-fadeInUp backdrop-blur-sm backdrop-opacity-10 transition-all duration-300 ease-in-out hover:scale-[1.02] hover:shadow-2xl hover:-translate-y-1 border border-primary/10" data-aos="fade-up" data-aos-delay="150">
-                        <div class="absolute -top-6 right-6 bg-primary rounded-2xl p-3 shadow-lg transition-transform duration-300 ease-in-out group-hover:scale-110 group-hover:rotate-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white transition-transform duration-300 ease-in-out group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
+                    <!-- Vision Card -->
+                    <article class="group relative bg-white text-gray-800 rounded-2xl p-10 text-left shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1" data-aos="fade-up" data-aos-delay="150">
+                        <!-- Card Content -->
+                        <div class="relative">
+                            <!-- Title -->
+                            <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 group-hover:text-primary transition-colors duration-300">Visi Kami</h3>
+
+                            <!-- Vision Content -->
+                            <div class="relative">
+                                <p class="md:text-lg leading-relaxed text-gray-600">
+                                    Menjadikan Himpunan Mahasiswa Teknologi Informasi Sebagai
+                                    <span class="relative inline-block group-hover:-translate-y-0.5 transition-transform duration-300">
+                                        <span class="font-medium text-primary relative">
+                                            Wadah Pengembangan
+                                            <span class="absolute inset-x-0 bottom-0 h-[3px] bg-primary/10 group-hover:h-full group-hover:bg-primary/5 transition-all duration-300 ease-out -z-10 rounded-sm"></span>
+                                        </span>
+                                    </span> 
+                                    dan 
+                                    <span class="relative inline-block group-hover:-translate-y-0.5 transition-transform duration-300">
+                                        <span class="font-medium text-primary relative">
+                                            Menciptakan Kolaborasi
+                                            <span class="absolute inset-x-0 bottom-0 h-[3px] bg-primary/10 group-hover:h-full group-hover:bg-primary/5 transition-all duration-300 ease-out -z-10 rounded-sm"></span>
+                                        </span>
+                                    </span> 
+                                    di antara Masyarakat Jurusan Teknologi Informasi.
+                                </p>
+                            </div>
                         </div>
-                        <div class="flex gap-3 mb-6">
-                            <span class="inline-flex items-center bg-primary text-white font-medium rounded-full px-4 py-1.5 text-sm tracking-wide shadow-sm transition-all duration-300 ease-in-out group-hover:shadow-md group-hover:scale-105 font-inter">Visi</span>
-                            <span class="inline-flex items-center bg-gray-100 text-gray-700 font-medium rounded-full px-4 py-1.5 text-sm tracking-wide shadow-sm transition-all duration-300 ease-in-out group-hover:shadow-md group-hover:scale-105 font-inter">HIMATI</span>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 transition-transform duration-300 ease-in-out group-hover:translate-x-1 font-inter text-primary">Visi Kami</h3>
-                        <p class="mb-8 text-base leading-relaxed text-gray-600 transition-all duration-300 ease-in-out group-hover:text-gray-800 font-inter">
-                            Menjadikan Himpunan Mahasiswa Teknologi Informasi Sebagai
-                            <span class="font-semibold text-primary">Wadah Pengembangan</span> dan 
-                            <span class="font-semibold text-primary">Menciptakan Kolaborasi</span> di 
-                            antara Masyarakat Jurusan Teknologi Informasi.
-                        </p>
-                        <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out rounded-3xl pointer-events-none"></div>
+
+                        <!-- Clean Border Effect -->
+                        <div class="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
                     </article>
 
-                    <!-- Mission Card - Modern White Design -->
-                    <article class="group relative bg-white text-gray-800 rounded-3xl p-8 text-left shadow-xl animate-fadeInUp backdrop-blur-sm backdrop-opacity-10 transition-all duration-300 ease-in-out hover:scale-[1.02] hover:shadow-2xl hover:-translate-y-1 border border-secondary/10" data-aos="fade-up" data-aos-delay="300">
-                        <div class="absolute -top-6 right-6 bg-secondary rounded-2xl p-3 shadow-lg transition-transform duration-300 ease-in-out group-hover:scale-110 group-hover:rotate-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white transition-transform duration-300 ease-in-out group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12.364 12.364A3.011 3.011 0 0 0 13.5 12c0-.828-.168-1.617-.468-2.336a3.011 3.011 0 0 0-1.608-1.608A4.957 4.957 0 0 0 9 7.5c-.828 0-1.617.168-2.336.468A3.011 3.011 0 0 0 5.056 9.576 4.957 4.957 0 0 0 4.5 12c0 .828.168 1.617.468 2.336a3.011 3.011 0 0 0 1.608 1.608c.72.3 1.508.468 2.336.468.828 0 1.617-.168 2.336-.468a3.011 3.011 0 0 0 1.608-1.608c.3-.72.468-1.508.468-2.336a4.957 4.957 0 0 0-.468-2.336Z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m16.5 7.5-9 9m2.25-2.25 2.25-2.25M15 12l-2.25-2.25" />
-                            </svg>
+                    <!-- Mission Card -->
+                    <article class="group relative bg-white text-gray-800 rounded-2xl p-6 md:p-8 text-left shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1" data-aos="fade-up" data-aos-delay="300">
+                        <!-- Card Content -->
+                        <div class="relative">
+                            <!-- Title -->
+                            <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-5 group-hover:text-secondary transition-colors duration-300">Misi Kami</h3>
+
+                            <!-- Mission List -->
+                            <ul class="space-y-4">
+                                <li class="group/item flex items-start gap-3">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-secondary/30 mt-2.5 group-hover/item:bg-secondary transition-colors duration-300"></span>
+                                    <span class="md:text-lg text-gray-600 group-hover/item:text-gray-900 transition-colors duration-300">
+                                        Mengembangkan SDM Mahasiswa Jurusan Teknologi Informasi yang selaras dengan jurusannya
+                                    </span>
+                                </li>
+                                <li class="group/item flex items-start gap-3">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-secondary/30 mt-2.5 group-hover/item:bg-secondary transition-colors duration-300"></span>
+                                    <span class="md:text-lg text-gray-600 group-hover/item:text-gray-900 transition-colors duration-300">
+                                        Mempersiapkan Mahasiswa Jurusan Teknologi Informasi untuk turut andil dalam memajukan jurusannya
+                                    </span>
+                                </li>
+                                <li class="group/item flex items-start gap-3">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-secondary/30 mt-2.5 group-hover/item:bg-secondary transition-colors duration-300"></span>
+                                    <span class="md:text-lg text-gray-600 group-hover/item:text-gray-900 transition-colors duration-300">
+                                        Menjadikan HIMA TI sebagai wadah kebersamaan bagi Mahasiswa Jurusan Teknologi Informasi
+                                    </span>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="flex gap-3 mb-6">
-                            <span class="inline-flex items-center bg-secondary text-white font-medium rounded-full px-4 py-1.5 text-sm tracking-wide shadow-sm transition-all duration-300 ease-in-out group-hover:shadow-md group-hover:scale-105 font-inter">Misi</span>
-                            <span class="inline-flex items-center bg-gray-100 text-gray-700 font-medium rounded-full px-4 py-1.5 text-sm tracking-wide shadow-sm transition-all duration-300 ease-in-out group-hover:shadow-md group-hover:scale-105 font-inter">HIMATI</span>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 transition-transform duration-300 ease-in-out group-hover:translate-x-1 font-inter text-secondary">Misi Kami</h3>
-                        <ul class="space-y-4 text-base leading-relaxed text-gray-600 transition-all duration-300 ease-in-out group-hover:text-gray-800 font-inter">
-                            <li class="flex items-center gap-3">
-                                <div class="w-2 h-2 rounded-full bg-secondary/30"></div>
-                                <span class="text-gray-600">Mengembangkan SDM Mahasiswa Jurusan Teknologi Informasi yang selaras dengan jurusannya</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <div class="w-2 h-2 rounded-full bg-secondary/30"></div>
-                                <span class="text-gray-600">Mempersiapkan Mahasiswa Jurusan Teknologi Informasi untuk turut andil dalam memajukan jurusannya</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <div class="w-2 h-2 rounded-full bg-secondary/30"></div>
-                                <span class="text-gray-600">Menjadikan HIMA TI sebagai wadah kebersamaan bagi Mahasiswa Jurusan Teknologi Informasi</span>
-                            </li>
-                        </ul>
-                        <div class="absolute inset-0 bg-gradient-to-br from-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out rounded-3xl pointer-events-none"></div>
+
+                        <!-- Clean Border Effect -->
+                        <div class="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-secondary/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
                     </article>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Program Kerja Section -->
-    <div class="bg-white w-full flex flex-col items-center justify-center p-5 md:px-20 md:py-24">
-        <div class="text-center font-['Inter']">
-            <span class="inline-block bg-secondary/10 text-secondary font-semibold px-4 py-1 rounded-full text-sm mb-6">PROGRAM KERJA</span>
-            <p class="font-bold text-2xl md:text-4xl mb-3 text-gray-800">Program Unggulan Kami</p>
-            <p class="max-w-2xl mx-auto text-sm md:text-lg text-gray-600">Berbagai kegiatan yang kami selenggarakan untuk mengembangkan potensi mahasiswa dan memberikan dampak positif</p>
-        </div>
-
-        {{-- CARD --}}
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-7xl mx-auto pt-12 pb-8 w-full relative z-10">
-          {{-- Study Club Card --}}
-          <article class="group relative bg-gradient-to-br from-amber-400 via-yellow-400 to-yellow-500 text-white rounded-3xl p-8 text-left shadow-xl animate-fadeInUp backdrop-blur-sm backdrop-opacity-10 transition-all duration-300 ease-in-out hover:scale-[1.02] hover:shadow-2xl hover:-translate-y-1" data-aos="fade-up" data-aos-delay="150">
-            <div class="absolute -top-6 right-6 bg-white/95 rounded-2xl p-3 shadow-lg transition-transform duration-300 ease-in-out group-hover:scale-110 group-hover:rotate-3">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-yellow-500 transition-transform duration-300 ease-in-out group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-              </svg>
-            </div>
-            <div class="flex gap-3 mb-6">
-              <span class="inline-flex items-center bg-purple-50 text-yellow-900 font-medium rounded-full px-4 py-1.5 text-sm tracking-wide shadow-sm transition-all duration-300 ease-in-out group-hover:shadow-md group-hover:scale-105 font-inter">Study Club</span>
-              <span class="inline-flex items-center bg-white/20 text-white font-medium rounded-full px-4 py-1.5 text-sm tracking-wide shadow-sm backdrop-blur-sm transition-all duration-300 ease-in-out group-hover:bg-white/30 group-hover:shadow-md group-hover:scale-105 font-inter">Program</span>
-            </div>
-            <h3 class="text-2xl font-bold mb-4 transition-transform duration-300 ease-in-out group-hover:translate-x-1 font-inter">Study Club</h3>
-            <p class="mb-8 text-base leading-relaxed opacity-90 transition-all duration-300 ease-in-out group-hover:opacity-100 font-inter">
-              Program pembelajaran intensif dengan topik-topik teknologi terkini yang dipandu oleh praktisi berpengalaman.
-            </p>
-            <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out rounded-3xl pointer-events-none"></div>
-          </article>
-
-          {{-- Workshop & Seminar Card --}}
-          <article class="group relative bg-gradient-to-br from-blue-600 via-blue-500 to-blue-400 text-white rounded-3xl p-8 text-left shadow-xl animate-fadeInUp backdrop-blur-sm backdrop-opacity-10 transition-all duration-300 ease-in-out hover:scale-[1.02] hover:shadow-2xl hover:-translate-y-1" data-aos="fade-up" data-aos-delay="300">
-            <div class="absolute -top-6 right-6 bg-white/95 rounded-2xl p-3 shadow-lg transition-transform duration-300 ease-in-out group-hover:scale-110 group-hover:rotate-3">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-600 transition-transform duration-300 ease-in-out group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <div class="flex gap-3 mb-6">
-              <span class="inline-flex items-center bg-blue-50 text-blue-900 font-medium rounded-full px-4 py-1.5 text-sm tracking-wide shadow-sm transition-all duration-300 ease-in-out group-hover:shadow-md group-hover:scale-105 font-inter">Workshop</span>
-              <span class="inline-flex items-center bg-white/20 text-white font-medium rounded-full px-4 py-1.5 text-sm tracking-wide shadow-sm backdrop-blur-sm transition-all duration-300 ease-in-out group-hover:bg-white/30 group-hover:shadow-md group-hover:scale-105 font-inter">Program</span>
-            </div>
-            <h3 class="text-2xl font-bold mb-4 transition-transform duration-300 ease-in-out group-hover:translate-x-1 font-inter">Workshop & Seminar</h3>
-            <p class="mb-8 text-base leading-relaxed opacity-90 transition-all duration-300 ease-in-out group-hover:opacity-100 font-inter">
-              Event edukatif dengan menghadirkan pembicara dari industri IT untuk berbagi pengetahuan dan pengalaman.
-            </p>
-            <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out rounded-3xl pointer-events-none"></div>
-          </article>
-
-          {{-- IT Competition Card --}}
-          <article class="group relative bg-gradient-to-br from-emerald-600 via-emerald-500 to-emerald-400 text-white rounded-3xl p-8 text-left shadow-xl animate-fadeInUp backdrop-blur-sm backdrop-opacity-10 transition-all duration-300 ease-in-out hover:scale-[1.02] hover:shadow-2xl hover:-translate-y-1" data-aos="fade-up" data-aos-delay="450">
-            <div class="absolute -top-6 right-6 bg-white/95 rounded-2xl p-3 shadow-lg transition-transform duration-300 ease-in-out group-hover:scale-110 group-hover:rotate-3">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-emerald-600 transition-transform duration-300 ease-in-out group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-            </div>
-            <div class="flex gap-3 mb-6">
-              <span class="inline-flex items-center bg-emerald-50 text-emerald-900 font-medium rounded-full px-4 py-1.5 text-sm tracking-wide shadow-sm transition-all duration-300 ease-in-out group-hover:shadow-md group-hover:scale-105 font-inter">Competition</span>
-              <span class="inline-flex items-center bg-white/20 text-white font-medium rounded-full px-4 py-1.5 text-sm tracking-wide shadow-sm backdrop-blur-sm transition-all duration-300 ease-in-out group-hover:bg-white/30 group-hover:shadow-md group-hover:scale-105 font-inter">Program</span>
-            </div>
-            <h3 class="text-2xl font-bold mb-4 transition-transform duration-300 ease-in-out group-hover:translate-x-1 font-inter">IT Competition</h3>
-            <p class="mb-8 text-base leading-relaxed opacity-90 transition-all duration-300 ease-in-out group-hover:opacity-100 font-inter">
-              Kompetisi teknologi yang menantang kreativitas dan inovasi mahasiswa dalam menciptakan solusi digital.
-            </p>
-            <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out rounded-3xl pointer-events-none"></div>
-          </article>
-        </div>
-    </div>
 
     <!-- Gallery Section -->
     <section class="py-24 bg-gray-50" 

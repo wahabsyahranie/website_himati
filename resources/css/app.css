@@ -1,12 +1,6 @@
 @import "tailwindcss";
 @import "./slider.css";
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
-@source "../views";
-
 @theme {
     --font-display: "Inter", sans-serif;
     --color-base: #f0f7fa;
@@ -357,81 +351,33 @@
 }
 
 /* NAVBAR */
-@media (min-width: 768px) {
+@media (min-width: 640px) {
     #navbar {
         background-color: transparent;
         color: white;
-        transition: all 0.3s ease-in-out;
     }
     #navbar.scrolled {
-        background-color: white;
-        color: var(--color-secondary);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        border-radius: 20px;
-        width: calc(100% - 20px);
-        margin: 10px;
-    }
-    #navbar.scrolled a {
-        color: var(--color-text-light);
-    }
-    #navbar.scrolled a:hover {
-        color: var(--color-secondary);
-    }
-    #navbar.scrolled .bullet {
-        color: var(--color-text-light);
-        opacity: 0.3;
-    }
-    #navbar.scrolled .mobile-menu-button {
-        color: var(--color-text-light);
-    }
-    #navbar.scrolled .mobile-menu-button:hover {
-        background-color: var(--color-secondary/10);
-        color: var(--color-secondary);
+        background-image: linear-gradient(to right, rgba(3,12,26,0.95), rgba(10,77,120,0.95));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: white;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 639px) {
     #navbar {
         background-color: transparent;
         color: white;
-        transition: all 0.3s ease-in-out;
     }
     #navbar.scrolled {
-        background-color: white;
-        color: var(--color-secondary);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    }
-    #navbar.scrolled a {
-        color: var(--color-text-light);
-    }
-    #navbar.scrolled a:hover {
-        color: var(--color-secondary);
-    }
-    #navbar.scrolled .bullet {
-        color: var(--color-text-light);
-        opacity: 0.3;
-    }
-    #navbar.scrolled .mobile-menu-button {
-        color: var(--color-text-light);
-    }
-    #navbar.scrolled .mobile-menu-button:hover {
-        background-color: var(--color-secondary/10);
-        color: var(--color-secondary);
-    }
-    #navbar .admin-btn,
-    #navbar .check-signature-btn {
-        width: 100%;
-        margin-top: 0.5rem;
-        justify-content: center;
-    }
-    #navbar .buttons-container {
-        display: flex;
-        flex-direction: column;
-        padding: 1rem;
-        gap: 0.5rem;
-        background-color: var(--color-secondary/5);
-        border-radius: 0.5rem;
-        margin-top: 1rem;
+        background-image: linear-gradient(to right, rgba(3,12,26,0.95), rgba(10,77,120,0.95));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: white;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 }
 
@@ -475,6 +421,4 @@
     opacity: 1;
 }
 
-/* #nextBtn:hover {
-    transform: scale(1.1);
-} */
+

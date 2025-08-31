@@ -1,12 +1,24 @@
-<div id="tentang-kami" class="w-full md:h-screen p-5 md:px-20 md:py-10 ">
+<div id="tentang-kami" class="w-full md:h-screen">
   {{-- HERO --}}
-  <div class="flex items-center justify-center  rounded  md:h-[50%] text-text-primary text-center p-5 md:py-10 " style="background-image: url('{{ asset('img/aset/bgnav.png') }}'); background-size: cover; background-repeat: no-repeat; background-position: center;">
-    <div class="max-w-2xl mx-auto text-center"> <!-- Container pembatas lebar -->
-      <p class="capitalize font-bold text-sm md:text-[40px] mb-3 leading-tight">Sangat mudah untuk bergabung bersama kami</p>
-      <p class="capitalize text-xs md:text-lg mb-5 line-clamp-3">Mulailah dengan mendaftarkan diri anda, dan nikmati perjalanan menuju digitalisasi bersama kami.</p>
-      <a href="/admin" class="text-sm md:text-lg inline-block btn bg-secondary rounded px-2 py-1 md:px-4 md:py-2 shadow-xl text-text-primary hover:bg-text-primary hover:text-primary transition-colors duration-200">daftar sekarang</a>
+  <div class="relative w-full bg-gradient-to-br from-[#030c1a] to-[#0a4d78] overflow-hidden">
+    <div class="absolute inset-0 bg-[url('{{ asset('img/aset/bgnav.png') }}')] bg-cover bg-center opacity-10"></div>
+    <div class="relative z-10 max-w-3xl mx-auto px-4 py-12 md:py-16 text-center">
+      <div class="space-y-6">
+        <h2 class="font-bold text-2xl md:text-[42px] text-text-primary leading-tight">
+          Sangat Mudah Untuk Bergabung dan Berkolaborasi Bersama
+        </h2>
+        <p class="text-text-primary/90 max-w-2xl mx-auto text-sm md:text-lg">
+          Mulailah dengan mendaftarkan diri anda, dan nikmati perjalanan menuju digitalisasi bersama kami.
+        </p>
+        <div class="pt-4">
+          <a href="/admin" class="inline-flex items-center px-6 py-3 text-sm font-semibold bg-secondary rounded-full shadow-xl text-text-primary transform transition duration-300 ease-in-out hover:bg-text-primary hover:text-primary hover:scale-105 hover:-translate-y-1 hover:shadow-2xl group">
+            Daftar Sekarang
+          </a>
+        </div>
+      </div>
     </div>
   </div>
+  
 
   {{-- DETAIL --}}
   <div class="py-4 px-4 md:py-8 md:px-13 h-[50%]">
