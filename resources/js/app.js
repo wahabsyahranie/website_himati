@@ -84,14 +84,41 @@ $(document).ready(function () {
         $("#check-signature-step2-success-modal").removeClass("show");
         $("#check-signature-step2-fail-modal").removeClass("show");
     });
+
     $("#check-signature-btn").on("click", function () {
-        const code = $("#signature-code-input").val();
+        // ambil dan normalisasi input
+        let raw = $("#signature-code-input").val() || "";
+        raw = raw.replace(/[–—―]/g, "-").trim(); // ganti en/em dash ke hyphen
+        const code = raw;
+
         $("#check-signature-step1-modal").removeClass("show");
-        if (code === "VALID123") {
-            $("#check-signature-step2-success-modal").addClass("show");
-        } else {
+
+        if (!code) {
             $("#check-signature-step2-fail-modal").addClass("show");
+            return;
         }
+
+        // CSRF untuk laravel (pastikan meta tag ada di blade)
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+
+        $.post("/check-signature", { code: code })
+            .done(function (res) {
+                if (res && res.status === "ok" && res.url) {
+                    // jika mau tampilkan success modal dulu: isi modal dengan res.data, lalu tampilkan
+                    // untuk langsung redirect:
+                    window.location.href = res.url;
+                } else {
+                    $("#check-signature-step2-fail-modal").addClass("show");
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("AJAX error:", textStatus, jqXHR.responseText);
+                $("#check-signature-step2-fail-modal").addClass("show");
+            });
     });
 });
 

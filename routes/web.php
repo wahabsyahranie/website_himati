@@ -28,6 +28,7 @@ Route::get('/surat/unduh/{slug}', [PengajuanSuratController::class, 'unduh'])->n
 // Route::get('/test/{slug}', [PengajuanSuratController::class, 'test']);
 Route::get('/invoice/{nomor_pesanan}', [InvoiceController::class, 'invoice'])->name('invoice.cetak');
 
+Route::post('/check-signature', [PengajuanSuratController::class, 'checkSignature'])->name('check.signature');
 
 Route::get('/send/{id}', [SendController::class, 'send'])->name('kegiatan.send');
 

@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Endroid\QrCode\QrCode;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
+use Endroid\QrCode\Logo\Logo;
 use App\Models\PengajuanSurat;
 use Barryvdh\DomPDF\Facade\Pdf;
-
 use Endroid\QrCode\Color\Color;
-use Endroid\QrCode\Encoding\Encoding;
-use Endroid\QrCode\ErrorCorrectionLevel;
-use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Label\Label;
-use Endroid\QrCode\Logo\Logo;
-use Endroid\QrCode\RoundBlockSizeMode;
 use Endroid\QrCode\Writer\PngWriter;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\RoundBlockSizeMode;
+use Endroid\QrCode\ErrorCorrectionLevel;
 use Endroid\QrCode\Writer\ValidationException;
 
 class PengajuanSuratController extends Controller
@@ -20,10 +22,17 @@ class PengajuanSuratController extends Controller
     //FUNGSI MENGAMBIL DATA
     private function getDataPengesahan($slug)
     {
-        $data = PengajuanSurat::where('slug', $slug)->firstOrFail();
+        // normalisasi dash & trim
+        $slugNormalized = str_replace(["–", "—", "―"], "-", trim($slug));
+        $lower = Str::lower($slugNormalized);
 
+        $data = PengajuanSurat::whereRaw('LOWER(slug) = ?', [$lower])
+                ->orWhereRaw('LOWER(nomor_surat) = ?', [$lower])
+                ->firstOrFail();
 
+        // $data = PengajuanSurat::where('slug', $slug)->firstOrFail();
         ////MODIFIKASI ARRAY DETAIL_SURAT
+        
         $fields = [
             'nama_kegiatan',
             'tujuan_kegiatan',
@@ -156,14 +165,35 @@ class PengajuanSuratController extends Controller
         return $pdf->download($data['data']->slug . '.pdf');
     }
 
-    // public function test($slug)
-    // {
-    //     $data = $this->getDataPengesahan($slug);
-    //     $tipe = $data['data']->tipe_surat;
-    //     $namaView = $this->getView($tipe);
+    // FUNGSI CEK KEABSAHAN SURAT
+    public function checkSignature(Request $request)
+    {
+        $code = (string) $request->input('code', '');
+        $code = str_replace(["–", "—", "―"], "-", $code);
+        $code = trim($code);
 
-    //     $pdf = Pdf::loadView('pdf.' . $namaView, $data);
-    //     return $pdf->stream($data['data']->slug . '.pdf');
-    // }
+        if ($code === '') {
+            return response()->json(['status' => 'fail', 'message' => 'Kode kosong'], 400);
+        }
 
+        $lower = Str::lower($code);
+
+        $surat = PengajuanSurat::whereRaw('LOWER(slug) = ?', [$lower])
+                    ->orWhereRaw('LOWER(nomor_surat) = ?', [$lower])
+                    ->first();
+
+        if (!$surat) {
+            return response()->json(['status' => 'not_found']);
+        }
+
+        return response()->json([
+            'status' => 'ok',
+            'url' => route('surat.show', ['slug' => $surat->slug]),
+            'data' => [
+                'nomor_surat' => $surat->nomor_surat ?? $surat->slug,
+                'perihal' => $surat->perihal ?? '-',
+                'nama' => $surat->pemohon_name ?? '-',
+            ],
+        ]);
+    }
 }
